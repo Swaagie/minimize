@@ -1,15 +1,15 @@
 {
   "name": "minimize",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Minimize HTML",
   "main": "./lib/minimize",
   "scripts": {
-    "test": ""
+    "test": "make test"
   },
   "dependencies": {
     "htmlparser": "1.7.6"
   },
-  "repository": "",
+  "repository": "git@github.com:Moveo/minimize.git",
   "keywords": [
     "minify",
     "minimize",
