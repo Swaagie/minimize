@@ -1,0 +1,512 @@
+<!doctype html>
+<html class=no-js>
+<head>
+  <meta charset=utf-8>
+  <meta http-equiv=X-UA-Compatible content="ie=edge;chrome=1">
+  <title>Node.js hosting, cloud products and services | Nodejitsu Inc.</title>
+  <meta name=description content="Nodejitsu provides a simple, reliable and smart Node.js hosting platform. We serve more than 25,000 developers and 1 million deployments">
+  <meta name=keywords content="Node.js,Nodejitsu,cloud,jitsu,Hosting,paas,platform,services,provider,web">
+  <meta name=robots content="index,follow">
+  <meta name=viewport content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel=stylesheet href="/css/jitsu.dev.css">
+  <script type="text/javascript" src="//use.typekit.net/gmp8svh.js"></script>
+  <script type="text/javascript">
+    // Load the typekit shizzle
+    try{ Typekit.load(); }
+    catch (e) {}
+
+    // Remove the no-js
+    document.documentElement.className = '';
+
+    // Start loading ga.js
+    var _gaq = [
+        ['_setAccount', 'UA-24971485-2']
+      , ['_setDomainName', 'nodejitsu.com']
+      , ['_setAllowLinker', true], ['_trackPageview']
+    ];
+
+    (function(d, t) {
+      var g = d.createElement(t),s = d.getElementsByTagName(t)[0];
+      g.src = '//www.google-analytics.com/ga.js';
+      s.parentNode.insertBefore(g, s);
+    }(document, 'script'));
+  </script>
+</head>
+<body class=container>
+<section class=navigation id=navigation>
+  <nav class=row>
+    <h1>
+      <a href="/" class=logo title="Back to the homepage">Nodejitsu</a>
+    </h1>
+    <a href="#navigation" class="mobile btn ss-rows"></a>
+
+    
+
+    
+    <a href="/paas">
+      Cloud
+    </a>
+    
+    <a href="/enterprise/private-cloud">
+      Enterprise
+    </a>
+    
+    <a href="/forward#/docs">
+      Docs
+    </a>
+    
+    <a href="/support">
+      Support
+    </a>
+    
+    <a href="/company">
+      Company
+    </a>
+    
+
+    <a href="#" class="login right btn" title="Login with your Nodejitsu credentials">
+      <s class=ss-lock role=presentation></s>
+      Login
+    </a>
+  </nav>
+</section>
+
+<section class=hero>
+  
+  <input type=radio name=panel id=panel0 checked>
+  
+  <input type=radio name=panel id=panel1>
+  
+  <input type=radio name=panel id=panel2>
+  
+  <input type=radio name=panel id=panel3>
+  
+
+  <article class=row>
+    <h2>
+      The <strong>simplest, most reliable</strong> and intelligent <strong>Node.js</strong>
+      hosting platform
+      <span class=subtitle>
+        Over <strong><span id=dev_cardinality>25,000</span></strong> developers and <strong><span id=deployments_cardinality>1</span> million</strong>
+        deployments
+      </span>
+    </h2>
+
+    <div class=signup>
+      <div class=animation>
+        <a href="/signup" class="call-to action animated tada">
+          Sign up for free
+        </a>
+      </div>
+
+      <p>Try the Developer Sandbox, our 30 day free trial</p>
+      <a href="/paas/pricing">View pricing</a>
+      <a href="/getting-started" class=last>Get started with Nodejitsu</a>
+    </div>
+
+    <div class="carousel twelvecol">
+      <h3>Enterprise-ready Node.js clouds</h3>
+
+      <div class=slidedeck>
+        <div class=slides>
+          <div class="slide freeforopensource">
+            <h3>Free for Open Source</h3>
+            <p>
+              If you maintain an open source app,
+              we'll give you a drone to host on Nodejitsu for free.
+              Apply <a href="http://opensource.nodejitsu.com/">here</a> to
+              see if you qualify.
+            </p>
+          </div>
+
+          <div class="slide github">
+            <h3>Continuous Deployment</h3>
+            <p>
+              We offer seamless, full integration with your Github account.
+              </p><p><a href="/getting-started-with-github">Get started with
+              Continuous Deployments</a></p>
+            
+          </div>
+
+          <div class="slide websockets">
+            <h3>WebSockets</h3>
+            <p>
+              The best WebSockets support you can find in any cloud.
+              Include your favorite library and you're ready to go.
+            </p>
+          </div>
+        </div>
+
+        <div class=slides>
+          <div class="slide nodejs">
+            <h3>100% Node.js</h3>
+            <p>
+              We are Node.js experts and the first hosting platform to build
+              our full stack in node. We understand your node application
+              better than anyone.
+            </p>
+          </div>
+
+          <div class="slide allclouds">
+            <h3>Infrastructure Agnostic</h3>
+            <p>
+              With our Business Plans, we let you choose your infrastructure
+              provider and datacenter. Check the
+              <a href="/paas/datacenters">data centers</a> page
+              for more information.
+            </p>
+          </div>
+
+          <div class="slide npm">
+            <h3>npm</h3>
+            <p>
+              Nodejitsu uses npm for deployments. If you have a package.json
+              file we will use it to install your application dependencies.
+            </p>
+          </div>
+        </div>
+
+        <div class=slides>
+          <div class="slide opensource">
+            <h3>Open Source Cloud</h3>
+            <p>
+              You can browse our
+              <a href="https://github.com/nodejitsu/">repositories</a>
+              in Github to find the open source
+              software that is running your application at Nodejitsu.
+            </p>
+          </div>
+
+          <div class="slide nogoldcuffs">
+            <h3>No changes required</h3>
+            <p>You don't need to customize your application to deploy
+              at Nodejitsu.
+            </p>
+          </div>
+
+          <div class="slide cloud">
+            <h3>Forget servers</h3>
+            <p>
+              Deploying to Nodejitsu comes in multiple fashions but they
+              share a common trait: It's as easy as writing your own name.
+            </p>
+          </div>
+        </div>
+
+        <div class=slides>
+          <div class="slide support">
+            <h3>Support</h3>
+            <p>
+              We have the best support in the industry.
+              We will go the extra mile to make sure your app just works.
+            </p>
+          </div>
+
+          <div class="slide databases">
+            <h3>First Class Databases</h3>
+            <p>
+              You can use the same tools you use to deploy your application to
+              provision databases. Check our <a href="/paas/addons">add ons</a> page for more details.
+            </p>
+          </div>
+
+          <div class="slide nodevops">
+            <h3>Don't waste time</h3>
+            <p>
+              Let us worry about running and scaling you application.
+            </p>
+            <p>
+              <a href="/getting-started">Get started now</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <ul class=indicator role=presentation>
+        
+        <li>
+          <label for=panel0>0</label>
+        </li>
+        
+        <li>
+          <label for=panel1>1</label>
+        </li>
+        
+        <li>
+          <label for=panel2>2</label>
+        </li>
+        
+        <li>
+          <label for=panel3>3</label>
+        </li>
+        
+      </ul>
+    </div>
+  </article>
+
+  <div class="carousel-control row">
+    
+    <label class="control ss-navigateleft" for=panel0></label>
+    
+    <label class="control ss-navigateleft" for=panel1></label>
+    
+    <label class="control ss-navigateleft" for=panel2></label>
+    
+    <label class="control ss-navigateleft" for=panel3></label>
+    
+  </div>
+</section>
+<section class="row animated fadeIn solutions">
+  <article class="content fourcol">
+    <h3>Enterprise solutions</h3>
+
+    <p>
+      Nodejitsu is built on rock-solid enterprise software. Our products help
+      you build efficient and scalable private clouds to support your data
+      intensive, real-time deployments.
+    </p>
+
+    <p class=read-more>
+      <a href="/enterprise/private-cloud" class=btn>Learn more</a>
+      or
+      <a href="mailto:sales@nodejitsu.com">Get in touch</a>
+    </p>
+  </article>
+
+  
+  <article class="content fourcol">
+    <h3>Recently on our blog</h3>
+
+    <ul class=regular>
+      
+      <li>
+        <a href="http://blog.nodejitsu.com/business-plans">Nodejitsu Business Plans Are Here!</a>
+      </li>
+      
+      <li>
+        <a href="http://blog.nodejitsu.com/waiting-for-godot">Waiting for Godot</a>
+      </li>
+      
+      <li>
+        <a href="http://blog.nodejitsu.com/opensource-dot-jitsu">Free Open Source Hosting on Nodejitsu</a>
+      </li>
+      
+      <li>
+        <a href="http://blog.nodejitsu.com/julian-duque-is-a-jitsuka-">Julian Duque is a Jitsuka!</a>
+      </li>
+      
+      <li>
+        <a href="http://blog.nodejitsu.com/the-nodejitsu-status-page">The Nodejitsu Status Page</a>
+      </li>
+      
+    </ul>
+  </article>
+  
+
+  <article class="content fourcol last trusted">
+    <h3>We are trusted by</h3>
+
+    <ul role=presentation>
+      <li class=microsoft>Microsoft</li>
+      <li class=joyent>Joyent</li>
+      <li class=mozilla>Mozilla</li>
+      <li class=telefonica>Telefónica</li>
+    </ul>
+  </article>
+</section>
+
+
+<footer class=doormat>
+  <section class=row>
+    <dl class=twocol>
+      <dt>Cloud</dt>
+      <dd>
+        <a href="/getting-started">Getting Started</a>
+      </dd>
+      <dd>
+        <a href="/paas">Features</a>
+      </dd>
+      <dd>
+        <a href="/paas/pricing">Pricing</a>
+      </dd>
+      <dd>
+        <a href="/paas/datacenters">Data Centers</a>
+      </dd>
+      <dd>
+        <a href="/paas/addons">Addons</a>
+      </dd>
+      <dd>
+        <a href="/paas/faq">FAQ</a>
+      </dd>
+    </dl>
+
+    <dl class=twocol>
+      <dt>Enterprise</dt>
+      <dd>
+        <a href="/enterprise/private-cloud">Private Cloud</a>
+      </dd>
+      <dd>
+        <a href="/enterprise/conservatory">Conservatory</a>
+      </dd>
+      <dd>
+        <a href="/enterprise/orchestrion">Orchestrion</a>
+      </dd>
+      <dd>
+        <a href="/enterprise/professional-services">Professional Services</a>
+      </dd>
+    </dl>
+
+    <dl class=twocol>
+      <dt>Company</dt>
+      <dd>
+        <a href="/company">About</a>
+      </dd>
+      <dd>
+        <a href="/company/careers">Careers</a>
+      </dd>
+      <dd>
+        <a href="/company/contact">Contact</a>
+      </dd>
+      <dd>
+        <a href="/company/partners">Partners</a>
+      </dd>
+    </dl>
+
+    <dl class="twocol last">
+      <dt>Resources</dt>
+      <dd>
+        <a href="https://handbook.nodejitsu.com">Handbook</a>
+      </dd>
+      <dd>
+        <a href="https://status.nodejitsu.com">Service Status</a>
+      </dd>
+      <dd>
+        <a href="/forward#/terms">Terms of Service</a>
+      </dd>
+      <dd>
+        <a href="/forward#/privacy">Privacy Policy</a>
+      </dd>
+    </dl>
+
+    <dl class=twocol>
+      <dt>Community</dt>
+      <dd>
+        <a href="/community">Contributions</a>
+      </dd>
+      <dd>
+        <a href="/support">Support</a>
+      </dd>
+      <dd>
+        <a href="https://blog.nodejitsu.com">Blog</a>
+      </dd>
+    </dl>
+
+    <ul class="social twocol last">
+      <li>
+        <a href="https://twitter.com/nodejitsu" class="ss-twitter ss-social-circle" title="Follow @nodejitsu on Twitter"></a>
+      </li>
+      <li>
+        <a href="https://github.com/nodejitsu" class="ss-octocat ss-social-circle" title="Fork @nodejitsu on Github"></a>
+      </li>
+    </ul>
+  </section>
+  <p class="copyright right">&copy; Nodejitsu Inc.</p>
+</footer>
+
+
+
+
+<div class="lightbox gone"></div>
+<section class="modal box gone"></section>
+
+<script type="plates/cortex" id=plates-login>
+  <h3>
+    Gimme your credentials
+    <a href="#" class="close ss-delete"></a>
+  </h3>
+
+  <p>Log in below to your Nodejitsu account and start rocking.</p>
+
+  <p class="error alert"></p>
+  <form method="POST" action="/signin">
+    <label>
+      Username
+      <input name="username" placeholder="username" autofocus="autofocus" />
+    </label>
+
+    <label>
+      Password
+      <input name="password" placeholder="password" type="password" />
+    </label>
+
+    <button type="submit" class="flexible call-to action">
+      Log in
+    </button>
+
+    <a href="#" class="forgotten">Forgot password?</a>
+  </form>
+</script>
+<script type="plates/cortex" id=plates-forgot>
+  <h3>
+    Forgot your password?
+    <a href="#" class="close ss-delete"></a>
+  </h3>
+
+  <p>Tell us your username and we will reset it for you.</p>
+
+  <p class="error alert"></p>
+  <p class="success alert"></p>
+
+  <form method="POST" action="/forgot">
+    <label>
+      Username
+      <input name="username" placeholder="username" autofocus="autofocus" />
+    </label>
+
+    <button type="submit" class="flexible call-to action">
+      Reset password
+    </button>
+  </form>
+</script>
+<script type="cerebral/cortex">
+{
+  "production": true
+}
+</script>
+<script id=loader data-loader="/js/jitsu.[type].js" data-apps="login,analytics,slider">
+!function loader(l,o,a,d,e,r) {
+  d = l.getElementsByTagName(o)[0];
+  a = [
+      '/js/cortex.[type].js'
+    , 'https://webops.nodejitsu.com/js/ui.js'
+  ];
+
+  // Append extra files that need to be loaded
+  Array.prototype.push.apply(a, l.getElementById('loader').getAttribute('data-loader').split(','));
+  e = r = a.length;
+
+  while (r--) {
+    !function (w,t,f) {
+      t = l.createElement(o);
+      t.async = true;
+      d.parentNode.insertBefore(t, d);
+
+      t.onload = t.onerror = t.onreadystatechange = function () {
+        if ((t.readyState && !(/^c|loade/.test(t.readyState))) || t.loaded) return;
+        t.loaded = e--;
+
+        // all files are loaded
+        if (!e) {
+          f = l.createEvent('CustomEvent');
+          f.initCustomEvent('cortex', false, false, null);
+          l.dispatchEvent(f);
+          document.documentElement.className += ' cortex-loaded';
+        }
+      };
+
+      t.src = w;
+    }(a[r].replace(/\[type\]/, true ? 'min' : 'dev'));
+  }
+}(document, 'script');
+</script></body></html>
