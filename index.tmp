@@ -11,7 +11,7 @@
   <link rel="shortcut icon" href="/favicon.png">
   <link rel=stylesheet href="/css/jitsu.dev.css">
   <script type="text/javascript" src="//use.typekit.net/gmp8svh.js"></script>
-  <script type="text/javascript">
+  <script>
     // Load the typekit shizzle
     try{ Typekit.load(); }
     catch (e) {}
