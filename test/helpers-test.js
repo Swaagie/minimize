@@ -24,6 +24,14 @@ describe('Helpers', function () {
   describe('function tag', function () {
     it('returns a string wrapped with < >', function () {
     });
+
+    describe('prepends a space if the element', function () {
+      it('is inline and prepended by text', function () {
+      });
+
+      it('is inlnie and prepended by closing tag', function () {
+      });
+    });
   });
 
   describe('function close', function () {
@@ -51,7 +59,7 @@ describe('Helpers', function () {
     });
   });
 
-  describe('function requiresFlow', function () {
+  describe('function structure', function () {
     it('returns false if element is text', function () {
     });
 
@@ -59,6 +67,39 @@ describe('Helpers', function () {
     });
 
     it('returns true if element is script of type text/javascript', function () {
+    });
+  });
+
+  describe('function text', function () {
+    it('trims whitespace', function () {
+    });
+
+    it('replaces whitelines and spaces in non structural elements', function () {
+    });
+
+    it('retains structure if element requires structure', function () {
+    });
+
+    it('prepends space if the text is prepended with closing tag', function () {
+    });
+  });
+
+  describe('inline element list', function () {
+    it('is an array', function () {
+    });
+
+    it('has all required elements', function () {
+    });
+  });
+
+  describe('regular expression flow', function () {
+    it('is a valid regular expression', function () {
+    });
+
+    it('can detect if last part of string is closing tag', function () {
+    });
+
+    it('can detect if last part of string is text', function () {
     });
   });
 });
