@@ -30,8 +30,13 @@
       , "name": "textarea"
     }
   , "text": {
-        "raw": ". some random text"
-      , "data": ". some random text"
+        "raw": "some random text"
+      , "data": "some random text"
+      , "type": "text"
+    }
+  , "multiline": {
+        "raw": "some additional lines\n\n. some random text, and            alot of spaces"
+      , "data": "some additional lines\n\n. some random text, and            alot of spaces"
       , "type": "text"
     }
   , "element": {
