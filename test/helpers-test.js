@@ -58,6 +58,11 @@ describe('Helpers', function () {
       expect(Helpers.structural).to.be.a('regexp');
     });
 
+    it('which has a regular expression named interpunction', function () {
+      expect(Helpers).to.have.property('interpunction');
+      expect(Helpers.interpunction).to.be.a('regexp');
+    });
+
     it('which has an inline element reference', function () {
       expect(Helpers).to.have.property('inline');
       expect(Helpers.inline).to.be.a('array');
@@ -81,14 +86,24 @@ describe('Helpers', function () {
         , html.script
       ];
 
-      expect(helpers.tag(html.inline)).to.be.true;
+      elements.forEach(function loopElements (element) {
+        expect(helpers[element.type](element, html.element, '')).to.be.equal(
+          '<' + element.data + '>'
+        );
+      });
     });
 
     describe('prepends a space if the element', function () {
       it('is inline and prepended by text', function () {
+        expect(helpers.tag(html.inline), html.element, 'text').to.be.equal(
+          ' <' + html.inline.data + '>'
+        );
       });
 
       it('is inline and prepended by closing tag', function () {
+        expect(helpers.tag(html.inline), html.element, 'text</b>').to.be.equal(
+          ' <' + html.inline.data + '>'
+        );
       });
     });
   });
@@ -231,7 +246,12 @@ describe('Helpers', function () {
       expect(result).to.be.equal(' ' + text);
     });
 
-    it('prepends no space if supplied text begins with interpunction');
+    it('prepends no whitespace if text begins with interpunction', function () {
+      html.text.data = '. ' + html.text.data;
+      var result = helpers.text(html.text, html.inline, 'some HTML');
+
+      expect(result).to.be.equal(html.text.data);
+    });
   });
 
   describe('inline element list', function () {
