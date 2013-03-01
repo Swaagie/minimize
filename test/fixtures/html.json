@@ -1,0 +1,63 @@
+{
+    "doctype": {
+        "raw": "!doctype html"
+      , "data": "!doctype html"
+      , "type": "directive"
+      , "name": "!doctype"
+    }
+  , "inline": {
+        "raw": "strong"
+      , "data": "strong"
+      , "type": "tag"
+      , "name": "strong"
+    }
+  , "singular": {
+        "raw": "input type=text"
+      , "data": "input type=text"
+      , "type": "tag"
+      , "name": "input"
+    }
+  , "script": {
+        "raw": "script type=\"text/javascript\""
+      , "data": "script type=\"text/javascript\""
+      , "type": "script"
+      , "name": "script"
+    }
+  , "structure": {
+        "raw": "textarea"
+      , "data": "textarea"
+      , "type": "tag"
+      , "name": "textarea"
+    }
+  , "text": {
+        "raw": ". some random text"
+      , "data": ". some random text"
+      , "type": "text"
+    }
+  , "element": {
+        "raw": "html class=no-js"
+      , "data": "html class=no-js"
+      , "type": "tag"
+      , "name": "html"
+      , "attribs": {
+            "class": "no-js"
+        }
+      , "children": [
+            {
+                "raw": "head"
+              , "data": "head"
+              , "type": "tag"
+              , "name": "head"
+            }
+          , {
+                "raw": "body class=container"
+              , "data": "body class=container"
+              , "type": "tag"
+              , "name": "body"
+              , "attribs": {
+                    "class": "container"
+                }
+            }
+        ]
+    }
+}

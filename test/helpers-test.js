@@ -2,7 +2,8 @@
 
 var chai = require('chai')
   , expect = chai.expect
-  , helpers = require('../lib/helpers');
+  , helpers = require('../lib/helpers')
+  , html = require('./fixtures/html.json');
 
 chai.Assertion.includeStack = true;
 
@@ -72,19 +73,47 @@ describe('Helpers', function () {
       it('is inline and prepended by text', function () {
       });
 
-      it('is inlnie and prepended by closing tag', function () {
+      it('is inline and prepended by closing tag', function () {
       });
+    });
+  });
+
+  describe('function isInline', function () {
+    it('returns true if inline element <strong>', function () {
+      expect(helpers.isInline(html.inline)).to.be.true;
+    });
+
+    it('returns false if block element <html>', function () {
+      expect(helpers.isInline(html.element)).to.be.false;
+    });
+
+    it('returns type Boolean', function () {
+      expect(helpers.isInline(html.inline)).to.be.a('boolean');
     });
   });
 
   describe('function close', function () {
     it('only generates closing element for tags and scripts', function () {
+      var result = helpers.close(html.doctype);
+
+      expect(result).to.equal('');
+      expect(result).to.be.a('string');
+      expect(result.length).to.equal(0);
     });
 
     it('returns a string wrapped with </ >', function () {
+      var result = helpers.close(html.element);
+
+      expect(result).to.equal('</html>');
+      expect(result).to.be.a('string');
     });
 
     it('returns an empty string if element.type is wrong', function () {
+      var result = helpers.close(html.singular);
+
+      expect(result).to.equal('');
+      expect(result).to.be.a('string');
+      expect(result.length).to.equal(0);
     });
   });
 
@@ -104,12 +133,31 @@ describe('Helpers', function () {
 
   describe('function structure', function () {
     it('returns false if element is text', function () {
+      var result = helpers.structure(html.text);
+
+      expect(result).to.be.false;
+      expect(result).to.be.a('boolean');
     });
 
     it('returns true if element is pre or textarea', function () {
+      var result = helpers.structure(html.structure);
+
+      expect(result).to.be.true;
+      expect(result).to.be.a('boolean');
     });
 
     it('returns true if element is script of type text/javascript', function () {
+      var result = helpers.structure(html.script);
+
+      expect(result).to.be.true;
+      expect(result).to.be.a('boolean');
+    });
+
+    it('returns false if element requires no structure', function () {
+      var result = helpers.structure(html.element);
+
+      expect(result).to.be.false;
+      expect(result).to.be.a('boolean');
     });
   });
 
@@ -129,9 +177,45 @@ describe('Helpers', function () {
 
   describe('inline element list', function () {
     it('is an array', function () {
+      expect(helpers.inline).to.be.an('array');
     });
 
     it('has all required elements', function () {
+      expect(helpers.inline.length).to.be.equal(31);
+    });
+  });
+
+  describe('singular element list', function () {
+    it('is an array', function () {
+      expect(helpers.singular).to.be.an('array');
+    });
+
+    it('has all required elements', function () {
+      expect(helpers.singular.length).to.be.equal(13);
+    });
+  });
+
+  describe('regular expression structural', function () {
+    it('is a valid regular expression', function () {
+      function regexp () { return new RegExp(helpers.structural); }
+      expect(regexp).to.not.throw(Error);
+    });
+
+    it('matches pre or textarea', function () {
+      expect(helpers.structural.test('pre')).to.be.true;
+      expect(helpers.structural.test('textarea')).to.be.true;
+    });
+  });
+
+  describe('regular expression node', function () {
+    it('is a valid regular expression', function () {
+      function regexp () { return new RegExp(helpers.node); }
+      expect(regexp).to.not.throw(Error);
+    });
+
+    it('matches tag or script', function () {
+      expect(helpers.node.test('tag')).to.be.true;
+      expect(helpers.node.test('script')).to.be.true;
     });
   });
 
@@ -143,14 +227,14 @@ describe('Helpers', function () {
 
     it('can detect if last part of string is closing tag', function () {
       var match = 'test string</b>'.match(helpers.flow);
-      expect(match[0]).to.be.equal('</b>');
       expect(match).to.be.an('array');
+      expect(match[0]).to.be.equal('</b>');
     });
 
     it('can detect if last part of string is text', function () {
-      var match = '</b>test string'.match(helpers.flow);
-      expect(match[0]).to.be.equal('string');
+      var match = '</b>test'.match(helpers.flow);
       expect(match).to.be.an('array');
+      expect(match[0]).to.be.equal('test');
     });
   });
 });
