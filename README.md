@@ -15,16 +15,33 @@ Upcoming in release 2.0
 
 ## Usage
 
-To get the minified content make sure to provide a callback.
+To get the minified content make sure to provide a callback. Optional an options
+object can be provided. All options are listed below and `false` per default.
 
 ```
-var minimize = require('minimize');
+var minimize = require('minimize')
+  , options = {
+        empty: true // remove empty attributes 
+      , cdata: true // strip CDATA from scripts
+      , comments: true // remove comments
+      , spare: true // remove redundant attributes
+    };
 
 minimize(content, function (data) {
   console.log(data);
-});
+}, options);
 
 ```
+
+## Options
+
+**empty**
+
+**cdata**
+
+**comments**
+
+**spare**
 
 ## Tests
 
@@ -32,3 +49,16 @@ minimize(content, function (data) {
 
 ## Benchmarks
 
+
+## Credits
+Minimize is influenced by the [HTML minifier](kangax) of kangax. This module 
+parses the DOM as string as opposes to an object. However, retaining flow is more 
+diffucult if the DOM is parsed sequentially. Minimize is not client-side ready.
+Kangax minifier also provides some additional options like linting. Minimize
+will retain strictly to the business of minifying. 
+
+[HTMLparser](tauto) of Tautologistics is used to create an object representation 
+of the DOM. 
+
+[kangax]: https://github.com/kangax/html-minifier
+[tauto]: https://github.com/tautologistics/node-htmlparser
