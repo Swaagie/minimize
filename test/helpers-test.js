@@ -5,7 +5,7 @@ var chai = require('chai')
   , sinonChai = require('sinon-chai')
   , expect = chai.expect
   , Helpers = require('../lib/helpers')
-  , helpers = new Helpers.constructor()
+  , helpers = new Helpers()
   , html = require('./fixtures/html.json');
 
 chai.use(sinonChai);
@@ -44,33 +44,33 @@ describe('Helpers', function () {
     });
 
     it('which has a regular expression named flow', function () {
-      expect(Helpers).to.have.property('flow');
-      expect(Helpers.flow).to.be.a('regexp');
+      expect(helpers).to.have.property('flow');
+      expect(helpers.flow).to.be.a('regexp');
     });
 
     it('which has a regular expression named node', function () {
-      expect(Helpers).to.have.property('node');
-      expect(Helpers.node).to.be.a('regexp');
+      expect(helpers).to.have.property('node');
+      expect(helpers.node).to.be.a('regexp');
     });
 
     it('which has a regular expression named structural', function () {
-      expect(Helpers).to.have.property('structural');
-      expect(Helpers.structural).to.be.a('regexp');
+      expect(helpers).to.have.property('structural');
+      expect(helpers.structural).to.be.a('regexp');
     });
 
     it('which has a regular expression named interpunction', function () {
-      expect(Helpers).to.have.property('interpunction');
-      expect(Helpers.interpunction).to.be.a('regexp');
+      expect(helpers).to.have.property('interpunction');
+      expect(helpers.interpunction).to.be.a('regexp');
     });
 
     it('which has an inline element reference', function () {
-      expect(Helpers).to.have.property('inline');
-      expect(Helpers.inline).to.be.a('array');
+      expect(helpers).to.have.property('inline');
+      expect(helpers.inline).to.be.a('array');
     });
 
     it('which has an singular element reference', function () {
-      expect(Helpers).to.have.property('singular');
-      expect(Helpers.singular).to.be.a('array');
+      expect(helpers).to.have.property('singular');
+      expect(helpers.singular).to.be.a('array');
     });
   });
 
@@ -256,33 +256,33 @@ describe('Helpers', function () {
 
   describe('inline element list', function () {
     it('is an array', function () {
-      expect(Helpers.inline).to.be.an('array');
+      expect(helpers.inline).to.be.an('array');
     });
 
     it('has all required elements', function () {
-      expect(Helpers.inline.length).to.be.equal(31);
+      expect(helpers.inline.length).to.be.equal(31);
     });
   });
 
   describe('singular element list', function () {
     it('is an array', function () {
-      expect(Helpers.singular).to.be.an('array');
+      expect(helpers.singular).to.be.an('array');
     });
 
     it('has all required elements', function () {
-      expect(Helpers.singular.length).to.be.equal(13);
+      expect(helpers.singular.length).to.be.equal(13);
     });
   });
 
   describe('regular expression structural', function () {
     it('is a valid regular expression', function () {
-      function regexp () { return new RegExp(Helpers.structural); }
+      function regexp () { return new RegExp(helpers.structural); }
       expect(regexp).to.not.throw(Error);
     });
 
     it('matches pre or textarea', function () {
-      expect(Helpers.structural.test('pre')).to.be.true;
-      expect(Helpers.structural.test('textarea')).to.be.true;
+      expect(helpers.structural.test('pre')).to.be.true;
+      expect(helpers.structural.test('textarea')).to.be.true;
     });
   });
 
@@ -293,25 +293,25 @@ describe('Helpers', function () {
     });
 
     it('matches tag or script', function () {
-      expect(Helpers.node.test('tag')).to.be.true;
-      expect(Helpers.node.test('script')).to.be.true;
+      expect(helpers.node.test('tag')).to.be.true;
+      expect(helpers.node.test('script')).to.be.true;
     });
   });
 
   describe('regular expression flow', function () {
     it('is a valid regular expression', function () {
-      function regexp () { return new RegExp(Helpers.flow); }
+      function regexp () { return new RegExp(helpers.flow); }
       expect(regexp).to.not.throw(Error);
     });
 
     it('can detect if last part of string is closing tag', function () {
-      var match = 'test string</b>'.match(Helpers.flow);
+      var match = 'test string</b>'.match(helpers.flow);
       expect(match).to.be.an('array');
       expect(match[0]).to.be.equal('</b>');
     });
 
     it('can detect if last part of string is text', function () {
-      var match = '</b>test'.match(Helpers.flow);
+      var match = '</b>test'.match(helpers.flow);
       expect(match).to.be.an('array');
       expect(match[0]).to.be.equal('test');
     });
