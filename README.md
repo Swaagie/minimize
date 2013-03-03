@@ -21,10 +21,10 @@ object can be provided. All options are listed below and `false` per default.
 ```
 var minimize = require('minimize')
   , options = {
-        empty: true // remove empty attributes 
-      , cdata: true // strip CDATA from scripts
-      , comments: true // remove comments
-      , spare: true // remove redundant attributes
+        empty: true // DO NOT remove empty attributes 
+      , cdata: true // DO NOT strip CDATA from scripts
+      , comments: true // DO NOT remove comments
+      , spare: true // DO NOT remove redundant attributes
     };
 
 minimize(content, function (data) {

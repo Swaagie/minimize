@@ -65,12 +65,17 @@ describe('Helpers', function () {
 
     it('which has an inline element reference', function () {
       expect(helpers).to.have.property('inline');
-      expect(helpers.inline).to.be.a('array');
+      expect(helpers.inline).to.be.an('array');
     });
 
     it('which has an singular element reference', function () {
       expect(helpers).to.have.property('singular');
-      expect(helpers.singular).to.be.a('array');
+      expect(helpers.singular).to.be.an('array');
+    });
+
+    it('which has a default config', function () {
+      expect(helpers).to.have.property('config');
+      expect(helpers.config).to.be.an('object');
     });
   });
 
@@ -314,6 +319,19 @@ describe('Helpers', function () {
       var match = '</b>test'.match(helpers.flow);
       expect(match).to.be.an('array');
       expect(match[0]).to.be.equal('test');
+    });
+  });
+
+  describe('has options', function () {
+    it('which are all true by default', function () {
+      for (var key in helpers.config) {
+        expect(helpers.config[key]).to.be.false;
+      }
+    });
+
+    it('which are overideable with options', function () {
+      var test = new Helpers({ empty: false });
+      expect(test.config.empty).to.be.false;
     });
   });
 });

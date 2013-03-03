@@ -7,7 +7,8 @@
     "test": "make test"
   },
   "dependencies": {
-    "htmlparser": "1.7.6"
+    "htmlparser": "1.7.6",
+    "utile": "0.1.7"
   },
   "devDependencies": {
     "mocha": "1.8.1",

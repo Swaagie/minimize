@@ -33,6 +33,7 @@
     }(document, 'script'));
   </script>
 </head>
+<!-- some HTML comment -->
 <body class=container>
 <section class=navigation id=navigation>
   <nav class=row>
