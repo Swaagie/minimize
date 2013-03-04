@@ -71,6 +71,13 @@ describe('Minimize', function () {
       emit.restore();
     });
 
+    it('should handle inline flow properly', function (done) {
+      minimize.minimize(html.interpunction, function (result) {
+        expect(result).to.equal('<h3>Become a partner</h3><p>Interested in being part of the solution? <a href="/company/contact">Contact Nodejitsu to discuss</a>.</p>');
+        done();
+      });
+    });
+
     it('should be configurable to retain comments', function (done) {
       minimize.minimize(html.comment, function (result) {
         expect(result).to.equal('<!-- some HTML comment --><div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');

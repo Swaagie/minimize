@@ -1,6 +1,7 @@
 {
     "content": "<div class=\"slide nodejs\">\n            <h3>100% Node.js</h3>\n            <p>\n              We are Node.js experts and the first hosting platform to build\n              our full stack in node. We understand your node application\n              better than anyone.\n            </p>\n          </div>\n\n          "
   , "comment": "<!-- some HTML comment -->\n     <div class=\"slide nodejs\">\n            <h3>100% Node.js</h3>\n            <p>\n              We are Node.js experts and the first hosting platform to build\n              our full stack in node. We understand your node application\n              better than anyone.\n            </p>\n          </div>\n\n          "
+  , "interpunction": "<h3>Become a partner</h3>\n      <p>\n        Interested in being part of the solution?\n        <a href=\"/company/contact\">Contact Nodejitsu to discuss</a>.\n      </p>"
   , "doctype": {
         "raw": "!doctype html"
       , "data": "!doctype html"
