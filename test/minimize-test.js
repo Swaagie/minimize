@@ -85,12 +85,14 @@ describe('Minimize', function () {
       }, { comments: true });
     });
 
-    it('should be configurable to retain CDATA', function (done) {
-      minimize.minimize(html.comment, function (result) {
-        expect(result).to.equal('<div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');
+    it('should leave structural elements (like scripts and code) intact', function (done) {
+      minimize.minimize(html.code, function (result) {
+        expect(result).to.equal("<code class=\"copy\"><span>var http = require('http');\nhttp.createServer(function (req, res) {\n    res.writeHead(200, {'Content-Type': 'text/plain'});\n    res.end('hello, i know nodejitsu');\n})listen(8080);</span> <a href=\"#\"><s class=\"ss-layers\" role=\"presentation\"></s> copy</a></code>");
         done();
-      }, { cdata: true });
+      });
     });
+
+    it('should be configurable to retain CDATA');
   });
 
   describe('function traverse', function () {

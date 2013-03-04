@@ -80,8 +80,20 @@ describe('Helpers', function () {
   });
 
   describe('function tag', function () {
+    var structure;
+
+    beforeEach(function () {
+      structure = sinon.spy(helpers, 'structure');
+    });
+
+    afterEach(function () {
+      structure.restore();
+    });
+
     it('returns a string wrapped with < >', function () {
       expect(helpers.tag(html.doctype)).to.be.equal('<!doctype html>');
+
+      expect(structure).to.be.calledOnce;
     });
 
     it('is callable by element.type through proxy', function () {
@@ -96,6 +108,8 @@ describe('Helpers', function () {
           '<' + element.data + '>'
         );
       });
+
+      expect(structure).to.be.calledThrice;
     });
 
     describe('prepends a space if the element', function () {
@@ -103,12 +117,16 @@ describe('Helpers', function () {
         expect(helpers.tag(html.inline), html.element, 'text').to.be.equal(
           ' <' + html.inline.data + '>'
         );
+
+        expect(structure).to.be.calledOnce;
       });
 
       it('is inline and prepended by closing tag', function () {
         expect(helpers.tag(html.inline), html.element, 'text</b>').to.be.equal(
           ' <' + html.inline.data + '>'
         );
+
+        expect(structure).to.be.calledOnce;
       });
     });
   });
@@ -128,12 +146,23 @@ describe('Helpers', function () {
   });
 
   describe('function close', function () {
+    var structure;
+
+    beforeEach(function () {
+      structure = sinon.spy(helpers, 'structure');
+    });
+
+    afterEach(function () {
+      structure.restore();
+    });
+
     it('only generates closing element for tags and scripts', function () {
       var result = helpers.close(html.doctype);
 
       expect(result).to.equal('');
       expect(result).to.be.a('string');
       expect(result.length).to.equal(0);
+      expect(structure).to.be.calledOnce;
     });
 
     it('returns a string wrapped with </ >', function () {
@@ -141,6 +170,7 @@ describe('Helpers', function () {
 
       expect(result).to.equal('</html>');
       expect(result).to.be.a('string');
+      expect(structure).to.be.calledOnce;
     });
 
     it('returns an empty string if element.type is wrong', function () {
@@ -149,6 +179,7 @@ describe('Helpers', function () {
       expect(result).to.equal('');
       expect(result).to.be.a('string');
       expect(result.length).to.equal(0);
+      expect(structure).to.be.calledOnce;
     });
   });
 
@@ -186,7 +217,7 @@ describe('Helpers', function () {
       expect(helpers.structure(html.text)).to.be.false;
     });
 
-    it('returns true if element is pre or textarea', function () {
+    it('returns true if element is textarea', function () {
       expect(helpers.structure(html.structure)).to.be.true;
     });
 
@@ -213,17 +244,18 @@ describe('Helpers', function () {
 
     afterEach(function () {
       html.text.data = text;
+      helpers.ancestor = [];
     });
 
     it('trims whitespace', function () {
       html.text.data += '   ';
-      var result = helpers.text(html.text, html.inline, '');
+      var result = helpers.text(html.text, '');
 
       expect(result).to.be.equal(text);
     });
 
     it('replaces whitelines and spaces in non structural elements', function () {
-      var result = helpers.text(html.multiline, html.inline, '');
+      var result = helpers.text(html.multiline, '');
 
       expect(result).to.be.equal(
         'some additional lines. some random text, and alot of spaces'
@@ -231,29 +263,28 @@ describe('Helpers', function () {
     });
 
     it('retains structure if element requires structure', function () {
-      var structure = sinon.spy(helpers, 'structure');
+      helpers.ancestor = [ 'pre' ];
 
-      expect(helpers.text(html.multiline, html.script, '')).to.be.equal(
+      expect(helpers.text(html.multiline, '')).to.be.equal(
         'some additional lines\n\n. some random text, and            alot of spaces'
       );
-      expect(structure).to.be.calledOnce;
     });
 
     it('prepends space if current HTML ends with closing tag', function () {
-      var result = helpers.text(html.text, html.inline, 'some HTML</strong>');
+      var result = helpers.text(html.text, 'some HTML</strong>');
 
       expect(result).to.be.equal(' ' + text);
     });
 
-    it('prepends space if current HTML ends with word boundart', function () {
-      var result = helpers.text(html.text, html.inline, 'some HTML');
+    it('prepends space if current HTML ends with word boundary', function () {
+      var result = helpers.text(html.text, 'some HTML');
 
       expect(result).to.be.equal(' ' + text);
     });
 
     it('prepends no whitespace if text begins with interpunction', function () {
       html.text.data = '. ' + html.text.data;
-      var result = helpers.text(html.text, html.inline, 'some HTML');
+      var result = helpers.text(html.text, 'some HTML');
 
       expect(result).to.be.equal(html.text.data);
     });
@@ -288,6 +319,7 @@ describe('Helpers', function () {
     it('matches pre or textarea', function () {
       expect(helpers.structural.test('pre')).to.be.true;
       expect(helpers.structural.test('textarea')).to.be.true;
+      expect(helpers.structural.test('code')).to.be.true;
     });
   });
 
