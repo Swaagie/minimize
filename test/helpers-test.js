@@ -114,7 +114,15 @@ describe('Helpers', function () {
 
     describe('prepends a space if the element', function () {
       it('is inline and prepended by text', function () {
-        expect(helpers.tag(html.inline), html.element, 'text').to.be.equal(
+        expect(helpers.tag(html.inline, 'text')).to.be.equal(
+          ' <' + html.inline.data + '>'
+        );
+
+        expect(structure).to.be.calledOnce;
+      });
+
+      it('is inline and prepended by interpunction', function () {
+        expect(helpers.tag(html.inline, 'text.')).to.be.equal(
           ' <' + html.inline.data + '>'
         );
 
@@ -122,7 +130,7 @@ describe('Helpers', function () {
       });
 
       it('is inline and prepended by closing tag', function () {
-        expect(helpers.tag(html.inline), html.element, 'text</b>').to.be.equal(
+        expect(helpers.tag(html.inline, 'text</b>')).to.be.equal(
           ' <' + html.inline.data + '>'
         );
 
