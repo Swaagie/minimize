@@ -274,7 +274,7 @@ describe('Helpers', function () {
       helpers.ancestor = [ 'pre' ];
 
       expect(helpers.text(html.multiline, '')).to.be.equal(
-        'some additional lines\n\n. some random text, and            alot of spaces'
+        'some additional lines.\n\n some random text, and            alot of spaces'
       );
     });
 

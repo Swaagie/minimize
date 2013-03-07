@@ -3,6 +3,7 @@
   , "comment": "<!-- some HTML comment -->\n     <div class=\"slide nodejs\">\n            <h3>100% Node.js</h3>\n            <p>\n              We are Node.js experts and the first hosting platform to build\n              our full stack in node. We understand your node application\n              better than anyone.\n            </p>\n          </div>\n\n          "
   , "interpunction": "<h3>Become a partner</h3>\n      <p>\n        Interested in being part of the solution?\n        <a href=\"/company/contact\">Contact Nodejitsu to discuss</a>.\n      </p>"
   , "code": "<code class=\"copy\">\n<span>var http = require('http');\nhttp.createServer(function (req, res) {\n    res.writeHead(200, {'Content-Type': 'text/plain'});\n    res.end('hello, i know nodejitsu');\n})listen(8080);</span><a href=\"#\"><s class=\"ss-layers\" role=\"presentation\"></s> copy</a></code>"
+  , "newlines": "<li>We&#39;re <a href=\"http://nodejitsu.com\">Nodejitsu</a>, and we can give you scalable,\nfault-tolerant cloud hosting for your Node.js apps - and we&#39;re the best you&#39;ll\nfind.</li>"
   , "doctype": {
         "raw": "!doctype html"
       , "data": "!doctype html"
@@ -39,8 +40,8 @@
       , "type": "text"
     }
   , "multiline": {
-        "raw": "some additional lines\n\n. some random text, and            alot of spaces"
-      , "data": "some additional lines\n\n. some random text, and            alot of spaces"
+        "raw": "some additional lines.\n\n some random text, and            alot of spaces"
+      , "data": "some additional lines.\n\n some random text, and            alot of spaces"
       , "type": "text"
     }
   , "element": {

@@ -92,6 +92,13 @@ describe('Minimize', function () {
       });
     });
 
+    it('should replace newlines between text with spaces', function (done) {
+      minimize.minimize(html.newlines, function (result) {
+        expect(result).to.equal("<li>We&#39;re <a href=\"http://nodejitsu.com\">Nodejitsu</a>, and we can give you scalable, fault-tolerant cloud hosting for your Node.js apps - and we&#39;re the best you&#39;ll find.</li>");
+        done();
+      });
+    });
+
     it('should be configurable to retain CDATA');
   });
 
