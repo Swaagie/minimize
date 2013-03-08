@@ -1,3 +1,7 @@
+[![Build Status][status]](https://travis-ci.org/Moveo/minimize)
+
+[status]: https://travis-ci.org/Moveo/minimize.png?branch=master
+
 # HTML minifier
 
 Minimize is a HTML minifier based on the node-htmlparser. This depedency will
