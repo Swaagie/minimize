@@ -99,6 +99,13 @@ describe('Minimize', function () {
       });
     });
 
+    it('should prepend spaces inside structural elements if required', function (done) {
+      minimize.minimize(html.spacing, function (result) {
+        expect(result).to.equal("<strong>npm</strong>. You don't have to worry about installing npm since it comes bundled with Node.js.<pre class=\"copy\">$ <span>npm install jitsu -g</span> <a href=\"#\"><s class=\"ss-layers\" role=\"presentation\"></s> copy</a></pre>");
+        done();
+      });
+    });
+
     it('should be configurable to retain CDATA');
   });
 
