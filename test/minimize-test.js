@@ -66,41 +66,42 @@ describe('Minimize', function () {
       var result = emit.getCall(0).args;
       expect(result).to.be.an('array');
       expect(result[0]).to.be.equal('parsed');
-      expect(result[1]).to.be.equal('');
+      expect(result[1]).to.be.equal(null);
+      expect(result[2]).to.be.equal('');
 
       emit.restore();
     });
 
     it('should handle inline flow properly', function (done) {
-      minimize.minimize(html.interpunction, function (result) {
+      minimize.minimize(html.interpunction, function (error, result) {
         expect(result).to.equal('<h3>Become a partner</h3><p>Interested in being part of the solution? <a href="/company/contact">Contact Nodejitsu to discuss</a>.</p>');
         done();
       });
     });
 
     it('should be configurable to retain comments', function (done) {
-      minimize.minimize(html.comment, function (result) {
+      minimize.minimize(html.comment, function (error, result) {
         expect(result).to.equal('<!-- some HTML comment --><div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');
         done();
       }, { comments: true });
     });
 
     it('should leave structural elements (like scripts and code) intact', function (done) {
-      minimize.minimize(html.code, function (result) {
+      minimize.minimize(html.code, function (error, result) {
         expect(result).to.equal("<code class=\"copy\"><span>var http = require('http');\nhttp.createServer(function (req, res) {\n    res.writeHead(200, {'Content-Type': 'text/plain'});\n    res.end('hello, i know nodejitsu');\n})listen(8080);</span> <a href=\"#\"><s class=\"ss-layers\" role=\"presentation\"></s> copy</a></code>");
         done();
       });
     });
 
     it('should replace newlines between text with spaces', function (done) {
-      minimize.minimize(html.newlines, function (result) {
+      minimize.minimize(html.newlines, function (error, result) {
         expect(result).to.equal("<li>We&#39;re <a href=\"http://nodejitsu.com\">Nodejitsu</a>, and we can give you scalable, fault-tolerant cloud hosting for your Node.js apps - and we&#39;re the best you&#39;ll find.</li>");
         done();
       });
     });
 
     it('should prepend spaces inside structural elements if required', function (done) {
-      minimize.minimize(html.spacing, function (result) {
+      minimize.minimize(html.spacing, function (error, result) {
         expect(result).to.equal("<strong>npm</strong>. You don't have to worry about installing npm since it comes bundled with Node.js.<pre class=\"copy\">$ <span>npm install jitsu -g</span> <a href=\"#\"><s class=\"ss-layers\" role=\"presentation\"></s> copy</a></pre>");
         done();
       });
