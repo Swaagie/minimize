@@ -290,11 +290,18 @@ describe('Helpers', function () {
       expect(result).to.be.equal(' ' + text);
     });
 
-    it('prepends no whitespace if text begins with interpunction', function () {
+    it('prepends no whitespace if text starts with interpunction', function () {
       html.text.data = '. ' + html.text.data;
       var result = helpers.text(html.text, 'some HTML');
 
       expect(result).to.be.equal(html.text.data);
+    });
+
+    it('prepends whitespace if text starts with a dash', function () {
+      html.text.data = '- ' + html.text.data;
+      var result = helpers.text(html.text, 'some HTML');
+
+      expect(result).to.be.equal(' ' + html.text.data);
     });
   });
 
