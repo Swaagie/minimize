@@ -1,13 +1,13 @@
 {
   "name": "minimize",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "description": "Minimize HTML",
   "main": "./lib/minimize",
   "scripts": {
     "test": "make test"
   },
   "dependencies": {
-    "htmlparser": "1.7.6",
+    "htmlparser2": "2.6.x",
     "utile": "0.1.7"
   },
   "devDependencies": {

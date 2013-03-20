@@ -5,11 +5,20 @@
   , "code": "<code class=\"copy\">\n<span>var http = require('http');\nhttp.createServer(function (req, res) {\n    res.writeHead(200, {'Content-Type': 'text/plain'});\n    res.end('hello, i know nodejitsu');\n})listen(8080);</span><a href=\"#\"><s class=\"ss-layers\" role=\"presentation\"></s> copy</a></code>"
   , "newlines": "<li>We&#39;re <a href=\"http://nodejitsu.com\">Nodejitsu</a>, and we can give you scalable,\nfault-tolerant cloud hosting for your Node.js apps - and we&#39;re the best you&#39;ll\nfind.</li>"
   , "spacing": "<strong>npm</strong>. You don't have to worry\n        about installing npm since it comes bundled with Node.js.\n\n        <pre class=\"copy\">$ <span>npm install jitsu -g</span><a href=\"#\"><s class=\"ss-layers\" role=\"presentation\"></s> copy</a></pre>\n"
+  , "full": "<!doctype html>\n<html class=\"no-js\">\n<head>\n</head>\n<body class=\"container\">\n<section class=\"navigation\" id=\"navigation\">\n  <nav class=\"row\">\n    <h1>\n      <a href=\"/\" class=\"logo\" title=\"Back to the homepage\">Nodejitsu</a>\n    </h1>\n    <a href=\"#navigation\" class=\"mobile btn ss-rows\"></a>\n\n\n\n    <a href=\"/paas\" >\n    Cloud\n    </a>\n\n    <a href=\"/enterprise/private-cloud\" >\n      Enterprise\n    </a>\n    </section>\n   <input type=\"text\" name=\"temp\">\n</body>\n   </html>"
   , "doctype": {
-        "raw": "!doctype html"
-      , "data": "!doctype html"
+        "data": "!doctype html"
       , "type": "directive"
       , "name": "!doctype"
+    }
+  , "block": {
+        "type": "tag"
+      , "name": "section"
+      , "attribs": null
+      , "children": null
+      , "prev": null
+      , "next": null
+      , "parent": null
     }
   , "inline": {
         "raw": "strong"
@@ -18,10 +27,17 @@
       , "name": "strong"
     }
   , "singular": {
-        "raw": "input type=text"
-      , "data": "input type=text"
+        "data": "input type=text"
+      , "attribs": {
+            "type": "text"
+          , "name": "temp"
+        }
       , "type": "tag"
       , "name": "input"
+      , "children": []
+      , "prev": null
+      , "next": null
+      , "parent": null
     }
   , "script": {
         "raw": "script type=\"text/javascript\""

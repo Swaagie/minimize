@@ -79,6 +79,19 @@ describe('Helpers', function () {
     });
   });
 
+  describe('function directive', function () {
+    it('returns a string wrapped with < >', function () {
+      expect(helpers.directive(html.doctype)).to.be.equal('<!doctype html>');
+    });
+  });
+
+  describe('function attributes', function () {
+    it('should convert the attribute object to string');
+    it('should omit quotes if an attribute does not require any');
+    it('should return early if element has no attributes');
+    it('should add quotes to attributes with spaces or =');
+  });
+
   describe('function tag', function () {
     var structure;
 
@@ -91,25 +104,19 @@ describe('Helpers', function () {
     });
 
     it('returns a string wrapped with < >', function () {
-      expect(helpers.tag(html.doctype)).to.be.equal('<!doctype html>');
+      expect(helpers.tag(html.block)).to.be.equal('<section>');
 
       expect(structure).to.be.calledOnce;
     });
 
+    it('calls helpers#attributes once and appends content behind name');
+
     it('is callable by element.type through proxy', function () {
-      var elements = [
-          html.doctype
-        , html.singular
-        , html.script
-      ];
+      expect(helpers.script(html.script, '')).to.be.equal(
+        '<script>'
+      );
 
-      elements.forEach(function loopElements (element) {
-        expect(helpers[element.type](element, html.element, '')).to.be.equal(
-          '<' + element.data + '>'
-        );
-      });
-
-      expect(structure).to.be.calledThrice;
+      expect(structure).to.be.calledOnce;
     });
 
     describe('prepends a space if the element', function () {
