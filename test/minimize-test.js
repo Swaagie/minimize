@@ -89,6 +89,13 @@ describe('Minimize', function () {
       });
     });
 
+    it('should minify script content that is not real text/javascript as much as possible', function (done) {
+      minimize.parse(html.noscript, function (error, result) {
+        expect(result).to.equal('<script type=imno/script id=plates-forgot><h3> Forgot your password? <a href="#" class="close ss-delete"></a> </h3> <p>Tell us your username and we will reset it for you.</p> <p class="error alert"></p> <p class="success alert"></p></script>');
+        done();
+      });
+    });
+
     it('should replace newlines between text with spaces', function (done) {
       minimize.parse(html.newlines, function (error, result) {
         expect(result).to.equal("<li>We&#39;re <a href=http://nodejitsu.com>Nodejitsu</a>, and we can give you scalable, fault-tolerant cloud hosting for your Node.js apps - and we&#39;re the best you&#39;ll find.</li>");

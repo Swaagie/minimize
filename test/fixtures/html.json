@@ -7,6 +7,7 @@
   , "spacing": "<strong>npm</strong>. You don't have to worry\n        about installing npm since it comes bundled with Node.js.\n\n        <pre class=\"copy\">$ <span>npm install jitsu -g</span><a href=\"#\"><s class=\"ss-layers\" role=\"presentation\"></s> copy</a></pre>\n"
   , "full": "<!doctype html>\n<html class=\"no-js\">\n<head>\n</head>\n<body class=\"container\">\n<section class=\"navigation\" id=\"navigation\">\n  <nav class=\"row\">\n    <h1>\n      <a href=\"/\" class=\"logo\" title=\"Back to the homepage\">Nodejitsu</a>\n    </h1>\n    <a href=\"#navigation\" class=\"mobile btn ss-rows\"></a>\n\n\n\n    <a href=\"/paas\" >\n    Cloud\n    </a>\n\n    <a href=\"/enterprise/private-cloud\" >\n      Enterprise\n    </a>\n    </section>\n   <input type=\"text\" name=\"temp\">\n</body>\n   </html>"
   , "cdata": "<script type=\"text/javascript\">\n//<![CDATA[\n...code...\n//]]>\n</script>"
+  , "noscript": "<script type=\"imno/script\" id=plates-forgot><h3>\n    Forgot your password?\n    <a href=\"#\" class=\"close ss-delete\"></a>\n  </h3>\n\n  <p>Tell us your username and we will reset it for you.</p>\n\n  <p class=\"error alert\"></p>\n  <p class=\"success alert\"></p></script>"
   , "doctype": {
         "data": "!doctype html"
       , "type": "directive"
@@ -51,6 +52,7 @@
   , "script": {
         "type": "script"
       , "name": "script"
+      , "attribs": { "type": "text/javascript" }
       , "children": null
       , "prev": null
       , "next": null

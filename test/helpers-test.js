@@ -185,7 +185,7 @@ describe('Helpers', function () {
 
     it('is callable by element.type through proxy', function () {
       expect(helpers.script(html.script, '')).to.be.equal(
-        '<script>'
+        '<script type=text/javascript>'
       );
 
       expect(structure).to.be.calledOnce;
@@ -272,7 +272,8 @@ describe('Helpers', function () {
 
   describe('function isJS', function () {
     afterEach(function () {
-      html.script.data = 'script type="text/javascript"';
+      html.script.name = 'script';
+      html.script.attribs = { type: 'text/javascript' }
     });
 
     it('returns false if element is not of type script', function () {
@@ -280,8 +281,6 @@ describe('Helpers', function () {
     });
 
     it('returns true if type is script and attribute === null', function () {
-      html.script.data = 'script';
-
       expect(helpers.isJS(html.script)).to.be.true;
     });
 
@@ -290,7 +289,7 @@ describe('Helpers', function () {
     });
 
     it('returns false if type !== "text/javascript"', function () {
-      html.script.data = 'script type="text/template"';
+      html.script.attribs.type = 'text/template';
       expect(helpers.isJS(html.script)).to.be.false;
     });
 
