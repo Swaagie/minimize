@@ -6,6 +6,7 @@
   , "newlines": "<li>We&#39;re <a href=\"http://nodejitsu.com\">Nodejitsu</a>, and we can give you scalable,\nfault-tolerant cloud hosting for your Node.js apps - and we&#39;re the best you&#39;ll\nfind.</li>"
   , "spacing": "<strong>npm</strong>. You don't have to worry\n        about installing npm since it comes bundled with Node.js.\n\n        <pre class=\"copy\">$ <span>npm install jitsu -g</span><a href=\"#\"><s class=\"ss-layers\" role=\"presentation\"></s> copy</a></pre>\n"
   , "full": "<!doctype html>\n<html class=\"no-js\">\n<head>\n</head>\n<body class=\"container\">\n<section class=\"navigation\" id=\"navigation\">\n  <nav class=\"row\">\n    <h1>\n      <a href=\"/\" class=\"logo\" title=\"Back to the homepage\">Nodejitsu</a>\n    </h1>\n    <a href=\"#navigation\" class=\"mobile btn ss-rows\"></a>\n\n\n\n    <a href=\"/paas\" >\n    Cloud\n    </a>\n\n    <a href=\"/enterprise/private-cloud\" >\n      Enterprise\n    </a>\n    </section>\n   <input type=\"text\" name=\"temp\">\n</body>\n   </html>"
+  , "cdata": "<script type=\"text/javascript\">\n//<![CDATA[\n...code...\n//]]>\n</script>"
   , "doctype": {
         "data": "!doctype html"
       , "type": "directive"
@@ -21,14 +22,15 @@
       , "parent": null
     }
   , "inline": {
-        "raw": "strong"
-      , "data": "strong"
-      , "type": "tag"
+        "type": "tag"
       , "name": "strong"
+      , "children": null
+      , "prev": null
+      , "next": null
+      , "parent": null
     }
   , "singular": {
-        "data": "input type=text"
-      , "attribs": {
+        "attribs": {
             "type": "text"
           , "name": "temp"
         }
@@ -39,51 +41,66 @@
       , "next": null
       , "parent": null
     }
+  , "attribs": {
+        "type": "text"
+      , "name": "temp-name"
+      , "class": "some classes with spaces"
+      , "href": "http://without.params.com"
+      , "hrefparam": "http://with.params.com?test=test"
+    }
   , "script": {
-        "raw": "script type=\"text/javascript\""
-      , "data": "script type=\"text/javascript\""
-      , "type": "script"
+        "type": "script"
       , "name": "script"
+      , "children": null
+      , "prev": null
+      , "next": null
+      , "parent": null
     }
   , "structure": {
-        "raw": "textarea"
-      , "data": "textarea"
-      , "type": "tag"
+        "type": "tag"
       , "name": "textarea"
+      , "children": null
+      , "prev": null
+      , "next": null
+      , "parent": null
     }
   , "text": {
-        "raw": "some random text"
-      , "data": "some random text"
+        "data": "some random text"
       , "type": "text"
     }
   , "multiline": {
-        "raw": "some additional lines.\n\n some random text, and            alot of spaces"
-      , "data": "some additional lines.\n\n some random text, and            alot of spaces"
+        "data": "some additional lines.\n\n some random text, and            alot of spaces"
       , "type": "text"
     }
   , "element": {
-        "raw": "html class=no-js"
-      , "data": "html class=no-js"
-      , "type": "tag"
+        "type": "tag"
       , "name": "html"
       , "attribs": {
             "class": "no-js"
         }
+      , "prev": null
+      , "next": null
+      , "parent": null
       , "children": [
             {
-                "raw": "head"
-              , "data": "head"
-              , "type": "tag"
+                "type": "tag"
               , "name": "head"
+              , "attribs": {}
+              , "children": []
+              , "prev": null
+              , "next": null
+              , "parent": null
             }
           , {
-                "raw": "body class=container"
-              , "data": "body class=container"
-              , "type": "tag"
+                "type": "tag"
               , "name": "body"
               , "attribs": {
                     "class": "container"
                 }
+              , "children": []
+              , "prev": null
+              , "next": null
+              , "parent": null
             }
         ]
     }

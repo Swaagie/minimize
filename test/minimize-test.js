@@ -5,16 +5,16 @@ var chai = require('chai')
   , sinon = require('sinon')
   , sinonChai = require('sinon-chai')
   , html = require('./fixtures/html.json')
-  , minimize = require('../lib/minimize');
+  , Minimize = require('../lib/minimize')
+  , minimize = new Minimize();
 
 chai.use(sinonChai);
 chai.Assertion.includeStack = true;
 
 describe('Minimize', function () {
   describe('is module', function () {
-    it('which has minify', function () {
-      expect(minimize).to.have.property('minimize');
-      expect(minimize.minimize).to.be.a('function');
+    it('which has a constructor', function () {
+      expect(Minimize).to.be.a('function');
     });
 
     it('which has minifier', function () {
@@ -25,6 +25,11 @@ describe('Minimize', function () {
     it('which has traverse', function () {
       expect(minimize).to.have.property('traverse');
       expect(minimize.traverse).to.be.a('function');
+    });
+
+    it('which has parse', function () {
+      expect(minimize).to.have.property('parse');
+      expect(minimize.parse).to.be.a('function');
     });
 
     it('which has walk', function () {
@@ -39,16 +44,6 @@ describe('Minimize', function () {
   });
 
   describe('function minifier', function () {
-    // Options need restoring as static content is exposed by prototype.
-    afterEach(function () {
-      minimize.minimize([], function () { }, {
-          empty: false
-        , cdata: false
-        , comments: false
-        , spare: false
-      });
-    });
-
     it('throws an error if HTML parsing failed', function () {
       function err () {
         minimize.minifier('some error', []);
@@ -58,7 +53,7 @@ describe('Minimize', function () {
     });
 
     it('should start traversing the DOM as soon as HTML parser is ready', function () {
-      var emit = sinon.spy(minimize.events, 'emit');
+      var emit = sinon.spy(minimize, 'emit');
 
       minimize.minifier(null, []);
       expect(emit).to.be.calledOnce;
@@ -73,49 +68,69 @@ describe('Minimize', function () {
     });
 
     it('should handle inline flow properly', function (done) {
-      minimize.minimize(html.interpunction, function (error, result) {
+      minimize.parse(html.interpunction, function (error, result) {
         expect(result).to.equal('<h3>Become a partner</h3><p>Interested in being part of the solution? <a href=/company/contact>Contact Nodejitsu to discuss</a>.</p>');
         done();
       });
     });
 
     it('should be configurable to retain comments', function (done) {
-      minimize.minimize(html.comment, function (error, result) {
+      var commentable = new Minimize({ comments: true });
+      commentable.parse(html.comment, function (error, result) {
         expect(result).to.equal('<!-- some HTML comment --><div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');
         done();
-      }, { comments: true });
+      });
     });
 
     it('should leave structural elements (like scripts and code) intact', function (done) {
-      minimize.minimize(html.code, function (error, result) {
+      minimize.parse(html.code, function (error, result) {
         expect(result).to.equal("<code class=copy><span>var http = require('http');\nhttp.createServer(function (req, res) {\n    res.writeHead(200, {'Content-Type': 'text/plain'});\n    res.end('hello, i know nodejitsu');\n})listen(8080);</span> <a href=#><s class=ss-layers role=presentation></s> copy</a></code>");
         done();
       });
     });
 
     it('should replace newlines between text with spaces', function (done) {
-      minimize.minimize(html.newlines, function (error, result) {
+      minimize.parse(html.newlines, function (error, result) {
         expect(result).to.equal("<li>We&#39;re <a href=http://nodejitsu.com>Nodejitsu</a>, and we can give you scalable, fault-tolerant cloud hosting for your Node.js apps - and we&#39;re the best you&#39;ll find.</li>");
         done();
       });
     });
 
     it('should prepend spaces inside structural elements if required', function (done) {
-      minimize.minimize(html.spacing, function (error, result) {
+      minimize.parse(html.spacing, function (error, result) {
         expect(result).to.equal("<strong>npm</strong>. You don't have to worry about installing npm since it comes bundled with Node.js.<pre class=copy>$ <span>npm install jitsu -g</span> <a href=#><s class=ss-layers role=presentation></s> copy</a></pre>");
         done();
       });
     });
 
   it('should parse the full stack', function (done) {
-      minimize.minimize(html.full, function (error, result) {
+      minimize.parse(html.full, function (error, result) {
         expect(result).to.equal("<!doctype html><html class=no-js><head></head><body class=container><section class=navigation id=navigation><nav class=row><h1><a href=/ class=logo title=\"Back to the homepage\">Nodejitsu</a></h1> <a href=#navigation class=\"mobile btn ss-rows\"></a> <a href=/paas>Cloud</a> <a href=/enterprise/private-cloud>Enterprise</a></nav></section> <input type=text name=temp></body></html>");
         done();
       });
     });
 
-    it('should prepend space if inline element is preluded by text');
-    it('should be configurable to retain CDATA');
+    it('should prepend space if inline element is preluded by text', function (done) {
+      minimize.parse('some text -\n <strong class="lol">keyword</strong>\n - more text', function (error, result) {
+        expect(result).to.equal("some text - <strong class=lol>keyword</strong> - more text");
+        done();
+      });
+    });
+
+    it('should remove CDATA from scripts', function (done) {
+      minimize.parse(html.cdata, function (error, result) {
+        expect(result).to.equal("<script type=text/javascript>\n...code...\n</script>");
+        done();
+      });
+    });
+
+    it('should be configurable to retain CDATA', function (done) {
+      var cdata = new Minimize({ cdata: true });
+      cdata.parse(html.cdata, function (error, result) {
+        expect(result).to.equal("<script type=text/javascript>//<![CDATA[\n...code...\n//]]></script>");
+        done();
+      });
+    });
   });
 
   describe('function traverse', function () {
@@ -149,7 +164,7 @@ describe('Minimize', function () {
   describe('function walk', function () {
     it('should throw an error if no callback is provided', function () {
       function err () {
-        minimize.minimize(html.content, null);
+        minimize.parse(html.content, null);
       }
 
       expect(err).throws('No callback provided');
@@ -157,9 +172,9 @@ describe('Minimize', function () {
 
     it('applies callback after DOM is parsed', function () {
       function fn () { }
-      var once = sinon.spy(minimize.events, 'once');
+      var once = sinon.spy(minimize, 'once');
 
-      minimize.minimize(html.content, fn);
+      minimize.parse(html.content, fn);
       expect(once).to.be.calledOnce;
 
       var result = once.getCall(0).args;
@@ -173,7 +188,7 @@ describe('Minimize', function () {
       var parser = sinon.mock(minimize.htmlparser);
       parser.expects('parseComplete').once().withArgs(html.content);
 
-      minimize.minimize(html.content, function () {});
+      minimize.parse(html.content, function () {});
       parser.restore();
     });
   });

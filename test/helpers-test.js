@@ -1,3 +1,4 @@
+/*global beforeEach, afterEach*/
 'use strict';
 
 var chai = require('chai')
@@ -58,9 +59,27 @@ describe('Helpers', function () {
       expect(helpers.structural).to.be.a('regexp');
     });
 
-    it('which has a regular expression named interpunction', function () {
+    it('which has a regular expression named cdata', function () {
+      expect(helpers).to.have.property('cdata');
+      expect(helpers.cdata).to.be.a('object');
+      expect(helpers.cdata.start).to.be.a('regexp');
+      expect(helpers.cdata.end).to.be.a('regexp');
+    });
+
+    it('which has a string with interpunction listed', function () {
       expect(helpers).to.have.property('interpunction');
-      expect(helpers.interpunction).to.be.a('regexp');
+      expect(helpers.interpunction).to.be.a('string');
+      expect(helpers.interpunction).to.be.equal('.,!%;:?$');
+    });
+
+    it('which has a regexp named start which triggers on interpunction', function () {
+      expect(helpers).to.have.property('start');
+      expect(helpers.start).to.be.a('regexp');
+    });
+
+    it('which has a regexp named end which has dashes appended', function () {
+      expect(helpers).to.have.property('end');
+      expect(helpers.end).to.be.a('regexp');
     });
 
     it('which has an inline element reference', function () {
@@ -86,21 +105,69 @@ describe('Helpers', function () {
   });
 
   describe('function attributes', function () {
-    it('should convert the attribute object to string');
-    it('should omit quotes if an attribute does not require any');
-    it('should return early if element has no attributes');
-    it('should add quotes to attributes with spaces or =');
+    var quote;
+
+    beforeEach(function () {
+      quote = sinon.spy(helpers, 'quote');
+    });
+
+    afterEach(function () {
+      quote.restore();
+    });
+
+    it('should convert the attribute object to string', function () {
+      expect(helpers.attributes(html.singular)).to.be.equal(' type=text name=temp');
+      expect(quote).to.be.calledTwice;
+    });
+
+    it('should return early if element has no attributes', function () {
+      expect(helpers.attributes(html.block)).to.be.equal('');
+      expect(quote.callCount).to.be.equal(0);
+    });
+  });
+
+  describe('function quote', function () {
+    var quote;
+
+    beforeEach(function () {
+      quote = sinon.spy(helpers, 'quote');
+    });
+
+    afterEach(function () {
+      quote.restore();
+    });
+
+
+    it('should omit quotes if an attribute does not require any', function () {
+      expect(helpers.quote(html.attribs.href)).to.be.equal('http://without.params.com');
+      expect(helpers.quote(html.attribs.name)).to.be.equal('temp-name');
+      expect(helpers.quote(html.attribs.type)).to.be.equal('text');
+    });
+
+    it('should add quotes to attributes with spaces or =', function () {
+      expect(helpers.quote(html.attribs.class)).to.be.equal('"some classes with spaces"');
+      expect(helpers.quote(html.attribs.hrefparam)).to.be.equal('"http://with.params.com?test=test"');
+    });
+
+    it('should always retain quotes if configured', function () {
+      var configurable = new Helpers({ quotes: true });
+      expect(configurable.quote(html.attribs.name)).to.be.equal('"temp-name"');
+      expect(configurable.quote(html.attribs.type)).to.be.equal('"text"');
+      expect(configurable.quote(html.attribs.class)).to.be.equal('"some classes with spaces"');
+    });
   });
 
   describe('function tag', function () {
-    var structure;
+    var structure, attr;
 
     beforeEach(function () {
       structure = sinon.spy(helpers, 'structure');
+      attr = sinon.spy(helpers, 'attributes');
     });
 
     afterEach(function () {
       structure.restore();
+      attr.restore();
     });
 
     it('returns a string wrapped with < >', function () {
@@ -109,7 +176,12 @@ describe('Helpers', function () {
       expect(structure).to.be.calledOnce;
     });
 
-    it('calls helpers#attributes once and appends content behind name');
+    it('calls helpers#attributes once and appends content behind name', function () {
+      expect(helpers.tag(html.singular)).to.be.equal(' <input type=text name=temp>');
+
+      expect(attr).to.be.calledAfter(structure);
+      expect(attr).to.be.calledOnce;
+    });
 
     it('is callable by element.type through proxy', function () {
       expect(helpers.script(html.script, '')).to.be.equal(
@@ -122,7 +194,7 @@ describe('Helpers', function () {
     describe('prepends a space if the element', function () {
       it('is inline and prepended by text', function () {
         expect(helpers.tag(html.inline, 'text')).to.be.equal(
-          ' <' + html.inline.data + '>'
+          ' <' + html.inline.name + '>'
         );
 
         expect(structure).to.be.calledOnce;
@@ -130,7 +202,7 @@ describe('Helpers', function () {
 
       it('is inline and prepended by interpunction', function () {
         expect(helpers.tag(html.inline, 'text.')).to.be.equal(
-          ' <' + html.inline.data + '>'
+          ' <' + html.inline.name + '>'
         );
 
         expect(structure).to.be.calledOnce;
@@ -138,7 +210,7 @@ describe('Helpers', function () {
 
       it('is inline and prepended by closing tag', function () {
         expect(helpers.tag(html.inline, 'text</b>')).to.be.equal(
-          ' <' + html.inline.data + '>'
+          ' <' + html.inline.name + '>'
         );
 
         expect(structure).to.be.calledOnce;
@@ -357,6 +429,46 @@ describe('Helpers', function () {
     });
   });
 
+  describe('regular expression start', function () {
+    it('is a valid regular expression', function () {
+      function regexp () { return new RegExp(helpers.start); }
+      expect(regexp).to.not.throw(Error);
+    });
+
+    it('matches interpunction without dashes', function () {
+      expect(helpers.start.test('-')).to.be.false;
+      expect(helpers.start.test('.')).to.be.true;
+    });
+  });
+
+  describe('regular expression end', function () {
+    it('is a valid regular expression', function () {
+      function regexp () { return new RegExp(helpers.end); }
+      expect(regexp).to.not.throw(Error);
+    });
+
+    it('matches interpunction with dashes', function () {
+      expect(helpers.end.test('-')).to.be.true;
+      expect(helpers.end.test('.')).to.be.true;
+    });
+  });
+
+  describe('regular expression cdata', function () {
+    it('is a valid regular expression', function () {
+      function regexp () {
+        new RegExp(helpers.cdata.start);
+        new RegExp(helpers.cdata.end);
+      }
+
+      expect(regexp).to.not.throw(Error);
+    });
+
+    it('matches closing and ending parts of CDATA', function () {
+      expect(helpers.cdata.start.test('//<![CDATA[')).to.be.true;
+      expect(helpers.cdata.end.test('//]]>')).to.be.true;
+    });
+  });
+
   describe('regular expression flow', function () {
     it('is a valid regular expression', function () {
       function regexp () { return new RegExp(helpers.flow); }
@@ -377,15 +489,15 @@ describe('Helpers', function () {
   });
 
   describe('has options', function () {
-    it('which are all true by default', function () {
+    it('which are all false by default', function () {
       for (var key in helpers.config) {
         expect(helpers.config[key]).to.be.false;
       }
     });
 
     it('which are overideable with options', function () {
-      var test = new Helpers({ empty: false });
-      expect(test.config.empty).to.be.false;
+      var test = new Helpers({ empty: true });
+      expect(test.config.empty).to.be.true;
     });
   });
 });
