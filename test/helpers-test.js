@@ -280,7 +280,13 @@ describe('Helpers', function () {
       expect(helpers.isJS(html.inline)).to.be.false;
     });
 
-    it('returns true if type is script and attribute === null', function () {
+    it('returns true if type is script and has no attributes', function () {
+      html.script.attribs = {};
+      expect(helpers.isJS(html.script)).to.be.true;
+    });
+
+    it('returns true if type is script and has random attributes', function () {
+      html.script.attribs = { 'data-type': 'test' };
       expect(helpers.isJS(html.script)).to.be.true;
     });
 
