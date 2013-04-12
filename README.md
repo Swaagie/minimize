@@ -46,11 +46,27 @@ minimize.parse(content, function (error, data) {
 
 **Empty**
 
+Empty attributes can usually be removed, by default all are removed, excluded
+HTML5 _data-*_ and microdata attributes. To retain empty elements regardless
+value, do:
+
+```javascript
+var Minimize = require('minimize')
+    minimize = new Minimize({ empty: true });
+
+minimize.parse(
+    '<h1 id=""></h1>'
+  , function (error, data) {
+      // data output: <h1 id=""></h1>
+    }
+);
+```
+
 **CDATA**
 
 CDATA is only required for HTML to parse as valid XML. For normal webpages this
-is rarely the case, thus CDATA around javascript can be omitted. Below is an
-example on how to do just that.
+is rarely the case, thus CDATA around javascript can be omitted. By default
+CDATA is removed, if you would like to keep it, pass true:
 
 ```javascript
 var Minimize = require('minimize')
@@ -59,7 +75,7 @@ var Minimize = require('minimize')
 minimize.parse(
     '<script type="text/javascript">\n//<![CDATA[\n...code...\n//]]>\n</script>'
   , function (error, data) {
-      // data output: <script type=text/javascript>\n...code...\n</script>
+      // data output: <script type=text/javascript>//<![CDATA[\n...code...\n//]]></script>
     }
 );
 ```
@@ -84,6 +100,21 @@ minimize.parse(
 ```
 
 **Spare**
+
+Spare attributes are of type boolean of which the value can be omitted in HTML5.
+To keep attributes intact for support of older browsers, supply:
+
+```javascript
+var Minimize = require('minimize')
+    minimize = new Minimize({ spare: true });
+
+minimize.parse(
+    '<input type="text" disabled="disabled"></h1>'
+  , function (error, data) {
+      // data output: <input type=text disabled=disabled></h1>
+    }
+);
+```
 
 **Qoutes**
 

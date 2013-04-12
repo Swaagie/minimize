@@ -8,6 +8,7 @@
   , "full": "<!doctype html>\n<html class=\"no-js\">\n<head>\n</head>\n<body class=\"container\">\n<section class=\"navigation\" id=\"navigation\">\n  <nav class=\"row\">\n    <h1>\n      <a href=\"/\" class=\"logo\" title=\"Back to the homepage\">Nodejitsu</a>\n    </h1>\n    <a href=\"#navigation\" class=\"mobile btn ss-rows\"></a>\n\n\n\n    <a href=\"/paas\" >\n    Cloud\n    </a>\n\n    <a href=\"/enterprise/private-cloud\" >\n      Enterprise\n    </a>\n    </section>\n   <input type=\"text\" name=\"temp\">\n</body>\n   </html>"
   , "cdata": "<script type=\"text/javascript\">\n//<![CDATA[\n...code...\n//]]>\n</script>"
   , "noscript": "<script type=\"imno/script\" id=plates-forgot><h3>\n    Forgot your password?\n    <a href=\"#\" class=\"close ss-delete\"></a>\n  </h3>\n\n  <p>Tell us your username and we will reset it for you.</p>\n\n  <p class=\"error alert\"></p>\n  <p class=\"success alert\"></p></script>"
+  , "empty": "<h1 class=\"slide nodejs\">a</h1><h2 name=\"\">b</h2><h3 id=\"lol\">c</h3><h4 disabled=\"disabled\">d</h4><h5 autofocus=true>e</h5><h6 itemscope>f</h6>"
   , "doctype": {
         "data": "!doctype html"
       , "type": "directive"

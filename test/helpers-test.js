@@ -49,14 +49,24 @@ describe('Helpers', function () {
       expect(helpers.flow).to.be.a('regexp');
     });
 
-    it('which has a regular expression named node', function () {
+    it('which has an array named node', function () {
       expect(helpers).to.have.property('node');
-      expect(helpers.node).to.be.a('regexp');
+      expect(helpers.node).to.be.an('array');
+    });
+
+    it('which has a regular expression named retain', function () {
+      expect(helpers).to.have.property('retain');
+      expect(helpers.retain).to.be.a('regexp');
+    });
+
+    it('which has an named redundant', function () {
+      expect(helpers).to.have.property('redundant');
+      expect(helpers.redundant).to.be.an('array');
     });
 
     it('which has a regular expression named structural', function () {
       expect(helpers).to.have.property('structural');
-      expect(helpers.structural).to.be.a('regexp');
+      expect(helpers.structural).to.be.an('array');
     });
 
     it('which has a regular expression named cdata', function () {
@@ -113,6 +123,7 @@ describe('Helpers', function () {
 
     afterEach(function () {
       quote.restore();
+      html.block.attribs = null;
     });
 
     it('should convert the attribute object to string', function () {
@@ -123,6 +134,26 @@ describe('Helpers', function () {
     it('should return early if element has no attributes', function () {
       expect(helpers.attributes(html.block)).to.be.equal('');
       expect(quote.callCount).to.be.equal(0);
+    });
+
+    it('should remove attributes that are empty, not boolean and have no semantic value', function () {
+      html.block.attribs = { disabled: 'disabled' };
+      expect(helpers.attributes(html.block)).to.be.equal(' disabled');
+      html.block.attribs = { autofocus: '' };
+      expect(helpers.attributes(html.block)).to.be.equal(' autofocus');
+      html.block.attribs = { loop: 'random' };
+      expect(helpers.attributes(html.block)).to.be.equal(' loop');
+      html.block.attribs = { muted: 'true' };
+      expect(helpers.attributes(html.block)).to.be.equal(' muted');
+      expect(quote.callCount).to.be.equal(0);
+    });
+
+    it('should retain empty schemantic and data attributes', function () {
+      html.block.attribs = { 'data-type': '' };
+      expect(helpers.attributes(html.block)).to.be.equal(' data-type=""');
+      html.block.attribs = { 'itemscope': '' };
+      expect(helpers.attributes(html.block)).to.be.equal(' itemscope');
+      expect(quote.callCount).to.be.equal(1);
     });
   });
 
@@ -409,28 +440,27 @@ describe('Helpers', function () {
     });
   });
 
-  describe('regular expression structural', function () {
-    it('is a valid regular expression', function () {
-      function regexp () { return new RegExp(helpers.structural); }
-      expect(regexp).to.not.throw(Error);
-    });
-
+  describe('structural collection', function () {
     it('matches pre or textarea', function () {
-      expect(helpers.structural.test('pre')).to.be.true;
-      expect(helpers.structural.test('textarea')).to.be.true;
-      expect(helpers.structural.test('code')).to.be.true;
+      expect(!!~helpers.structural.indexOf('pre')).to.be.true;
+      expect(!!~helpers.structural.indexOf('textarea')).to.be.true;
+      expect(!!~helpers.structural.indexOf('code')).to.be.true;
     });
   });
 
-  describe('regular expression node', function () {
-    it('is a valid regular expression', function () {
-      function regexp () { return new RegExp(helpers.node); }
-      expect(regexp).to.not.throw(Error);
-    });
-
+  describe('node collection', function () {
     it('matches tag or script', function () {
-      expect(helpers.node.test('tag')).to.be.true;
-      expect(helpers.node.test('script')).to.be.true;
+      expect(!!~helpers.node.indexOf('tag')).to.be.true;
+      expect(!!~helpers.node.indexOf('script')).to.be.true;
+    });
+  });
+
+  describe('redundant collection', function () {
+    it('matches boolean attributes', function () {
+      expect(!!~helpers.redundant.indexOf('disabled')).to.be.true;
+      expect(!!~helpers.redundant.indexOf('multiple')).to.be.true;
+      expect(!!~helpers.redundant.indexOf('muted')).to.be.true;
+      expect(!!~helpers.redundant.indexOf('class')).to.be.false;
     });
   });
 
@@ -443,6 +473,18 @@ describe('Helpers', function () {
     it('matches interpunction without dashes', function () {
       expect(helpers.start.test('-')).to.be.false;
       expect(helpers.start.test('.')).to.be.true;
+    });
+  });
+
+  describe('regular expression retain', function () {
+    it('is a valid regular expression', function () {
+      function regexp () { return new RegExp(helpers.retain); }
+      expect(regexp).to.not.throw(Error);
+    });
+
+    it('matches interpunction without dashes', function () {
+      expect(helpers.retain.test('data')).to.be.true;
+      expect(helpers.retain.test('itemscope')).to.be.true;
     });
   });
 

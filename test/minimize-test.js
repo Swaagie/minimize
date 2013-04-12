@@ -82,6 +82,22 @@ describe('Minimize', function () {
       });
     });
 
+    it('should be configurable to retain empty attributes', function (done) {
+      var empty = new Minimize({ empty: true });
+      empty.parse(html.empty, function (error, result) {
+        expect(result).to.equal('<h1 class="slide nodejs">a</h1><h2 name="">b</h2><h3 id=lol>c</h3><h4 disabled>d</h4><h5 autofocus>e</h5><h6 itemscope>f</h6>');
+        done();
+      });
+    });
+
+    it('should be configurable to retain spare attributes', function (done) {
+      var spare = new Minimize({ spare: true });
+      spare.parse(html.empty, function (error, result) {
+        expect(result).to.equal('<h1 class="slide nodejs">a</h1><h2>b</h2><h3 id=lol>c</h3><h4 disabled=disabled>d</h4><h5 autofocus=true>e</h5><h6 itemscope="">f</h6>');
+        done();
+      });
+    });
+
     it('should leave structural elements (like scripts and code) intact', function (done) {
       minimize.parse(html.code, function (error, result) {
         expect(result).to.equal("<code class=copy><span>var http = require('http');\nhttp.createServer(function (req, res) {\n    res.writeHead(200, {'Content-Type': 'text/plain'});\n    res.end('hello, i know nodejitsu');\n})listen(8080);</span> <a href=#><s class=ss-layers role=presentation></s> copy</a></code>");
@@ -120,6 +136,20 @@ describe('Minimize', function () {
     it('should prepend space if inline element is preluded by text', function (done) {
       minimize.parse('some text -\n <strong class="lol">keyword</strong>\n - more text', function (error, result) {
         expect(result).to.equal("some text - <strong class=lol>keyword</strong> - more text");
+        done();
+      });
+    });
+
+    it('should remove empty attributes which have no function', function (done) {
+      minimize.parse('<strong class="">keyword</strong><p id="">text</p>', function (error, result) {
+        expect(result).to.equal("<strong>keyword</strong><p>text</p>");
+        done();
+      });
+    });
+
+    it('should retain empty attributes of type ', function (done) {
+      minimize.parse('<strong class="">keyword</strong><p id="">text</p>', function (error, result) {
+        expect(result).to.equal("<strong>keyword</strong><p>text</p>");
         done();
       });
     });
