@@ -1,6 +1,6 @@
 {
   "name": "minimize",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Minimize HTML",
   "main": "./lib/minimize",
   "scripts": {
@@ -12,9 +12,9 @@
   },
   "devDependencies": {
     "mocha": "1.9.x",
-    "chai": "1.5.x",
-    "sinon": "1.6.x",
-    "sinon-chai": "2.3.x",
+    "chai": "1.6.x",
+    "sinon": "1.7.x",
+    "sinon-chai": "2.4.x",
     "pre-commit": "0.0.x"
   },
   "repository": "git@github.com:Moveo/minimize.git",
