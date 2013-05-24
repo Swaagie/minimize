@@ -7,18 +7,18 @@
 Minimize is a HTML minifier based on the node-htmlparser. This depedency will
 ensure output is solid and correct. Minimize is focussed on HTML5 and will not
 support older HTML drafts. It is not worth the effort and the web should move
-forward. Currently, HTML minifier is only usuable server side. Client side 
+forward. Currently, HTML minifier is only usuable server side. Client side
 minification will be added in a future release.
 
 ## Features
 
-Upcoming in release 1.0 
+Upcoming in release 1.0
 
 - command line usage support
 - increased configurability (element replacement, etc.)
 
-Upcoming in release 2.0 
- 
+Upcoming in release 2.0
+
 - minification of inline javascript by [square](https://github.com/observing/square)
 - client side minification support
 
@@ -30,11 +30,11 @@ object can be provided. All options are listed below and `false` per default.
 ```javascript
 var Minimize = require('minimize')
     minimize = new Minimize({
-        empty: true // DO NOT remove empty attributes 
+        empty: true // DO NOT remove empty attributes
       , cdata: true // DO NOT strip CDATA from scripts
       , comments: true // DO NOT remove comments
       , spare: true // DO NOT remove redundant attributes
-      , quotes: true // DO NOT remove arbitrary quotes 
+      , quotes: true // DO NOT remove arbitrary quotes
     });
 
 minimize.parse(content, function (error, data) {
@@ -120,7 +120,7 @@ minimize.parse(
 
 Quotes are always added around attributes that have spaces or an equal sign in
 their value. But if you require quotes around all attributes, simply pass
-quotes:true, like below. 
+quotes:true, like below.
 
 ```javascript
 var Minimize = require('minimize')
@@ -137,7 +137,7 @@ minimize.parse(
 ## Tests
 
 Tests can be easily run by using either of the following commands. Travis.ci is
-used for continous integration. 
+used for continous integration.
 
 ```bash
 make test
@@ -149,15 +149,15 @@ npm test
 
 
 ## Credits
-Minimize is influenced by the [HTML minifier](kangax) of kangax. This module 
-parses the DOM as string as opposes to an object. However, retaining flow is more 
+Minimize is influenced by the [HTML minifier][kangax] of kangax. This module
+parses the DOM as string as opposes to an object. However, retaining flow is more
 diffucult if the DOM is parsed sequentially. Minimize is not client-side ready.
 Kangax minifier also provides some additional options like linting. Minimize
 will retain strictly to the business of minifying. Minimize is already used in
 production by [Nodejitsu][nodejitsu].
 
-[node-htmlparser](fb55) of fb55 is used to create an object representation 
-of the DOM. 
+[node-htmlparser][fb55] of fb55 is used to create an object representation
+of the DOM.
 
 [kangax]: https://github.com/kangax/html-minifier/
 [fb55]: https://github.com/fb55/node-htmlparser/
