@@ -1,6 +1,9 @@
 [![Build Status][status]](https://travis-ci.org/Moveo/minimize)
+[![NPM version][npmimgurl]][npmurl]
 
 [status]: https://travis-ci.org/Moveo/minimize.png?branch=master
+[npmimgurl]: https://badge.fury.io/js/minimize.png
+[npmurl]: http://npmjs.org/package/minimize
 
 # HTML minifier
 
