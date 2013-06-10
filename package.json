@@ -7,7 +7,7 @@
     "test": "make test"
   },
   "dependencies": {
-    "htmlparser2": "3.0.x",
+    "htmlparser2": "3.1.x",
     "utile": "0.2.x"
   },
   "devDependencies": {
