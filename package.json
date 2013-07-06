@@ -1,6 +1,6 @@
 {
   "name": "minimize",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "Minimize HTML",
   "main": "./lib/minimize",
   "scripts": {
@@ -11,8 +11,8 @@
     "utile": "0.2.x"
   },
   "devDependencies": {
-    "mocha": "1.10.x",
-    "chai": "1.6.x",
+    "mocha": "1.12.x",
+    "chai": "1.7.x",
     "sinon": "1.7.x",
     "sinon-chai": "2.4.x",
     "pre-commit": "0.0.x"
