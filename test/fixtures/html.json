@@ -9,6 +9,7 @@
   , "cdata": "<script type=\"text/javascript\">\n//<![CDATA[\n...code...\n//]]>\n</script>"
   , "noscript": "<script type=\"imno/script\" id=plates-forgot><h3>\n    Forgot your password?\n    <a href=\"#\" class=\"close ss-delete\"></a>\n  </h3>\n\n  <p>Tell us your username and we will reset it for you.</p>\n\n  <p class=\"error alert\"></p>\n  <p class=\"success alert\"></p></script>"
   , "empty": "<h1 class=\"slide nodejs\">a</h1><h2 name=\"\">b</h2><h3 id=\"lol\">c</h3><h4 disabled=\"disabled\">d</h4><h5 autofocus=true>e</h5><h6 itemscope>f</h6>"
+  , "scripts": "<script type=text/javascript src=//use.typekit.net/gmp8svh.js></script> <script type=text/javascript>"
   , "doctype": {
         "data": "!doctype html"
       , "type": "directive"

@@ -126,9 +126,16 @@ describe('Minimize', function () {
       });
     });
 
-  it('should parse the full stack', function (done) {
+    it('should not prepend spaces between inline elements if not required', function (done) {
+      minimize.parse(html.scripts, function (error, result) {
+        expect(result).to.equal("<script type=text/javascript src=//use.typekit.net/gmp8svh.js></script><script type=text/javascript></script>");
+        done();
+      });
+    });
+
+    it('should parse the full stack', function (done) {
       minimize.parse(html.full, function (error, result) {
-        expect(result).to.equal("<!doctype html><html class=no-js><head></head><body class=container><section class=navigation id=navigation><nav class=row><h1><a href=/ class=logo title=\"Back to the homepage\">Nodejitsu</a></h1> <a href=#navigation class=\"mobile btn ss-rows\"></a> <a href=/paas>Cloud</a> <a href=/enterprise/private-cloud>Enterprise</a></nav></section> <input type=text name=temp></body></html>");
+        expect(result).to.equal("<!doctype html><html class=no-js><head></head><body class=container><section class=navigation id=navigation><nav class=row><h1><a href=/ class=logo title=\"Back to the homepage\">Nodejitsu</a></h1> <a href=#navigation class=\"mobile btn ss-rows\"></a> <a href=/paas>Cloud</a> <a href=/enterprise/private-cloud>Enterprise</a></nav></section><input type=text name=temp></body></html>");
         done();
       });
     });

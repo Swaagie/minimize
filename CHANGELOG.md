@@ -1,3 +1,7 @@
+## v0.5.9
+- [Fix] No space between inline elements that don't need it
+- [Minor] Remove obsolete HTML5 elements or superfluous inline elements
+
 ## v0.5.4
 - [Fix] Update dependencies
 

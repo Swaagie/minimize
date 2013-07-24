@@ -208,7 +208,7 @@ describe('Helpers', function () {
     });
 
     it('calls helpers#attributes once and appends content behind name', function () {
-      expect(helpers.tag(html.singular)).to.be.equal(' <input type=text name=temp>');
+      expect(helpers.tag(html.singular)).to.be.equal('<input type=text name=temp>');
 
       expect(attr).to.be.calledAfter(structure);
       expect(attr).to.be.calledOnce;
@@ -426,7 +426,7 @@ describe('Helpers', function () {
     });
 
     it('has all required elements', function () {
-      expect(helpers.inline.length).to.be.equal(31);
+      expect(helpers.inline.length).to.be.equal(21);
     });
   });
 
