@@ -1,3 +1,7 @@
+## v0.5.10
+- [Dist] Update dependencies
+- [Fix] Added proper license file
+
 ## v0.5.9
 - [Fix] No space between inline elements that don't need it
 - [Minor] Remove obsolete HTML5 elements or superfluous inline elements
