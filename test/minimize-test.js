@@ -105,6 +105,13 @@ describe('Minimize', function () {
       });
     });
 
+    it('should leave style element content intact', function (done) {
+      minimize.parse(html.styles, function (error, result) {
+        expect(result).to.equal("<style>.test { color: #FFF   }</style><style>.test { color: black }</style>");
+        done();
+      });
+    });
+
     it('should minify script content that is not real text/javascript as much as possible', function (done) {
       minimize.parse(html.noscript, function (error, result) {
         expect(result).to.equal('<script type=imno/script id=plates-forgot><h3> Forgot your password? <a href="#" class="close ss-delete"></a> </h3> <p>Tell us your username and we will reset it for you.</p> <p class="error alert"></p> <p class="success alert"></p></script>');

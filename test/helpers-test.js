@@ -34,6 +34,11 @@ describe('Helpers', function () {
       expect(helpers.isJS).to.be.a('function');
     });
 
+    it('which has a function isStyle', function () {
+      expect(helpers).to.have.property('isStyle');
+      expect(helpers.isStyle).to.be.a('function');
+    });
+
     it('which has a function structure', function () {
       expect(helpers).to.have.property('structure');
       expect(helpers.structure).to.be.a('function');
@@ -301,6 +306,12 @@ describe('Helpers', function () {
     });
   });
 
+  describe('function isStyle', function () {
+    it('returns true if an element is of type style', function () {
+      expect(helpers.isStyle(html.style)).to.be.true;
+    });
+  });
+
   describe('function isJS', function () {
     afterEach(function () {
       html.script.name = 'script';
@@ -449,9 +460,10 @@ describe('Helpers', function () {
   });
 
   describe('node collection', function () {
-    it('matches tag or script', function () {
+    it('matches tag, style or script', function () {
       expect(!!~helpers.node.indexOf('tag')).to.be.true;
       expect(!!~helpers.node.indexOf('script')).to.be.true;
+      expect(!!~helpers.node.indexOf('style')).to.be.true;
     });
   });
 
