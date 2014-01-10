@@ -15,12 +15,16 @@ minification will be added in a future release.
 
 ## Features
 
-Upcoming in release 1.0
+- fast and stable html minification
+- highly configurable
+- can distinguish conditional IE comments
+- build on the foundations of htmlparser2
+
+## Upcoming in release 1.0
 
 - command line usage support
-- increased configurability (element replacement, etc.)
 
-Upcoming in release 2.0
+## Upcoming in release 2.0
 
 - minification of inline javascript by [square](https://github.com/observing/square)
 - client side minification support
@@ -32,12 +36,13 @@ object can be provided. All options are listed below and `false` per default.
 
 ```javascript
 var Minimize = require('minimize')
-    minimize = new Minimize({
-        empty: true // DO NOT remove empty attributes
-      , cdata: true // DO NOT strip CDATA from scripts
-      , comments: true // DO NOT remove comments
-      , spare: true // DO NOT remove redundant attributes
-      , quotes: true // DO NOT remove arbitrary quotes
+  , minimize = new Minimize({
+      empty: true,        // DO NOT remove empty attributes
+      cdata: true,        // DO NOT strip CDATA from scripts
+      comments: true,     // DO NOT remove comments
+      conditionals: true, // DO NOT remove conditional internet explorer comments
+      spare: true,        // DO NOT remove redundant attributes
+      quotes: true        // DO NOT remove arbitrary quotes
     });
 
 minimize.parse(content, function (error, data) {
@@ -55,13 +60,13 @@ value, do:
 
 ```javascript
 var Minimize = require('minimize')
-    minimize = new Minimize({ empty: true });
+  , minimize = new Minimize({ empty: true });
 
 minimize.parse(
-    '<h1 id=""></h1>'
-  , function (error, data) {
-      // data output: <h1 id=""></h1>
-    }
+  '<h1 id=""></h1>',
+  function (error, data) {
+    // data output: <h1 id=""></h1>
+  }
 );
 ```
 
@@ -73,13 +78,13 @@ CDATA is removed, if you would like to keep it, pass true:
 
 ```javascript
 var Minimize = require('minimize')
-    minimize = new Minimize({ cdata: true });
+  , minimize = new Minimize({ cdata: true });
 
 minimize.parse(
-    '<script type="text/javascript">\n//<![CDATA[\n...code...\n//]]>\n</script>'
-  , function (error, data) {
-      // data output: <script type=text/javascript>//<![CDATA[\n...code...\n//]]></script>
-    }
+  '<script type="text/javascript">\n//<![CDATA[\n...code...\n//]]>\n</script>',
+  function (error, data) {
+    // data output: <script type=text/javascript>//<![CDATA[\n...code...\n//]]></script>
+  }
 );
 ```
 
@@ -92,15 +97,35 @@ to true.
 
 ```javascript
 var Minimize = require('minimize')
-    minimize = new Minimize({ comments: true });
+  , minimize = new Minimize({ comments: true });
 
 minimize.parse(
-    '<!-- some HTML comment -->\n     <div class="slide nodejs">'
-  , function (error, data) {
-      // data output: <!-- some HTML comment --><div class="slide nodejs">
-    }
+  '<!-- some HTML comment -->\n     <div class="slide nodejs">',
+  function (error, data) {
+    // data output: <!-- some HTML comment --><div class="slide nodejs">
+  }
 );
 ```
+
+**Conditionals**
+
+Conditional comments only work in IE, and are thus excellently suited to give
+special instructions meant only for IE. Minimize can be configured to retain
+these comments. But since the comments are only working until IE9 (inclusive)
+the default is to remove the conditionals.
+
+```javascript
+var Minimize = require('minimize')
+  , minimize = new Minimize({ conditionals: true });
+
+minimize.parse(
+  "<!--[if ie6]>Cover microsofts' ass<![endif]-->\n<br>",
+  function (error, data) {
+    // data output: <!--[if ie6]>Cover microsofts' ass<![endif]-->\n<br>
+  }
+);
+```
+
 
 **Spare**
 
@@ -109,13 +134,13 @@ To keep attributes intact for support of older browsers, supply:
 
 ```javascript
 var Minimize = require('minimize')
-    minimize = new Minimize({ spare: true });
+  , minimize = new Minimize({ spare: true });
 
 minimize.parse(
-    '<input type="text" disabled="disabled"></h1>'
-  , function (error, data) {
-      // data output: <input type=text disabled=disabled></h1>
-    }
+  '<input type="text" disabled="disabled"></h1>',
+  function (error, data) {
+    // data output: <input type=text disabled=disabled></h1>
+  }
 );
 ```
 
@@ -127,13 +152,13 @@ quotes:true, like below.
 
 ```javascript
 var Minimize = require('minimize')
-    minimize = new Minimize({ quotes: true });
+  , minimize = new Minimize({ quotes: true });
 
 minimize.parse(
-    '<p class="paragraph" id="title">\n    Some content\n  </p>'
-  , function (error, data) {
-      // data output: <p class="paragraph" id="title">Some content</p>
-    }
+  '<p class="paragraph" id="title">\n    Some content\n  </p>',
+  function (error, data) {
+    // data output: <p class="paragraph" id="title">Some content</p>
+  }
 );
 ```
 

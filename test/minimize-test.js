@@ -82,6 +82,14 @@ describe('Minimize', function () {
       });
     });
 
+    it('should be configurable to retain conditional internet explorer comments', function (done) {
+      var commentable = new Minimize({ conditionals: true });
+      commentable.parse(html.ie, function (error, result) {
+        expect(result).to.equal('<!--[if IE 6]>Special instructions for IE 6 here<![endif]--><div class=\"slide nodejs\"><h3>100% Node.js</h3></div>');
+        done();
+      });
+    });
+
     it('should be configurable to retain empty attributes', function (done) {
       var empty = new Minimize({ empty: true });
       empty.parse(html.empty, function (error, result) {
