@@ -7,15 +7,15 @@
     "test": "make test"
   },
   "dependencies": {
-    "htmlparser2": "3.4.x",
-    "utile": "0.2.x"
+    "htmlparser2": "~3.4.0",
+    "utile": "~0.2.1"
   },
   "devDependencies": {
-    "mocha": "1.17.x",
-    "chai": "1.8.x",
-    "sinon": "1.7.x",
-    "sinon-chai": "2.4.x",
-    "pre-commit": "0.0.x"
+    "mocha": "~1.17.1",
+    "chai": "~1.8.1",
+    "sinon": "~1.7.3",
+    "sinon-chai": "~2.4.0",
+    "pre-commit": "0.0.4"
   },
   "repository": "git@github.com:Moveo/minimize.git",
   "keywords": [
