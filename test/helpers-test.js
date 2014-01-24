@@ -180,6 +180,10 @@ describe('Helpers', function () {
       expect(helpers.quote(html.attribs.type)).to.be.equal('text');
     });
 
+    it('should always quote an attribute ending with /', function () {
+      expect(helpers.quote('path/')).to.be.equal('"path/"');
+    });
+
     it('should add quotes to attributes with spaces or =', function () {
       expect(helpers.quote(html.attribs.class)).to.be.equal('"some classes with spaces"');
       expect(helpers.quote(html.attribs.hrefparam)).to.be.equal('"http://with.params.com?test=test"');

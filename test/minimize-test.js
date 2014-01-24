@@ -150,7 +150,7 @@ describe('Minimize', function () {
 
     it('should parse the full stack', function (done) {
       minimize.parse(html.full, function (error, result) {
-        expect(result).to.equal("<!doctype html><html class=no-js><head></head><body class=container><section class=navigation id=navigation><nav class=row><h1><a href=/ class=logo title=\"Back to the homepage\">Nodejitsu</a></h1> <a href=#navigation class=\"mobile btn ss-rows\"></a> <a href=/paas>Cloud</a> <a href=/enterprise/private-cloud>Enterprise</a></nav></section><input type=text name=temp></body></html>");
+        expect(result).to.equal("<!doctype html><html class=no-js><head></head><body class=container><section class=navigation id=navigation><nav class=row><h1><a href=\"/\" class=logo title=\"Back to the homepage\">Nodejitsu</a></h1> <a href=#navigation class=\"mobile btn ss-rows\"></a> <a href=/paas>Cloud</a> <a href=/enterprise/private-cloud>Enterprise</a></nav></section><input type=text name=temp></body></html>");
         done();
       });
     });
@@ -187,6 +187,14 @@ describe('Minimize', function () {
       var cdata = new Minimize({ cdata: true });
       cdata.parse(html.cdata, function (error, result) {
         expect(result).to.equal("<script type=text/javascript>//<![CDATA[\n...code...\n//]]></script>");
+        done();
+      });
+    });
+
+    it('should always quote attributes that end with / regardless of options', function (done) {
+      var quote = new Minimize({ quotes: false });
+      quote.parse('<a href="#/">test</a>', function (error, result) {
+        expect(result).to.equal('<a href="#/">test</a>');
         done();
       });
     });
