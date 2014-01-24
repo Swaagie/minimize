@@ -7,11 +7,11 @@
     "test": "make test"
   },
   "dependencies": {
-    "htmlparser2": "3.3.x",
+    "htmlparser2": "3.4.x",
     "utile": "0.2.x"
   },
   "devDependencies": {
-    "mocha": "1.13.x",
+    "mocha": "1.17.x",
     "chai": "1.8.x",
     "sinon": "1.7.x",
     "sinon-chai": "2.4.x",
