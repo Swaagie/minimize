@@ -198,6 +198,14 @@ describe('Minimize', function () {
         done();
       });
     });
+
+    it('should clobber space around <br> elements', function (done) {
+      var quote = new Minimize;
+      quote.parse(html.br, function (error, result) {
+        expect(result).to.equal("<p class=slide><span><em>Does your organization have security or licensing restrictions?</em></span><br><br><span>Your private npm registry makes managing them simple by giving you the power to work with a blacklist and a whitelist of public npm packages.</span></p>");
+        done();
+      });
+    });
   });
 
   describe('function traverse', function () {

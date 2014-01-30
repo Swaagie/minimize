@@ -12,6 +12,7 @@
   "empty": "<h1 class=\"slide nodejs\">a</h1><h2 name=\"\">b</h2><h3 id=\"lol\">c</h3><h4 disabled=\"disabled\">d</h4><h5 autofocus=true>e</h5><h6 itemscope>f</h6>",
   "scripts": "<script type=text/javascript src=//use.typekit.net/gmp8svh.js></script> <script type=text/javascript>",
   "styles": "<style> .test { color: #FFF   }</style><style>.test { color: black }</style>",
+  "br": "<p class=\"slide\">\n              <span>\n                <em>Does your organization have security or licensing restrictions?</em>\n              </span>\n\n              <br/><br/>\n              <span>\n                Your private npm registry makes managing them simple by giving you the power\n                to work with a blacklist and a whitelist of public npm packages.\n              </span>\n            </p>",
   "doctype": {
     "data": "!doctype html",
     "type": "directive",

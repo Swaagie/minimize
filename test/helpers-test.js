@@ -402,7 +402,7 @@ describe('Helpers', function () {
     });
 
     it('has all required elements', function () {
-      expect(helpers.inline.length).to.be.equal(22);
+      expect(helpers.inline.length).to.be.equal(21);
     });
   });
 
