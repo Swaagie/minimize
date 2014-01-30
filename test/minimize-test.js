@@ -108,7 +108,7 @@ describe('Minimize', function () {
 
     it('should leave structural elements (like scripts and code) intact', function (done) {
       minimize.parse(html.code, function (error, result) {
-        expect(result).to.equal("<code class=copy><span>var http = require('http');\nhttp.createServer(function (req, res) {\n    res.writeHead(200, {'Content-Type': 'text/plain'});\n    res.end('hello, i know nodejitsu');\n})listen(8080);</span> <a href=#><s class=ss-layers role=presentation></s> copy</a></code>");
+        expect(result).to.equal("<code class=copy><span>var http = require('http');\nhttp.createServer(function (req, res) {\n    res.writeHead(200, {'Content-Type': 'text/plain'});\n    res.end('hello, i know nodejitsu');\n})listen(8080);</span><a href=#><s class=ss-layers role=presentation></s> copy</a></code>");
         done();
       });
     });
@@ -136,7 +136,7 @@ describe('Minimize', function () {
 
     it('should prepend spaces inside structural elements if required', function (done) {
       minimize.parse(html.spacing, function (error, result) {
-        expect(result).to.equal("<strong>npm</strong>. You don't have to worry about installing npm since it comes bundled with Node.js.<pre class=copy>$ <span>npm install jitsu -g</span> <a href=#><s class=ss-layers role=presentation></s> copy</a></pre>");
+        expect(result).to.equal("<strong>npm</strong>. You don't have to worry about installing npm since it comes bundled with Node.js.<pre class=copy>$ <span>npm install jitsu -g</span><a href=#><s class=ss-layers role=presentation></s> copy</a></pre>");
         done();
       });
     });
@@ -150,7 +150,7 @@ describe('Minimize', function () {
 
     it('should parse the full stack', function (done) {
       minimize.parse(html.full, function (error, result) {
-        expect(result).to.equal("<!doctype html><html class=no-js><head></head><body class=container><section class=navigation id=navigation><nav class=row><h1><a href=\"/\" class=logo title=\"Back to the homepage\">Nodejitsu</a></h1> <a href=#navigation class=\"mobile btn ss-rows\"></a> <a href=/paas>Cloud</a> <a href=/enterprise/private-cloud>Enterprise</a></nav></section><input type=text name=temp></body></html>");
+        expect(result).to.equal("<!doctype html><html class=no-js><head></head><body class=container><section class=navigation id=navigation><nav class=row><h1><a href=\"/\" class=logo title=\"Back to the homepage\">Nodejitsu</a></h1><a href=#navigation class=\"mobile btn ss-rows\"></a> <a href=/paas>Cloud</a> <a href=/enterprise/private-cloud>Enterprise</a></nav></section><input type=text name=temp></body></html>");
         done();
       });
     });

@@ -49,11 +49,6 @@ describe('Helpers', function () {
       expect(helpers.isInline).to.be.a('function');
     });
 
-    it('which has a regular expression named flow', function () {
-      expect(helpers).to.have.property('flow');
-      expect(helpers.flow).to.be.a('regexp');
-    });
-
     it('which has an array named node', function () {
       expect(helpers).to.have.property('node');
       expect(helpers.node).to.be.an('array');
@@ -79,22 +74,6 @@ describe('Helpers', function () {
       expect(helpers.cdata).to.be.a('object');
       expect(helpers.cdata.start).to.be.a('regexp');
       expect(helpers.cdata.end).to.be.a('regexp');
-    });
-
-    it('which has a string with interpunction listed', function () {
-      expect(helpers).to.have.property('interpunction');
-      expect(helpers.interpunction).to.be.a('string');
-      expect(helpers.interpunction).to.be.equal('.,!%;:?$');
-    });
-
-    it('which has a regexp named start which triggers on interpunction', function () {
-      expect(helpers).to.have.property('start');
-      expect(helpers.start).to.be.a('regexp');
-    });
-
-    it('which has a regexp named end which has dashes appended', function () {
-      expect(helpers).to.have.property('end');
-      expect(helpers.end).to.be.a('regexp');
     });
 
     it('which has an inline element reference', function () {
@@ -230,32 +209,6 @@ describe('Helpers', function () {
 
       expect(structure).to.be.calledOnce;
     });
-
-    describe('prepends a space if the element', function () {
-      it('is inline and prepended by text', function () {
-        expect(helpers.tag(html.inline, 'text')).to.be.equal(
-          ' <' + html.inline.name + '>'
-        );
-
-        expect(structure).to.be.calledOnce;
-      });
-
-      it('is inline and prepended by interpunction', function () {
-        expect(helpers.tag(html.inline, 'text.')).to.be.equal(
-          ' <' + html.inline.name + '>'
-        );
-
-        expect(structure).to.be.calledOnce;
-      });
-
-      it('is inline and prepended by closing tag', function () {
-        expect(helpers.tag(html.inline, 'text</b>')).to.be.equal(
-          ' <' + html.inline.name + '>'
-        );
-
-        expect(structure).to.be.calledOnce;
-      });
-    });
   });
 
   describe('function isInline', function () {
@@ -381,6 +334,8 @@ describe('Helpers', function () {
     var text = 'some random text';
 
     afterEach(function () {
+      delete html.text.next;
+      delete html.text.prev;
       html.text.data = text;
       helpers.ancestor = [];
     });
@@ -408,30 +363,36 @@ describe('Helpers', function () {
       );
     });
 
-    it('prepends space if current HTML ends with closing tag', function () {
-      var result = helpers.text(html.text, 'some HTML</strong>');
+    it('removes whitespace after block elements', function () {
+      html.text.prev = html.block;
+      html.text.data = '  \n\n   ' + html.text.data;
+      var result = helpers.text(html.text, '');
+
+      expect(result).to.be.equal(text);
+    });
+
+    it('collapses whitespace after inline elements', function () {
+      html.text.prev = html.inline;
+      html.text.data = '  \n\n   ' + html.text.data;
+      var result = helpers.text(html.text, '');
 
       expect(result).to.be.equal(' ' + text);
     });
 
-    it('prepends space if current HTML ends with word boundary', function () {
-      var result = helpers.text(html.text, 'some HTML');
+    it('removes whitespace before block elements', function () {
+      html.text.next = html.block;
+      html.text.data = html.text.data + '  \n\n   ';
+      var result = helpers.text(html.text, '');
 
-      expect(result).to.be.equal(' ' + text);
+      expect(result).to.be.equal(text);
     });
 
-    it('prepends no whitespace if text starts with interpunction', function () {
-      html.text.data = '. ' + html.text.data;
-      var result = helpers.text(html.text, 'some HTML');
+    it('collapses whitespace before inline elements', function () {
+      html.text.next = html.inline;
+      html.text.data = html.text.data + '  \n\n   ';
+      var result = helpers.text(html.text, '');
 
-      expect(result).to.be.equal(html.text.data);
-    });
-
-    it('prepends whitespace if text starts with a dash', function () {
-      html.text.data = '- ' + html.text.data;
-      var result = helpers.text(html.text, 'some HTML');
-
-      expect(result).to.be.equal(' ' + html.text.data);
+      expect(result).to.be.equal(text + ' ');
     });
   });
 
@@ -441,7 +402,7 @@ describe('Helpers', function () {
     });
 
     it('has all required elements', function () {
-      expect(helpers.inline.length).to.be.equal(21);
+      expect(helpers.inline.length).to.be.equal(22);
     });
   });
 
@@ -480,39 +441,15 @@ describe('Helpers', function () {
     });
   });
 
-  describe('regular expression start', function () {
-    it('is a valid regular expression', function () {
-      function regexp () { return new RegExp(helpers.start); }
-      expect(regexp).to.not.throw(Error);
-    });
-
-    it('matches interpunction without dashes', function () {
-      expect(helpers.start.test('-')).to.be.false;
-      expect(helpers.start.test('.')).to.be.true;
-    });
-  });
-
   describe('regular expression retain', function () {
     it('is a valid regular expression', function () {
       function regexp () { return new RegExp(helpers.retain); }
       expect(regexp).to.not.throw(Error);
     });
 
-    it('matches interpunction without dashes', function () {
+    it('matches data and itemscope', function () {
       expect(helpers.retain.test('data')).to.be.true;
       expect(helpers.retain.test('itemscope')).to.be.true;
-    });
-  });
-
-  describe('regular expression end', function () {
-    it('is a valid regular expression', function () {
-      function regexp () { return new RegExp(helpers.end); }
-      expect(regexp).to.not.throw(Error);
-    });
-
-    it('matches interpunction with dashes', function () {
-      expect(helpers.end.test('-')).to.be.true;
-      expect(helpers.end.test('.')).to.be.true;
     });
   });
 
@@ -529,25 +466,6 @@ describe('Helpers', function () {
     it('matches closing and ending parts of CDATA', function () {
       expect(helpers.cdata.start.test('//<![CDATA[')).to.be.true;
       expect(helpers.cdata.end.test('//]]>')).to.be.true;
-    });
-  });
-
-  describe('regular expression flow', function () {
-    it('is a valid regular expression', function () {
-      function regexp () { return new RegExp(helpers.flow); }
-      expect(regexp).to.not.throw(Error);
-    });
-
-    it('can detect if last part of string is closing tag', function () {
-      var match = 'test string</b>'.match(helpers.flow);
-      expect(match).to.be.an('array');
-      expect(match[0]).to.be.equal('</b>');
-    });
-
-    it('can detect if last part of string is text', function () {
-      var match = '</b>test'.match(helpers.flow);
-      expect(match).to.be.an('array');
-      expect(match[0]).to.be.equal('test');
     });
   });
 
