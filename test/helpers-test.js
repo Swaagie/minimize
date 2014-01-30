@@ -70,11 +70,11 @@ describe('Helpers', function () {
       expect(list.structural).to.be.an('array');
     });
 
-    it('which has a regular expression named cdata', function () {
-      expect(helpers).to.have.property('cdata');
-      expect(helpers.cdata).to.be.a('object');
-      expect(helpers.cdata.start).to.be.a('regexp');
-      expect(helpers.cdata.end).to.be.a('regexp');
+    it('which has regular expressions for cdata', function () {
+      expect(helpers).to.have.property('cdataStart');
+      expect(helpers).to.have.property('cdataEnd');
+      expect(helpers.cdataStart).to.be.a('regexp');
+      expect(helpers.cdataEnd).to.be.a('regexp');
     });
 
     it('which has an inline element reference', function () {
@@ -457,16 +457,16 @@ describe('Helpers', function () {
   describe('regular expression cdata', function () {
     it('is a valid regular expression', function () {
       function regexp () {
-        new RegExp(helpers.cdata.start);
-        new RegExp(helpers.cdata.end);
+        new RegExp(helpers.cdataStart);
+        new RegExp(helpers.cdataEnd);
       }
 
       expect(regexp).to.not.throw(Error);
     });
 
     it('matches closing and ending parts of CDATA', function () {
-      expect(helpers.cdata.start.test('//<![CDATA[')).to.be.true;
-      expect(helpers.cdata.end.test('//]]>')).to.be.true;
+      expect(helpers.cdataStart.test('//<![CDATA[')).to.be.true;
+      expect(helpers.cdataEnd.test('//]]>')).to.be.true;
     });
   });
 
