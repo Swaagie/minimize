@@ -6,6 +6,7 @@ var chai = require('chai')
   , sinonChai = require('sinon-chai')
   , expect = chai.expect
   , Helpers = require('../lib/helpers')
+  , list = require('../lib/list')
   , helpers = new Helpers()
   , html = require('./fixtures/html.json');
 
@@ -50,8 +51,8 @@ describe('Helpers', function () {
     });
 
     it('which has an array named node', function () {
-      expect(helpers).to.have.property('node');
-      expect(helpers.node).to.be.an('array');
+      expect(list).to.have.property('node');
+      expect(list.node).to.be.an('array');
     });
 
     it('which has a regular expression named retain', function () {
@@ -60,13 +61,13 @@ describe('Helpers', function () {
     });
 
     it('which has an named redundant', function () {
-      expect(helpers).to.have.property('redundant');
-      expect(helpers.redundant).to.be.an('array');
+      expect(list).to.have.property('redundant');
+      expect(list.redundant).to.be.an('array');
     });
 
     it('which has a regular expression named structural', function () {
-      expect(helpers).to.have.property('structural');
-      expect(helpers.structural).to.be.an('array');
+      expect(list).to.have.property('structural');
+      expect(list.structural).to.be.an('array');
     });
 
     it('which has a regular expression named cdata', function () {
@@ -77,13 +78,13 @@ describe('Helpers', function () {
     });
 
     it('which has an inline element reference', function () {
-      expect(helpers).to.have.property('inline');
-      expect(helpers.inline).to.be.an('array');
+      expect(list).to.have.property('inline');
+      expect(list.inline).to.be.an('array');
     });
 
     it('which has an singular element reference', function () {
-      expect(helpers).to.have.property('singular');
-      expect(helpers.singular).to.be.an('array');
+      expect(list).to.have.property('singular');
+      expect(list.singular).to.be.an('array');
     });
 
     it('which has a default config', function () {
@@ -398,46 +399,46 @@ describe('Helpers', function () {
 
   describe('inline element list', function () {
     it('is an array', function () {
-      expect(helpers.inline).to.be.an('array');
+      expect(list.inline).to.be.an('array');
     });
 
     it('has all required elements', function () {
-      expect(helpers.inline.length).to.be.equal(21);
+      expect(list.inline.length).to.be.equal(21);
     });
   });
 
   describe('singular element list', function () {
     it('is an array', function () {
-      expect(helpers.singular).to.be.an('array');
+      expect(list.singular).to.be.an('array');
     });
 
     it('has all required elements', function () {
-      expect(helpers.singular.length).to.be.equal(13);
+      expect(list.singular.length).to.be.equal(13);
     });
   });
 
   describe('structural collection', function () {
     it('matches pre or textarea', function () {
-      expect(!!~helpers.structural.indexOf('pre')).to.be.true;
-      expect(!!~helpers.structural.indexOf('textarea')).to.be.true;
-      expect(!!~helpers.structural.indexOf('code')).to.be.true;
+      expect(!!~list.structural.indexOf('pre')).to.be.true;
+      expect(!!~list.structural.indexOf('textarea')).to.be.true;
+      expect(!!~list.structural.indexOf('code')).to.be.true;
     });
   });
 
   describe('node collection', function () {
     it('matches tag, style or script', function () {
-      expect(!!~helpers.node.indexOf('tag')).to.be.true;
-      expect(!!~helpers.node.indexOf('script')).to.be.true;
-      expect(!!~helpers.node.indexOf('style')).to.be.true;
+      expect(!!~list.node.indexOf('tag')).to.be.true;
+      expect(!!~list.node.indexOf('script')).to.be.true;
+      expect(!!~list.node.indexOf('style')).to.be.true;
     });
   });
 
   describe('redundant collection', function () {
     it('matches boolean attributes', function () {
-      expect(!!~helpers.redundant.indexOf('disabled')).to.be.true;
-      expect(!!~helpers.redundant.indexOf('multiple')).to.be.true;
-      expect(!!~helpers.redundant.indexOf('muted')).to.be.true;
-      expect(!!~helpers.redundant.indexOf('class')).to.be.false;
+      expect(!!~list.redundant.indexOf('disabled')).to.be.true;
+      expect(!!~list.redundant.indexOf('multiple')).to.be.true;
+      expect(!!~list.redundant.indexOf('muted')).to.be.true;
+      expect(!!~list.redundant.indexOf('class')).to.be.false;
     });
   });
 
