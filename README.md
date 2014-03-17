@@ -1,9 +1,10 @@
 [![Build Status][status]](https://travis-ci.org/Moveo/minimize)
-[![NPM version][npmimgurl]][npmurl]
+[![NPM version][npmimgurl]](http://npmjs.org/package/minimize)
+[![Coverage Status][coverage]](http://coveralls.io/r/Moveo/minimize?branch=master)
 
 [status]: https://travis-ci.org/Moveo/minimize.png?branch=master
 [npmimgurl]: https://badge.fury.io/js/minimize.png
-[npmurl]: http://npmjs.org/package/minimize
+[coverage]: http://coveralls.io/repos/Moveo/minimize/badge.png?branch=master
 
 # HTML minifier
 
