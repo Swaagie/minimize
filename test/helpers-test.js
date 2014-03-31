@@ -11,7 +11,7 @@ var chai = require('chai')
   , html = require('./fixtures/html.json');
 
 chai.use(sinonChai);
-chai.Assertion.includeStack = true;
+chai.config.includeStack = true;
 
 describe('Helpers', function () {
   describe('is a module', function () {

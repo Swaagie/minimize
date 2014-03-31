@@ -9,7 +9,7 @@ var chai = require('chai')
   , minimize = new Minimize();
 
 chai.use(sinonChai);
-chai.Assertion.includeStack = true;
+chai.config.includeStack = true;
 
 describe('Minimize', function () {
   describe('is module', function () {
