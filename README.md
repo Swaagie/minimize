@@ -38,6 +38,7 @@ var Minimize = require('minimize')
       empty: true,        // DO NOT remove empty attributes
       cdata: true,        // DO NOT strip CDATA from scripts
       comments: true,     // DO NOT remove comments
+      ssi: true,          // DO NOT remove Server Side Includes (i.e. <!--#include virtual="../quote.txt" -->)
       conditionals: true, // DO NOT remove conditional internet explorer comments
       spare: true,        // DO NOT remove redundant attributes
       quotes: true        // DO NOT remove arbitrary quotes

@@ -77,7 +77,15 @@ describe('Minimize', function () {
     it('should be configurable to retain comments', function (done) {
       var commentable = new Minimize({ comments: true });
       commentable.parse(html.comment, function (error, result) {
-        expect(result).to.equal('<!-- some HTML comment --><div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');
+        expect(result).to.equal('<!-- some HTML comment --><!--#include virtual=\"/header.html\" --><div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');
+        done();
+      });
+    });
+
+    it('should be configurable to retain server side includes', function (done) {
+      var commentable = new Minimize({ ssi: true });
+      commentable.parse(html.comment, function (error, result) {
+        expect(result).to.equal('<!--#include virtual=\"/header.html\" --><div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');
         done();
       });
     });
