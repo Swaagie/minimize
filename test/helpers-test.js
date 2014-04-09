@@ -406,7 +406,7 @@ describe('Helpers', function () {
   });
 
   describe('structural collection', function () {
-    it('matches pre or textarea', function () {
+    it('matches pre, textarea or code', function () {
       expect(!!~list.structural.indexOf('pre')).to.be.true;
       expect(!!~list.structural.indexOf('textarea')).to.be.true;
       expect(!!~list.structural.indexOf('code')).to.be.true;
