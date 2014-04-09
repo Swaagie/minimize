@@ -55,11 +55,6 @@ describe('Helpers', function () {
       expect(list.node).to.be.an('array');
     });
 
-    it('which has a regular expression named retain', function () {
-      expect(helpers).to.have.property('retain');
-      expect(helpers.retain).to.be.a('regexp');
-    });
-
     it('which has an named redundant', function () {
       expect(list).to.have.property('redundant');
       expect(list.redundant).to.be.an('array');
@@ -68,13 +63,6 @@ describe('Helpers', function () {
     it('which has a regular expression named structural', function () {
       expect(list).to.have.property('structural');
       expect(list.structural).to.be.an('array');
-    });
-
-    it('which has regular expressions for cdata', function () {
-      expect(helpers).to.have.property('cdataStart');
-      expect(helpers).to.have.property('cdataEnd');
-      expect(helpers.cdataStart).to.be.a('regexp');
-      expect(helpers.cdataEnd).to.be.a('regexp');
     });
 
     it('which has an inline element reference', function () {
@@ -439,34 +427,6 @@ describe('Helpers', function () {
       expect(!!~list.redundant.indexOf('multiple')).to.be.true;
       expect(!!~list.redundant.indexOf('muted')).to.be.true;
       expect(!!~list.redundant.indexOf('class')).to.be.false;
-    });
-  });
-
-  describe('regular expression retain', function () {
-    it('is a valid regular expression', function () {
-      function regexp () { return new RegExp(helpers.retain); }
-      expect(regexp).to.not.throw(Error);
-    });
-
-    it('matches data and itemscope', function () {
-      expect(helpers.retain.test('data')).to.be.true;
-      expect(helpers.retain.test('itemscope')).to.be.true;
-    });
-  });
-
-  describe('regular expression cdata', function () {
-    it('is a valid regular expression', function () {
-      function regexp () {
-        new RegExp(helpers.cdataStart);
-        new RegExp(helpers.cdataEnd);
-      }
-
-      expect(regexp).to.not.throw(Error);
-    });
-
-    it('matches closing and ending parts of CDATA', function () {
-      expect(helpers.cdataStart.test('//<![CDATA[')).to.be.true;
-      expect(helpers.cdataEnd.test('//]]>')).to.be.true;
     });
   });
 
