@@ -35,13 +35,13 @@ object can be provided. All options are listed below and `false` per default.
 ```javascript
 var Minimize = require('minimize')
   , minimize = new Minimize({
-      empty: true,        // DO NOT remove empty attributes
-      cdata: true,        // DO NOT strip CDATA from scripts
-      comments: true,     // DO NOT remove comments
-      ssi: true,          // DO NOT remove Server Side Includes (i.e. <!--#include virtual="../quote.txt" -->)
-      conditionals: true, // DO NOT remove conditional internet explorer comments
-      spare: true,        // DO NOT remove redundant attributes
-      quotes: true        // DO NOT remove arbitrary quotes
+      empty: true,        // KEEP empty attributes
+      cdata: true,        // KEEP CDATA from scripts
+      comments: true,     // KEEP comments
+      ssi: true,          // KEEP Server Side Includes (i.e. <!--#include virtual="../quote.txt" -->)
+      conditionals: true, // KEEP conditional internet explorer comments
+      spare: true,        // KEEP redundant attributes
+      quotes: true        // KEEP arbitrary quotes
     });
 
 minimize.parse(content, function (error, data) {
@@ -143,7 +143,7 @@ minimize.parse(
 );
 ```
 
-**Qoutes**
+**Quotes**
 
 Quotes are always added around attributes that have spaces or an equal sign in
 their value. But if you require quotes around all attributes, simply pass
