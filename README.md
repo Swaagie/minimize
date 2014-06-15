@@ -187,5 +187,5 @@ production by [Nodejitsu][nodejitsu].
 of the DOM.
 
 [kangax]: https://github.com/kangax/html-minifier/
-[fb55]: https://github.com/fb55/node-htmlparser/
+[fb55]: https://github.com/fb55/htmlparser2
 [nodejitsu]: http://www.nodejitsu.com/
