@@ -132,14 +132,14 @@ describe('Minimize', function () {
 
     it('should leave structural elements (like scripts and code) intact', function (done) {
       minimize.parse(html.code, function (error, result) {
-        expect(result).to.equal("<code class=copy><span>var http = require('http');\nhttp.createServer(function (req, res) {\n    res.writeHead(200, {'Content-Type': 'text/plain'});\n    res.end('hello, i know nodejitsu');\n})listen(8080);</span><a href=#><s class=ss-layers role=presentation></s> copy</a></code>");
+        expect(result).to.equal("<code class=copy>\n<span>var http = require('http');\nhttp.createServer(function (req, res) {\n    res.writeHead(200, {'Content-Type': 'text/plain'});\n    res.end('hello, i know nodejitsu');\n})listen(8080);</span><a href=#><s class=ss-layers role=presentation></s> copy</a></code>");
         done();
       });
     });
 
     it('should leave style element content intact', function (done) {
       minimize.parse(html.styles, function (error, result) {
-        expect(result).to.equal("<style>.test { color: #FFF   }</style><style>.test { color: black }</style>");
+        expect(result).to.equal("<style> .test { color: #FFF   }</style><style>.test { color: black }</style>");
         done();
       });
     });
@@ -202,7 +202,7 @@ describe('Minimize', function () {
 
     it('should remove CDATA from scripts', function (done) {
       minimize.parse(html.cdata, function (error, result) {
-        expect(result).to.equal("<script type=text/javascript>\n...code...\n</script>");
+        expect(result).to.equal("<script type=text/javascript>\n\n...code...\n\n</script>");
         done();
       });
     });
@@ -210,7 +210,7 @@ describe('Minimize', function () {
     it('should be configurable to retain CDATA', function (done) {
       var cdata = new Minimize({ cdata: true });
       cdata.parse(html.cdata, function (error, result) {
-        expect(result).to.equal("<script type=text/javascript>//<![CDATA[\n...code...\n//]]></script>");
+        expect(result).to.equal("<script type=text/javascript>\n//<![CDATA[\n...code...\n//]]>\n</script>");
         done();
       });
     });
@@ -224,9 +224,15 @@ describe('Minimize', function () {
     });
 
     it('should clobber space around <br> elements', function (done) {
-      var quote = new Minimize;
-      quote.parse(html.br, function (error, result) {
+      minimize.parse(html.br, function (error, result) {
         expect(result).to.equal("<p class=slide><span><em>Does your organization have security or licensing restrictions?</em></span><br><br><span>Your private npm registry makes managing them simple by giving you the power to work with a blacklist and a whitelist of public npm packages.</span></p>");
+        done();
+      });
+    });
+
+    it('should maintain flow in pre elements', function (done) {
+      minimize.parse(html.pre, function (error, result) {
+        expect(result).to.equal('<pre><code class=lang-bash>git clone https://github.com/cjdelisle/cjdns.git cjdns\n  <span class=hljs-built_in>cd</span> cjdns\n  ./<span class=hljs-keyword>do</span>\n</code></pre>');
         done();
       });
     });

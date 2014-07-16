@@ -1,6 +1,6 @@
 {
   "name": "minimize",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "description": "Minimize HTML",
   "main": "./lib/minimize",
   "scripts": {
@@ -12,12 +12,12 @@
     "utile": "~0.2.1"
   },
   "devDependencies": {
-    "coveralls": "~2.8.0",
-    "mocha": "~1.18.0",
+    "coveralls": "~2.11.1",
+    "mocha": "~1.20.1",
     "mocha-lcov-reporter": "~0.0.1",
     "chai": "~1.9.0",
-    "istanbul": "~0.2.6",
-    "sinon": "~1.9.0",
+    "istanbul": "~0.3.0",
+    "sinon": "~1.10.3",
     "sinon-chai": "~2.5.0",
     "pre-commit": "~0.0.4"
   },

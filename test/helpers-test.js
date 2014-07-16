@@ -322,11 +322,14 @@ describe('Helpers', function () {
   describe('function text', function () {
     var text = 'some random text';
 
+    beforeEach(function () {
+      helpers.ancestor = [];
+      html.text.data = text;
+    });
+
     afterEach(function () {
       delete html.text.next;
       delete html.text.prev;
-      html.text.data = text;
-      helpers.ancestor = [];
     });
 
     it('trims whitespace', function () {

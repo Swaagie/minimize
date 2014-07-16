@@ -16,6 +16,7 @@
   "scripts": "<script type=text/javascript src=//use.typekit.net/gmp8svh.js></script> <script type=text/javascript>",
   "styles": "<style> .test { color: #FFF   }</style><style>.test { color: black }</style>",
   "br": "<p class=\"slide\">\n              <span>\n                <em>Does your organization have security or licensing restrictions?</em>\n              </span>\n\n              <br/><br/>\n              <span>\n                Your private npm registry makes managing them simple by giving you the power\n                to work with a blacklist and a whitelist of public npm packages.\n              </span>\n            </p>",
+  "pre": "<pre><code class=\"lang-bash\">git clone https://github.com/cjdelisle/cjdns.git cjdns\n  <span class=\"hljs-built_in\">cd</span> cjdns\n  ./<span class=\"hljs-keyword\">do</span>\n</code></pre>",
   "doctype": {
     "data": "!doctype html",
     "type": "directive",
