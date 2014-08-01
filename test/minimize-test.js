@@ -244,6 +244,13 @@ describe('Minimize', function () {
         done();
       });
     });
+
+    it('should add quotes around values containing single quotes', function (done) {
+      minimize.parse('<ng-include src="\'path/to/my/template.html\'"></ng-include>', function (error, result) {
+        expect(result).to.equal('<ng-include src="\'path/to/my/template.html\'"></ng-include>');
+        done();
+      });
+    });
   });
 
   describe('function traverse', function () {
