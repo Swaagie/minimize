@@ -123,10 +123,10 @@ describe('Helpers', function () {
 
     it('should retain empty schemantic and data attributes', function () {
       html.block.attribs = { 'data-type': '' };
-      expect(helpers.attributes(html.block)).to.be.equal(' data-type=""');
+      expect(helpers.attributes(html.block)).to.be.equal(' data-type');
       html.block.attribs = { 'itemscope': '' };
       expect(helpers.attributes(html.block)).to.be.equal(' itemscope');
-      expect(quote.callCount).to.be.equal(1);
+      expect(quote.callCount).to.be.equal(0);
     });
   });
 

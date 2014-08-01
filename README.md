@@ -4,7 +4,6 @@
 [npmimgurl]: https://badge.fury.io/js/minimize.png
 [coverage]: http://coveralls.io/repos/Moveo/minimize/badge.png?branch=master
 
-
 Minimize is a HTML minifier based on the node-htmlparser. This depedency will
 ensure output is solid and correct. Minimize is focussed on HTML5 and will not
 support older HTML drafts. It is not worth the effort and the web should move
