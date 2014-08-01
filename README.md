@@ -23,7 +23,7 @@ minification will be added in a future release.
 
 ## Upcoming in release 2.0
 
-- minification of inline javascript by [square](https://github.com/observing/square)
+- minification of inline javascript with uglify or similar
 - client side minification support
 
 ## Usage
