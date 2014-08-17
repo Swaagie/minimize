@@ -40,7 +40,8 @@ var Minimize = require('minimize')
       ssi: true,          // KEEP Server Side Includes (i.e. <!--#include virtual="../quote.txt" -->)
       conditionals: true, // KEEP conditional internet explorer comments
       spare: true,        // KEEP redundant attributes
-      quotes: true        // KEEP arbitrary quotes
+      quotes: true,       // KEEP arbitrary quotes
+      loose: true         // KEEP retain one whitespace
     });
 
 minimize.parse(content, function (error, data) {
