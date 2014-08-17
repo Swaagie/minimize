@@ -37,7 +37,7 @@ var Minimize = require('minimize')
       empty: true,        // KEEP empty attributes
       cdata: true,        // KEEP CDATA from scripts
       comments: true,     // KEEP comments
-      ssi: true,          // KEEP Server Side Includes (i.e. <!--#include virtual="../quote.txt" -->)
+      ssi: true,          // KEEP Server Side Includes
       conditionals: true, // KEEP conditional internet explorer comments
       spare: true,        // KEEP redundant attributes
       quotes: true,       // KEEP arbitrary quotes
@@ -106,6 +106,24 @@ minimize.parse(
 );
 ```
 
+**Server Side Includes (SSI)**
+
+Server side includes are special set of commands that are support by several
+web servers. The markup is very similar to regular HTML comments. Minimize can
+be configured to retain SSI comments.
+
+```javascript
+var Minimize = require('minimize')
+  , minimize = new Minimize({ ssi: true });
+
+minimize.parse(
+  '<!--#include virtual="../quote.txt" -->\n     <div class="slide nodejs">',
+  function (error, data) {
+    // data output: <!--#include virtual="../quote.txt" --><div class="slide nodejs">
+  }
+);
+```
+
 **Conditionals**
 
 Conditional comments only work in IE, and are thus excellently suited to give
@@ -157,6 +175,25 @@ minimize.parse(
   '<p class="paragraph" id="title">\n    Some content\n  </p>',
   function (error, data) {
     // data output: <p class="paragraph" id="title">Some content</p>
+  }
+);
+```
+
+**Loose**
+
+Minimize will only keep whitespaces in structural elements and remove all other
+redundant whitespaces. This option is useful if you need whitespace to keep the
+flow between text and input elements. Downside: whitespaces or newlines after
+block level elements will also have one trailing whitespace.
+
+```javascript
+var Minimize = require('minimize')
+  , minimize = new Minimize({ loose: true });
+
+minimize.parse(
+  '<h1>title</h1>  <p class="paragraph" id="title">\n  content\n  </p>    ',
+  function (error, data) {
+    // data output: <h1>title</h1> <p class="paragraph" id="title"> content </p> '
   }
 );
 ```
