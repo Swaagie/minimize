@@ -223,6 +223,22 @@ describe('Minimize', function () {
       });
     });
 
+    it('should be configurable to retain one whitespace between elements', function (done) {
+      var loose = new Minimize({ loose: true });
+      loose.parse(html.loose, function (error, result) {
+        expect(result).to.equal("<h1>title</h1> <form>Some text: <input type=text name=test></form>");
+        done();
+      });
+    });
+
+    it('should be configurable to retain one whitespace after elements', function (done) {
+      var loose = new Minimize({ loose: true });
+      loose.parse(html.looseext, function (error, result) {
+        expect(result).to.equal("<section><h1>title</h1> <span>small</span> <form>Some text: <input type=text name=test></form></section> ");
+        done();
+      });
+    });
+
     it('should always quote attributes that end with / regardless of options', function (done) {
       var quote = new Minimize({ quotes: false });
       quote.parse('<a href="#/">test</a>', function (error, result) {

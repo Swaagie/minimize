@@ -386,6 +386,16 @@ describe('Helpers', function () {
 
       expect(result).to.be.equal(text + ' ');
     });
+
+    it('retains one whitespace if configured losely', function () {
+      var helpers = new Helpers({ loose: true });
+
+      html.text.prev = html.inline;
+      html.text.data = '<span> block element  \n\n   </span>  ';
+      var result = helpers.text(html.text, '');
+
+      expect(result).to.be.equal('<span> block element </span> ');
+    });
   });
 
   describe('inline element list', function () {
