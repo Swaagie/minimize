@@ -106,6 +106,14 @@ describe('Minimize', function () {
       });
     });
 
+    it('should be configurable to retain multiline conditional IE comments', function (done) {
+      var commentable = new Minimize({ conditionals: true });
+      commentable.parse(html.iemultiline, function (error, result) {
+        expect(result).to.equal('<!--[if IE 10]>\n\nSpecial instructions for IE 10 here\n<![endif]--><div class=\"slide nodejs\"><h3>100% Node.js</h3></div>');
+        done();
+      });
+    });
+
     it('should be configurable to retain multiple conditional IE comments', function (done) {
       var commentable = new Minimize({ conditionals: true });
       commentable.parse(html.iemulti, function (error, result) {
