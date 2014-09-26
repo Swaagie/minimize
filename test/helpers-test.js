@@ -404,7 +404,7 @@ describe('Helpers', function () {
     });
 
     it('has all required elements', function () {
-      expect(list.inline.length).to.be.equal(21);
+      expect(list.inline.length).to.be.equal(24);
     });
   });
 
