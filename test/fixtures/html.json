@@ -20,6 +20,7 @@
   "pre": "<pre><code class=\"lang-bash\">git clone https://github.com/cjdelisle/cjdns.git cjdns\n  <span class=\"hljs-built_in\">cd</span> cjdns\n  ./<span class=\"hljs-keyword\">do</span>\n</code></pre>",
   "loose": "<h1>title</h1>  <form>Some text: <input type=\"text\" name=\"test\"></form>",
   "looseext": "<section><h1>title</h1>  <span>small</span>  <form>Some text: <input type=text name=test></form></section>     ",
+  "inlineelements": "<form><label>Last:</label>  <input>,  <label>First:</label> <input>  <button>Submit</button></form>",
   "doctype": {
     "data": "!doctype html",
     "type": "directive",

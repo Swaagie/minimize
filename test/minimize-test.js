@@ -247,6 +247,13 @@ describe('Minimize', function () {
       });
     });
 
+    it('should retain one whitespace between inline elements', function (done) {
+      minimize.parse(html.inlineelements, function (error, result) {
+        expect(result).to.equal("<form><label>Last:</label> <input>, <label>First:</label> <input> <button>Submit</button></form>");
+        done();
+      });
+    });
+
     it('should always quote attributes that end with / regardless of options', function (done) {
       var quote = new Minimize({ quotes: false });
       quote.parse('<a href="#/">test</a>', function (error, result) {
