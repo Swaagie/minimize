@@ -242,7 +242,7 @@ describe('Minimize', function () {
     it('should be configurable to retain one whitespace after elements', function (done) {
       var loose = new Minimize({ loose: true });
       loose.parse(html.looseext, function (error, result) {
-        expect(result).to.equal("<section><h1>title</h1> <span>small</span> <form>Some text: <input type=text name=test></form></section> ");
+        expect(result).to.equal("<section><h1>title</h1> <span>small</span> <form><label>Some text:</label> <input type=text name=test> <button>Button</button></form></section> ");
         done();
       });
     });
