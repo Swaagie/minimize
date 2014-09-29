@@ -19,7 +19,7 @@
   "br": "<p class=\"slide\">\n              <span>\n                <em>Does your organization have security or licensing restrictions?</em>\n              </span>\n\n              <br/><br/>\n              <span>\n                Your private npm registry makes managing them simple by giving you the power\n                to work with a blacklist and a whitelist of public npm packages.\n              </span>\n            </p>",
   "pre": "<pre><code class=\"lang-bash\">git clone https://github.com/cjdelisle/cjdns.git cjdns\n  <span class=\"hljs-built_in\">cd</span> cjdns\n  ./<span class=\"hljs-keyword\">do</span>\n</code></pre>",
   "loose": "<h1>title</h1>  <form>Some text: <input type=\"text\" name=\"test\"></form>",
-  "looseext": "<section><h1>title</h1>  <span>small</span>  <form>Some text: <input type=text name=test></form></section>     ",
+  "looseext": "<section><h1>title</h1>  <span>small</span>  <form><label>Some text:</label> <input type=text name=test>    <button>Button</button></form></section>     ",
   "inlineelements": "<form><label>Last:</label>  <input>,  <label>First:</label> <input>  <button>Submit</button></form>",
   "doctype": {
     "data": "!doctype html",
