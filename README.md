@@ -1,9 +1,9 @@
 # HTML minifier
 
-[![Version npm][version]](http://browsenpm.org/package/minimize)[![Build Status][build]](https://travis-ci.org/moveo/minimize)[![Dependencies][david]](https://david-dm.org/moveo/minimize)[![Coverage Status][cover]](https://coveralls.io/r/moveo/minimize?branch=master)
+[![Version npm][version]](http://browsenpm.org/package/minimize)[![Build Status][build]](https://travis-ci.org/Moveo/minimize)[![Dependencies][david]](https://david-dm.org/moveo/minimize)[![Coverage Status][cover]](https://coveralls.io/r/moveo/minimize?branch=master)
 
 [version]: http://img.shields.io/npm/v/minimize.svg?style=flat-square
-[build]: http://img.shields.io/travis/moveo/minimize/master.svg?style=flat-square
+[build]: http://img.shields.io/travis/Moveo/minimize/master.svg?style=flat-square
 [david]: https://img.shields.io/david/moveo/minimize.svg?style=flat-square
 [cover]: http://img.shields.io/coveralls/moveo/minimize/master.svg?style=flat-square
 
