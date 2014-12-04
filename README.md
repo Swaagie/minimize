@@ -1,8 +1,11 @@
-# HTML minifier [![Build Status][status]](https://travis-ci.org/Moveo/minimize) [![NPM version][npmimgurl]](http://npmjs.org/package/minimize) [![Coverage Status][coverage]](http://coveralls.io/r/Moveo/minimize?branch=master)
+# HTML minifier
 
-[status]: https://travis-ci.org/Moveo/minimize.png?branch=master
-[npmimgurl]: https://badge.fury.io/js/minimize.png
-[coverage]: http://coveralls.io/repos/Moveo/minimize/badge.png?branch=master
+[![Version npm][version]](http://browsenpm.org/package/minimize)[![Build Status][build]](https://travis-ci.org/moveo/minimize)[![Dependencies][david]](https://david-dm.org/moveo/minimize)[![Coverage Status][cover]](https://coveralls.io/r/moveo/minimize?branch=master)
+
+[version]: http://img.shields.io/npm/v/minimize.svg?style=flat-square
+[build]: http://img.shields.io/travis/moveo/minimize/master.svg?style=flat-square
+[david]: https://img.shields.io/david/moveo/minimize.svg?style=flat-square
+[cover]: http://img.shields.io/coveralls/moveo/minimize/master.svg?style=flat-square
 
 Minimize is a HTML minifier based on the node-htmlparser. This depedency will
 ensure output is solid and correct. Minimize is focussed on HTML5 and will not
