@@ -8,6 +8,8 @@
     "coverage": "NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js || true && rm -rf ./coverage"
   },
   "dependencies": {
+    "argh": "0.1.x",
+    "cli-color": "0.3.x",
     "htmlparser2": "3.8.x",
     "utile": "0.3.x"
   },
