@@ -5,7 +5,7 @@
 [version]: http://img.shields.io/npm/v/minimize.svg?style=flat-square
 [build]: http://img.shields.io/travis/Moveo/minimize/master.svg?style=flat-square
 [david]: https://img.shields.io/david/moveo/minimize.svg?style=flat-square
-[cover]: http://img.shields.io/coveralls/moveo/minimize/master.svg?style=flat-square
+[cover]: http://img.shields.io/coveralls/Moveo/minimize/master.svg?style=flat-square
 
 Minimize is a HTML minifier based on the node-htmlparser. This depedency will
 ensure output is solid and correct. Minimize is focussed on HTML5 and will not
