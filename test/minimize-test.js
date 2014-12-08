@@ -173,9 +173,16 @@ describe('Minimize', function () {
       });
     });
 
+    it('should reduce multiple white spaces and newlines to a single white space inside attribute values', function (done) {
+      minimize.parse(html.spacing, function (error, result) {
+        expect(result).to.equal("<strong>npm</strong>. You don't have to worry about installing npm since it comes bundled with Node.js.<pre class=copy>$ <span>npm install jitsu -g</span><a href=#><s class=ss-layers role=presentation></s> copy</a></pre>");
+        done();
+      });
+    });
+
     it('should not prepend spaces between inline elements if not required', function (done) {
-      minimize.parse(html.scripts, function (error, result) {
-        expect(result).to.equal("<script type=text/javascript src=//use.typekit.net/gmp8svh.js></script><script type=text/javascript></script>");
+      minimize.parse(html.multilineattribs, function (error, result) {
+        expect(result).to.equal('<h1 class="big title">minimize</h1>');
         done();
       });
     });

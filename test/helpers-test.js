@@ -128,6 +128,16 @@ describe('Helpers', function () {
       expect(helpers.attributes(html.block)).to.be.equal(' itemscope');
       expect(quote.callCount).to.be.equal(0);
     });
+
+    it('should remove mutliple white spaces and newlines in attribute values', function () {
+      html.block.attribs = {
+        'class': 'some value \n\r  with mutliple   \n spaces and \r    newlines'
+      };
+
+      expect(helpers.attributes(html.block)).to.equal(
+        ' class="some value with mutliple spaces and newlines"'
+      );
+    });
   });
 
   describe('function quote', function () {

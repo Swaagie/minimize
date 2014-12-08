@@ -21,6 +21,7 @@
   "loose": "<h1>title</h1>  <form>Some text: <input type=\"text\" name=\"test\"></form>",
   "looseext": "<section><h1>title</h1>  <span>small</span>  <form><label>Some text:</label> <input type=text name=test>    <button>Button</button></form></section>     ",
   "inlineelements": "<form><label>Last:</label>  <input>,  <label>First:</label> <input>  <button>Submit</button></form>",
+  "multilineattribs": "<h1 class=\"\n    big\n    title\n\">minimize</h1>",
   "doctype": {
     "data": "!doctype html",
     "type": "directive",
@@ -66,6 +67,9 @@
     "class": "some classes with spaces",
     "href": "http://without.params.com",
     "hrefparam": "http://with.params.com?test=test"
+  },
+  "bigattribs": {
+    "class": "some value \n\r  with mutliple   \n spaces and \r    newlines"
   },
   "script": {
     "type": "script",
