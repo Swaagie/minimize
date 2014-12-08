@@ -17,12 +17,9 @@ minification will be added in a future release.
 
 - fast and stable html minification
 - highly configurable
+- CLI interface usable with stdin and files
 - can distinguish conditional IE comments
 - build on the foundations of htmlparser2
-
-## Upcoming in release 1.0
-
-- command line usage support
 
 ## Upcoming in release 2.0
 
@@ -44,7 +41,7 @@ var Minimize = require('minimize')
       conditionals: true, // KEEP conditional internet explorer comments
       spare: true,        // KEEP redundant attributes
       quotes: true,       // KEEP arbitrary quotes
-      loose: true         // KEEP retain one whitespace
+      loose: true         // KEEP one whitespace
     });
 
 minimize.parse(content, function (error, data) {
