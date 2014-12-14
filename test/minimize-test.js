@@ -43,7 +43,7 @@ describe('Minimize', function () {
     });
   });
 
-  describe('function minifier', function () {
+  describe('#minifier', function () {
     it('throws an error if HTML parsing failed', function () {
       function err () {
         minimize.minifier('some error', []);
@@ -291,7 +291,7 @@ describe('Minimize', function () {
     });
   });
 
-  describe('function traverse', function () {
+  describe('#traverse', function () {
     it('should traverse the DOM object and return string', function () {
       var result = minimize.traverse([html.element], '');
 
@@ -302,7 +302,7 @@ describe('Minimize', function () {
     });
   });
 
-  describe('function walk', function () {
+  describe('#walk', function () {
     it('should walk once if there are no children in the element', function () {
       var result = minimize.walk('', html.inline);
 
@@ -319,7 +319,7 @@ describe('Minimize', function () {
   });
 
 
-  describe('function walk', function () {
+  describe('#walk', function () {
     it('should throw an error if no callback is provided', function () {
       function err () {
         minimize.parse(html.content, null);

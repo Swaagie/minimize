@@ -50,6 +50,11 @@ describe('Helpers', function () {
       expect(helpers.isInline).to.be.a('function');
     });
 
+    it('which has a function comment', function () {
+      expect(helpers).to.have.property('comment');
+      expect(helpers.comment).to.be.a('function');
+    });
+
     it('which has an array named node', function () {
       expect(list).to.have.property('node');
       expect(list.node).to.be.an('array');
@@ -81,13 +86,13 @@ describe('Helpers', function () {
     });
   });
 
-  describe('function directive', function () {
+  describe('#directive', function () {
     it('returns a string wrapped with < >', function () {
       expect(helpers.directive(html.doctype)).to.be.equal('<!doctype html>');
     });
   });
 
-  describe('function attributes', function () {
+  describe('#attributes', function () {
     var quote;
 
     beforeEach(function () {
@@ -140,7 +145,7 @@ describe('Helpers', function () {
     });
   });
 
-  describe('function quote', function () {
+  describe('#quote', function () {
     var quote;
 
     beforeEach(function () {
@@ -175,7 +180,7 @@ describe('Helpers', function () {
     });
   });
 
-  describe('function tag', function () {
+  describe('#tag', function () {
     var structure, attr;
 
     beforeEach(function () {
@@ -210,7 +215,7 @@ describe('Helpers', function () {
     });
   });
 
-  describe('function isInline', function () {
+  describe('#isInline', function () {
     it('returns true if inline element <strong>', function () {
       expect(helpers.isInline(html.inline)).to.be.true;
     });
@@ -224,7 +229,7 @@ describe('Helpers', function () {
     });
   });
 
-  describe('function close', function () {
+  describe('#close', function () {
     var structure;
 
     beforeEach(function () {
@@ -262,13 +267,13 @@ describe('Helpers', function () {
     });
   });
 
-  describe('function isStyle', function () {
+  describe('#isStyle', function () {
     it('returns true if an element is of type style', function () {
       expect(helpers.isStyle(html.style)).to.be.true;
     });
   });
 
-  describe('function isJS', function () {
+  describe('#isJS', function () {
     afterEach(function () {
       html.script.name = 'script';
       html.script.attribs = { type: 'text/javascript' }
@@ -302,7 +307,7 @@ describe('Helpers', function () {
     });
   });
 
-  describe('function structure', function () {
+  describe('#structure', function () {
     it('returns false if element is text', function () {
       expect(helpers.structure(html.text)).to.be.false;
     });
@@ -329,7 +334,7 @@ describe('Helpers', function () {
     });
   });
 
-  describe('function text', function () {
+  describe('#text', function () {
     var text = 'some random text';
 
     beforeEach(function () {
@@ -405,51 +410,6 @@ describe('Helpers', function () {
       var result = helpers.text(html.text, '');
 
       expect(result).to.be.equal('<span> block element </span> ');
-    });
-  });
-
-  describe('inline element list', function () {
-    it('is an array', function () {
-      expect(list.inline).to.be.an('array');
-    });
-
-    it('has all required elements', function () {
-      expect(list.inline.length).to.be.equal(24);
-    });
-  });
-
-  describe('singular element list', function () {
-    it('is an array', function () {
-      expect(list.singular).to.be.an('array');
-    });
-
-    it('has all required elements', function () {
-      expect(list.singular.length).to.be.equal(13);
-    });
-  });
-
-  describe('structural collection', function () {
-    it('matches pre, textarea or code', function () {
-      expect(!!~list.structural.indexOf('pre')).to.be.true;
-      expect(!!~list.structural.indexOf('textarea')).to.be.true;
-      expect(!!~list.structural.indexOf('code')).to.be.true;
-    });
-  });
-
-  describe('node collection', function () {
-    it('matches tag, style or script', function () {
-      expect(!!~list.node.indexOf('tag')).to.be.true;
-      expect(!!~list.node.indexOf('script')).to.be.true;
-      expect(!!~list.node.indexOf('style')).to.be.true;
-    });
-  });
-
-  describe('redundant collection', function () {
-    it('matches boolean attributes', function () {
-      expect(!!~list.redundant.indexOf('disabled')).to.be.true;
-      expect(!!~list.redundant.indexOf('multiple')).to.be.true;
-      expect(!!~list.redundant.indexOf('muted')).to.be.true;
-      expect(!!~list.redundant.indexOf('class')).to.be.false;
     });
   });
 
