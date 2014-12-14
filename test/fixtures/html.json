@@ -22,6 +22,7 @@
   "looseext": "<section><h1>title</h1>  <span>small</span>  <form><label>Some text:</label> <input type=text name=test>    <button>Button</button></form></section>     ",
   "inlineelements": "<form><label>Last:</label>  <input>,  <label>First:</label> <input>  <button>Submit</button></form>",
   "multilineattribs": "<h1 class=\"\n    big\n    title\n\">minimize</h1>",
+  "complexconditional": "<head><!--[if lt IE 9]>      <html class=\"no-js lt-ie9\"> <![endif]--><!--[if gt IE 8]><!--> <link rel=\"some.file.com\"> <!--<![endif]--></head>",
   "doctype": {
     "data": "!doctype html",
     "type": "directive",

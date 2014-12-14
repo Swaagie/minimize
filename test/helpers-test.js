@@ -334,6 +334,20 @@ describe('Helpers', function () {
     });
   });
 
+  describe('#comment', function () {
+    it('surrounds text with comment directives', function () {
+      var local = new Helpers({ comments: true });
+      expect(local.comment({ data: 'test' })).to.be.a('string');
+      expect(local.comment({ data: 'test' })).to.equal('<!--test-->');
+    });
+
+    it('returns empty string by default', function () {
+      var result = helpers.comment({ data: 'test' });
+      expect(result).to.be.a('string');
+      expect(result).to.equal('');
+    });
+  });
+
   describe('#text', function () {
     var text = 'some random text';
 
