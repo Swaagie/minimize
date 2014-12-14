@@ -77,7 +77,7 @@ describe('Minimize', function () {
     it('should be configurable to retain comments', function (done) {
       var commentable = new Minimize({ comments: true });
       commentable.parse(html.comment, function (error, result) {
-        expect(result).to.equal('<!-- some HTML comment --><!--#include virtual=\"/header.html\" --><div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');
+        expect(result).to.equal('<!--some HTML comment--><!--#include virtual=\"/header.html\"--><div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');
         done();
       });
     });
@@ -85,7 +85,7 @@ describe('Minimize', function () {
     it('should be configurable to retain server side includes', function (done) {
       var commentable = new Minimize({ ssi: true });
       commentable.parse(html.ssi, function (error, result) {
-        expect(result).to.equal('<!--#include virtual=\"/header.html\" --><div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');
+        expect(result).to.equal('<!--#include virtual=\"/header.html\"--><div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');
         done();
       });
     });
@@ -93,7 +93,7 @@ describe('Minimize', function () {
     it('should be configurable to retain multiple server side includes', function (done) {
       var commentable = new Minimize({ ssi: true });
       commentable.parse(html.ssimulti, function (error, result) {
-        expect(result).to.equal('<!--#include virtual=\"/head.html\" --><!--#include virtual=\"/header.html\" --><div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');
+        expect(result).to.equal('<!--#include virtual=\"/head.html\"--><!--#include virtual=\"/header.html\"--><div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');
         done();
       });
     });
@@ -117,7 +117,7 @@ describe('Minimize', function () {
     it('should be configurable to retain multiline conditional IE comments', function (done) {
       var commentable = new Minimize({ conditionals: true });
       commentable.parse(html.iemultiline, function (error, result) {
-        expect(result).to.equal('<!--[if IE 10]> Special instructions for IE 10 here <![endif]--><div class=\"slide nodejs\"><h3>100% Node.js</h3></div>');
+        expect(result).to.equal('<!--[if IE 10]>\n\nSpecial instructions for IE 10 here\n<![endif]--><div class=\"slide nodejs\"><h3>100% Node.js</h3></div>');
         done();
       });
     });
