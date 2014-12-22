@@ -13,13 +13,17 @@ support older HTML drafts. It is not worth the effort and the web should move
 forward. Currently, HTML minifier is only usuable server side. Client side
 minification will be added in a future release.
 
+**Minimize does not correctly parse inline PHP or raw template files. Simply
+because this is not valid HTML and never will be either. The output of the 
+templaters should be parsed and minified.**
+
 ## Features
 
-- fast and stable html minification
+- fast and stable HTML minification (no inline PHP or templates)
 - highly configurable
 - CLI interface usable with stdin and files
-- can distinguish conditional IE comments
-- build on the foundations of htmlparser2
+- can distinguish conditional IE comments and/or SSI
+- build on the foundations of [htmlparser2][fb55]
 
 ## Upcoming in release 2.0
 
