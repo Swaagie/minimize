@@ -55,4 +55,24 @@ describe('Element lists', function () {
       expect(!!~list.redundant.indexOf('class')).to.be.false;
     });
   });
+
+  describe('attributes collection', function () {
+    it('is an object', function () {
+      expect(list.attributes).to.be.an('object');
+    });
+
+    it('maps attributes to elements', function () {
+      expect(Object.keys(list.attributes).length).to.equal(97);
+      expect(list.attributes.high).to.be.an('string');
+      expect(list.attributes.high).to.equal('meter');
+      expect(list.attributes.disabled).to.be.an('array');
+      expect(list.attributes.disabled).to.include('input');
+      expect(list.attributes.disabled).to.include('textarea');
+    });
+
+    it('has no global attributes', function () {
+      expect(list.attributes).to.not.have.property('id');
+      expect(list.attributes).to.not.have.property('hidden');
+    });
+  });
 });
