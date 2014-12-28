@@ -114,16 +114,19 @@ describe('Helpers', function () {
       expect(quote.callCount).to.be.equal(0);
     });
 
-    it('should remove attributes that are empty, not boolean and have no semantic value', function () {
+    it('should remove attributes that are empty, not boolean and are allowed on the element', function () {
       html.block.attribs = { disabled: 'disabled' };
-      expect(helpers.attributes(html.block)).to.be.equal(' disabled');
+      expect(helpers.attributes(html.block)).to.be.equal(' disabled=disabled');
       html.block.attribs = { autofocus: '' };
-      expect(helpers.attributes(html.block)).to.be.equal(' autofocus');
+      expect(helpers.attributes(html.block)).to.be.equal(' autofocus=""');
       html.block.attribs = { loop: 'random' };
-      expect(helpers.attributes(html.block)).to.be.equal(' loop');
-      html.block.attribs = { muted: 'true' };
-      expect(helpers.attributes(html.block)).to.be.equal(' muted');
-      expect(quote.callCount).to.be.equal(0);
+      expect(helpers.attributes(html.block)).to.not.equal(' loop');
+      expect(helpers.attributes(html.block)).to.be.equal(' loop=random');
+      html.block.attribs = { class: 'true' };
+      expect(helpers.attributes(html.block)).to.be.equal(' class=true');
+      html.block.attribs = { hidden: 'true' };
+      expect(helpers.attributes(html.block)).to.be.equal(' hidden');
+      expect(quote.callCount).to.be.equal(5);
     });
 
     it('should retain empty schemantic and data attributes', function () {

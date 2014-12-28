@@ -62,7 +62,7 @@ describe('Element lists', function () {
     });
 
     it('maps attributes to elements', function () {
-      expect(Object.keys(list.attributes).length).to.equal(97);
+      expect(Object.keys(list.attributes).length).to.equal(113);
       expect(list.attributes.high).to.be.an('string');
       expect(list.attributes.high).to.equal('meter');
       expect(list.attributes.disabled).to.be.an('array');
@@ -70,9 +70,9 @@ describe('Element lists', function () {
       expect(list.attributes.disabled).to.include('textarea');
     });
 
-    it('has no global attributes', function () {
-      expect(list.attributes).to.not.have.property('id');
-      expect(list.attributes).to.not.have.property('hidden');
+    it('has global attributes', function () {
+      expect(list.attributes).to.have.property('id', '*');
+      expect(list.attributes).to.have.property('hidden', '*');
     });
   });
 });

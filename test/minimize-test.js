@@ -133,7 +133,7 @@ describe('Minimize', function () {
     it('should be configurable to retain empty attributes', function (done) {
       var empty = new Minimize({ empty: true });
       empty.parse(html.empty, function (error, result) {
-        expect(result).to.equal('<h1 class="slide nodejs">a</h1><h2 name>b</h2><h3 id=lol>c</h3><h4 disabled>d</h4><h5 autofocus>e</h5><h6 itemscope>f</h6>');
+        expect(result).to.equal('<h1 class="slide nodejs">a</h1><h2>b</h2><h3 id=lol>c</h3><h4>d</h4><h5 hidden>e</h5><h6 itemscope>f</h6>');
         done();
       });
     });
@@ -141,7 +141,7 @@ describe('Minimize', function () {
     it('should be configurable to retain spare attributes', function (done) {
       var spare = new Minimize({ spare: true });
       spare.parse(html.empty, function (error, result) {
-        expect(result).to.equal('<h1 class="slide nodejs">a</h1><h2>b</h2><h3 id=lol>c</h3><h4 disabled=disabled>d</h4><h5 autofocus=true>e</h5><h6 itemscope="">f</h6>');
+        expect(result).to.equal('<h1 class="slide nodejs">a</h1><h2>b</h2><h3 id=lol>c</h3><h4>d</h4><h5 hidden=hidden>e</h5><h6 itemscope="">f</h6>');
         done();
       });
     });
@@ -232,8 +232,8 @@ describe('Minimize', function () {
 
     it('should not give empty attributes empty values if keep attributes option is set', function (done) {
       var empty = new Minimize({ empty: true });
-      empty.parse('<div translate></div>', function (error, result) {
-        expect(result).to.equal('<div translate></div>');
+      empty.parse('<script language></script>', function (error, result) {
+        expect(result).to.equal('<script language></script>');
         done();
       });
     });
