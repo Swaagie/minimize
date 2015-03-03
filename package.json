@@ -1,8 +1,11 @@
 {
   "name": "minimize",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Minimize HTML",
   "main": "./lib/minimize",
+  "bin": {
+    "minimize": "./bin/minimize"
+  },
   "scripts": {
     "test": "NODE_ENV=test mocha $(find test -name '*.test.js')",
     "coverage": "NODE_ENV=test istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js || true && rm -rf ./coverage"
