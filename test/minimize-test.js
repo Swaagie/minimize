@@ -32,11 +32,6 @@ describe('Minimize', function () {
       expect(minimize.parse).to.be.a('function');
     });
 
-    it('which has walk', function () {
-      expect(minimize).to.have.property('walk');
-      expect(minimize.walk).to.be.a('function');
-    });
-
     it('which has htmlparser', function () {
       expect(minimize).to.have.property('htmlparser');
       expect(minimize.htmlparser).to.be.an('object');

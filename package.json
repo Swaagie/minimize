@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "argh": "0.1.x",
+    "diagnostics": "0.0.x",
+    "emits": "1.0.x",
     "cli-color": "0.3.x",
     "htmlparser2": "3.8.x",
     "utile": "0.3.x"
