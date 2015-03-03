@@ -7,8 +7,10 @@
     "minimize": "./bin/minimize"
   },
   "scripts": {
-    "test": "NODE_ENV=test mocha $(find test -name '*.test.js')",
-    "coverage": "NODE_ENV=test istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js || true && rm -rf ./coverage"
+    "test": "mocha $(find test -name '*.test.js')",
+    "watch": "mocha --watch $(find test -name '*.test.js')",
+    "coverage": "istanbul cover ./node_modules/.bin/_mocha -- $(find test -name '*.test.js')",
+    "test-travis": "istanbul cover node_modules/.bin/_mocha --report lcovonly -- $(find test -name '*.test.js')"
   },
   "dependencies": {
     "argh": "0.1.x",
@@ -17,9 +19,7 @@
     "utile": "0.3.x"
   },
   "devDependencies": {
-    "coveralls": "2.11.x",
     "mocha": "2.0.x",
-    "mocha-lcov-reporter": "0.0.x",
     "chai": "1.10.x",
     "istanbul": "0.3.x",
     "sinon": "1.12.x",
