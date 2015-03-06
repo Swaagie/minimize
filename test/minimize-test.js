@@ -346,4 +346,76 @@ describe('Minimize', function () {
       parser.restore();
     });
   });
+
+  describe('#use', function () {
+    it('is a function', function () {
+      expect(minimize.use).is.a('function');
+      expect(minimize.use.length).to.equal(2);
+    });
+
+    it('has optional name parameter', function () {
+      minimize.use('nameless', {
+        element: function noop() {}
+      });
+
+      expect(minimize.plugins).to.have.property('nameless');
+    });
+
+    it('throws an error if the plugin has no name', function () {
+      function throws() {
+        minimize.use(void 0, {
+          element: function noop() {}
+        });
+      }
+
+      expect(throws).to.throw(Error);
+      expect(throws).to.throw('Plugin should be specified with a name.');
+    });
+
+    it('throws an error if the plugin name is not a string', function () {
+      function throws() {
+        minimize.use(12, {
+          server: function noop() {}
+        });
+      }
+
+      expect(throws).to.throw(Error);
+      expect(throws).to.throw('Plugin names should be a string.');
+    });
+
+    it('throws an error if the plugin is no object or string', function () {
+      function throws() {
+        minimize.use('test', 12);
+      }
+
+      expect(throws).to.throw(Error);
+      expect(throws).to.throw('Plugin should be an object or function.');
+    });
+
+    it('throws an error if the plugin is redefined with the same name', function () {
+      function throws() {
+        minimize.use({ name: 'test', element: function noop() {}});
+        minimize.use({ name: 'test', element: function noop() {}});
+      }
+
+      expect(throws).to.throw(Error);
+      expect(throws).to.throw('The plugin name was already defined.');
+    });
+
+    it('throws an error if the plugin has no element function', function () {
+      function throws() {
+        minimize.use({ name: 'test'});
+      }
+
+      expect(throws).to.throw(Error);
+      expect(throws).to.throw('The plugin is missing an element method to execute.');
+    });
+
+    it('reads plugins from file', function () {
+      minimize.use('fromfile', __dirname +'/fixtures/plugin');
+
+      expect(minimize.plugins).to.have.property('fromfile');
+      expect(minimize.plugins.fromfile).to.have.property('element');
+    });
+  });
 });
