@@ -32,11 +32,6 @@ describe('Minimize', function () {
       expect(minimize.parse).to.be.a('function');
     });
 
-    it('which has walk', function () {
-      expect(minimize).to.have.property('walk');
-      expect(minimize.walk).to.be.a('function');
-    });
-
     it('which has htmlparser', function () {
       expect(minimize).to.have.property('htmlparser');
       expect(minimize.htmlparser).to.be.an('object');
@@ -52,19 +47,27 @@ describe('Minimize', function () {
       expect(err).throws('Minifier failed to parse DOM');
     });
 
-    it('should start traversing the DOM as soon as HTML parser is ready', function () {
+    it('should start traversing the DOM as soon as HTML parser is ready', function (done) {
       var emit = sinon.spy(minimize, 'emit');
 
-      minimize.minifier(null, []);
-      expect(emit).to.be.calledOnce;
+      minimize.parse('', function () {
+        expect(emit).to.be.calledTwice;
 
-      var result = emit.getCall(0).args;
-      expect(result).to.be.an('array');
-      expect(result[0]).to.be.equal('parsed');
-      expect(result[1]).to.be.equal(null);
-      expect(result[2]).to.be.equal('');
+        var first = emit.getCall(0).args;
+        expect(first).to.be.an('array');
+        expect(first[0]).to.be.equal('read');
+        expect(first[1]).to.be.equal(null);
+        expect(first[2]).to.be.an('array');
 
-      emit.restore();
+        var second = emit.getCall(1).args;
+        expect(second).to.be.an('array');
+        expect(second[0]).to.be.equal('parsed');
+        expect(second[1]).to.be.equal(undefined);
+        expect(second[2]).to.be.equal('');
+
+        emit.restore();
+        done();
+      });
     });
 
     it('should handle inline flow properly', function (done) {
@@ -297,37 +300,76 @@ describe('Minimize', function () {
         done();
       });
     });
+
+    it('has the ability to use plugins to alter elements', function (done) {
+      var pluggable = new Minimize({ plugins: [{
+        id: 'test',
+        name: 'em',
+        element: function element(node, next) {
+          if (node.name === 'em') delete node.children;
+          next();
+        }
+      }]});
+
+      pluggable.parse(html.br, function (error, result) {
+        expect(result).to.equal("<p class=slide><span><em></em></span><br><br><span>Your private npm registry makes managing them simple by giving you the power to work with a blacklist and a whitelist of public npm packages.</span></p>");
+        done();
+      });
+    });
+
+    it('runs multiple plugins in order', function (done) {
+      var pluggable = new Minimize({ plugins: [{
+        id: 'first',
+        name: 'em',
+        element: function element(node, next) {
+          if (node.name === 'em') node.children[0].data = 'first';
+          next();
+        }
+      }, {
+        id: 'second',
+        name: 'em',
+        element: function element(node, next) {
+          if (node.name === 'em') node.children[0].data = 'second';
+          next();
+        }
+      }]});
+
+      pluggable.parse(html.br, function (error, result) {
+        expect(result).to.equal("<p class=slide><span><em>second</em></span><br><br><span>Your private npm registry makes managing them simple by giving you the power to work with a blacklist and a whitelist of public npm packages.</span></p>");
+        done();
+      });
+    });
+
+    it('passes the error of any plugins', function (done) {
+      var pluggable = new Minimize({ plugins: [{
+        id: 'test',
+        element: function element(node, next) {
+          next(new Error('failed to run the plugin'));
+        }
+      }]});
+
+      pluggable.parse(html.br, function (error, result) {
+        expect(error).to.be.instanceof(Error);
+        expect(error.message).to.equal('failed to run the plugin');
+        done();
+      });
+    });
   });
 
   describe('#traverse', function () {
-    it('should traverse the DOM object and return string', function () {
-      var result = minimize.traverse([html.element], '');
+    it('should traverse the DOM object and return string', function (done) {
+      minimize.traverse([html.element], '', function(error, result) {
+        expect(result).to.be.a('string');
+        expect(result).to.be.equal(
+          '<html class=no-js><head></head><body class=container></body></html>'
+        );
 
-      expect(result).to.be.a('string');
-      expect(result).to.be.equal(
-        '<html class=no-js><head></head><body class=container></body></html>'
-      );
+        done();
+      });
     });
   });
 
-  describe('#walk', function () {
-    it('should walk once if there are no children in the element', function () {
-      var result = minimize.walk('', html.inline);
-
-      expect(result).to.be.equal('<strong></strong>');
-    });
-
-    it('should traverse children and insert data', function () {
-      var result = minimize.walk('', html.element);
-
-      expect(result).to.be.equal(
-        '<html class=no-js><head></head><body class=container></body></html>'
-      );
-    });
-  });
-
-
-  describe('#walk', function () {
+  describe('#parse', function () {
     it('should throw an error if no callback is provided', function () {
       function err () {
         minimize.parse(html.content, null);
@@ -341,9 +383,9 @@ describe('Minimize', function () {
       var once = sinon.spy(minimize, 'once');
 
       minimize.parse(html.content, fn);
-      expect(once).to.be.calledOnce;
+      expect(once).to.be.calledTwice;
 
-      var result = once.getCall(0).args;
+      var result = once.getCall(1).args;
       expect(result).to.be.an('array');
       expect(result[0]).to.be.equal('parsed');
       expect(result[1]).to.be.equal(fn);
@@ -356,6 +398,103 @@ describe('Minimize', function () {
 
       minimize.parse(html.content, function () {});
       parser.restore();
+    });
+  });
+
+  describe('#use', function () {
+    it('is a function', function () {
+      expect(minimize.use).is.a('function');
+      expect(minimize.use.length).to.equal(2);
+    });
+
+    it('has optional id parameter', function () {
+      minimize.use('nameless', {
+        element: function noop() {}
+      });
+
+      expect(minimize.plugins).to.have.property('nameless');
+    });
+
+    it('throws an error if the plugin has no id', function () {
+      function throws() {
+        minimize.use(void 0, {
+          element: function noop() {}
+        });
+      }
+
+      expect(throws).to.throw(Error);
+      expect(throws).to.throw('Plugin should be specified with an id.');
+    });
+
+    it('throws an error if the plugin id is not a string', function () {
+      function throws() {
+        minimize.use(12, {
+          element: function noop() {}
+        });
+      }
+
+      expect(throws).to.throw(Error);
+      expect(throws).to.throw('Plugin id should be a string.');
+    });
+
+    it('throws an error if the plugin is no object or string', function () {
+      function throws() {
+        minimize.use('test', 12);
+      }
+
+      expect(throws).to.throw(Error);
+      expect(throws).to.throw('Plugin should be an object or function.');
+    });
+
+    it('throws an error if the plugin is redefined with the same id', function () {
+      function throws() {
+        minimize.use({ id: 'test', element: function noop() {}});
+        minimize.use({ id: 'test', element: function noop() {}});
+      }
+
+      expect(throws).to.throw(Error);
+      expect(throws).to.throw('The plugin name was already defined.');
+    });
+
+    it('throws an error if the plugin has no element function', function () {
+      function throws() {
+        minimize.use({ id: 'test'});
+      }
+
+      expect(throws).to.throw(Error);
+      expect(throws).to.throw('The plugin is missing an element method to execute.');
+    });
+
+    it('reads plugins from file', function () {
+      minimize.use('fromfile', __dirname +'/fixtures/plugin');
+
+      expect(minimize.plugins).to.have.property('fromfile');
+      expect(minimize.plugins.fromfile).to.have.property('element');
+    });
+  });
+
+  describe('.plug', function () {
+    it('is a function', function () {
+      expect(minimize.plug).is.a('function');
+      expect(minimize.plug.length).to.equal(1);
+    });
+
+    it('uses the provided plugins', function () {
+      var plugins = [{
+        id: 'car',
+        element: function noop() {}
+      }, {
+        id: 'bike',
+        element: function noop() {}
+      }];
+
+      minimize.plug(plugins);
+
+      expect(minimize.plugins).to.be.an('object');
+      expect(minimize.plugins).to.have.property('car');
+      expect(minimize.plugins).to.have.property('bike');
+      expect(minimize.plugins.car).to.equal(plugins[0]);
+      expect(minimize.plugins.bike).to.equal(plugins[1]);
     });
   });
 });
