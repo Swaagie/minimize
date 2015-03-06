@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = {
-  name: 'fromfile',
+  id: 'fromfile',
   element: function noop () {}
 };

@@ -14,7 +14,7 @@ forward. Currently, HTML minifier is only usuable server side. Client side
 minification will be added in a future release.
 
 *Minimize does not correctly parse inline PHP or raw template files. Simply
-because this is not valid HTML and never will be either. The output of the 
+because this is not valid HTML and never will be either. The output of the
 templaters should be parsed and minified.*
 
 ## Features
@@ -24,11 +24,12 @@ templaters should be parsed and minified.*
 - CLI interface usable with stdin and files
 - can distinguish conditional IE comments and/or SSI
 - build on the foundations of [htmlparser2][fb55]
+- pluggable interface that allows to hook into each element
 
 ## Upcoming in release 2.0
 
 - minification of inline javascript with uglify or similar
-- client side minification support
+- client side minimize support
 
 ## Usage
 
@@ -147,7 +148,6 @@ minimize.parse(
 );
 ```
 
-
 **Spare**
 
 Spare attributes are of type boolean of which the value can be omitted in HTML5.
@@ -198,6 +198,30 @@ minimize.parse(
   '<h1>title</h1>  <p class="paragraph" id="title">\n  content\n  </p>    ',
   function (error, data) {
     // data output: <h1>title</h1> <p class="paragraph" id="title"> content </p> '
+  }
+);
+```
+
+**Plugins**
+
+Register a set of plugins that will be ran on each iterated element. Plugins
+are ran in order, errors will stop the iteration and invoke the completion
+callback.
+
+```javascript
+var Minimize = require('minimize')
+  , minimize = new Minimize({ plugins: [
+      id: 'remove',
+      element: function element(node, next) {
+        if (node.type === 'text') delete node.data;
+        next();
+      }
+    ]});
+
+minimize.parse(
+  '<h1>title</h1>',
+  function (error, data) {
+    // data output: <h1></h1>
   }
 );
 ```

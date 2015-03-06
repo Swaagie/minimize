@@ -300,6 +300,60 @@ describe('Minimize', function () {
         done();
       });
     });
+
+    it('has the ability to use plugins to alter elements', function (done) {
+      var pluggable = new Minimize({ plugins: [{
+        id: 'test',
+        name: 'em',
+        element: function element(node, next) {
+          if (node.name === 'em') delete node.children;
+          next();
+        }
+      }]});
+
+      pluggable.parse(html.br, function (error, result) {
+        expect(result).to.equal("<p class=slide><span><em></em></span><br><br><span>Your private npm registry makes managing them simple by giving you the power to work with a blacklist and a whitelist of public npm packages.</span></p>");
+        done();
+      });
+    });
+
+    it('runs multiple plugins in order', function (done) {
+      var pluggable = new Minimize({ plugins: [{
+        id: 'first',
+        name: 'em',
+        element: function element(node, next) {
+          if (node.name === 'em') node.children[0].data = 'first';
+          next();
+        }
+      }, {
+        id: 'second',
+        name: 'em',
+        element: function element(node, next) {
+          if (node.name === 'em') node.children[0].data = 'second';
+          next();
+        }
+      }]});
+
+      pluggable.parse(html.br, function (error, result) {
+        expect(result).to.equal("<p class=slide><span><em>second</em></span><br><br><span>Your private npm registry makes managing them simple by giving you the power to work with a blacklist and a whitelist of public npm packages.</span></p>");
+        done();
+      });
+    });
+
+    it('passes the error of any plugins', function (done) {
+      var pluggable = new Minimize({ plugins: [{
+        id: 'test',
+        element: function element(node, next) {
+          next(new Error('failed to run the plugin'));
+        }
+      }]});
+
+      pluggable.parse(html.br, function (error, result) {
+        expect(error).to.be.instanceof(Error);
+        expect(error.message).to.equal('failed to run the plugin');
+        done();
+      });
+    });
   });
 
   describe('#traverse', function () {
@@ -353,7 +407,7 @@ describe('Minimize', function () {
       expect(minimize.use.length).to.equal(2);
     });
 
-    it('has optional name parameter', function () {
+    it('has optional id parameter', function () {
       minimize.use('nameless', {
         element: function noop() {}
       });
@@ -361,7 +415,7 @@ describe('Minimize', function () {
       expect(minimize.plugins).to.have.property('nameless');
     });
 
-    it('throws an error if the plugin has no name', function () {
+    it('throws an error if the plugin has no id', function () {
       function throws() {
         minimize.use(void 0, {
           element: function noop() {}
@@ -369,18 +423,18 @@ describe('Minimize', function () {
       }
 
       expect(throws).to.throw(Error);
-      expect(throws).to.throw('Plugin should be specified with a name.');
+      expect(throws).to.throw('Plugin should be specified with an id.');
     });
 
-    it('throws an error if the plugin name is not a string', function () {
+    it('throws an error if the plugin id is not a string', function () {
       function throws() {
         minimize.use(12, {
-          server: function noop() {}
+          element: function noop() {}
         });
       }
 
       expect(throws).to.throw(Error);
-      expect(throws).to.throw('Plugin names should be a string.');
+      expect(throws).to.throw('Plugin id should be a string.');
     });
 
     it('throws an error if the plugin is no object or string', function () {
@@ -392,10 +446,10 @@ describe('Minimize', function () {
       expect(throws).to.throw('Plugin should be an object or function.');
     });
 
-    it('throws an error if the plugin is redefined with the same name', function () {
+    it('throws an error if the plugin is redefined with the same id', function () {
       function throws() {
-        minimize.use({ name: 'test', element: function noop() {}});
-        minimize.use({ name: 'test', element: function noop() {}});
+        minimize.use({ id: 'test', element: function noop() {}});
+        minimize.use({ id: 'test', element: function noop() {}});
       }
 
       expect(throws).to.throw(Error);
@@ -404,7 +458,7 @@ describe('Minimize', function () {
 
     it('throws an error if the plugin has no element function', function () {
       function throws() {
-        minimize.use({ name: 'test'});
+        minimize.use({ id: 'test'});
       }
 
       expect(throws).to.throw(Error);
@@ -427,10 +481,10 @@ describe('Minimize', function () {
 
     it('uses the provided plugins', function () {
       var plugins = [{
-        name: 'car',
+        id: 'car',
         element: function noop() {}
       }, {
-        name: 'bike',
+        id: 'bike',
         element: function noop() {}
       }];
 
