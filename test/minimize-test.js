@@ -47,19 +47,27 @@ describe('Minimize', function () {
       expect(err).throws('Minifier failed to parse DOM');
     });
 
-    it('should start traversing the DOM as soon as HTML parser is ready', function () {
+    it('should start traversing the DOM as soon as HTML parser is ready', function (done) {
       var emit = sinon.spy(minimize, 'emit');
 
-      minimize.minifier(null, []);
-      expect(emit).to.be.calledOnce;
+      minimize.parse('', function () {
+        expect(emit).to.be.calledTwice;
 
-      var result = emit.getCall(0).args;
-      expect(result).to.be.an('array');
-      expect(result[0]).to.be.equal('parsed');
-      expect(result[1]).to.be.equal(null);
-      expect(result[2]).to.be.equal('');
+        var first = emit.getCall(0).args;
+        expect(first).to.be.an('array');
+        expect(first[0]).to.be.equal('read');
+        expect(first[1]).to.be.equal(null);
+        expect(first[2]).to.be.an('array');
 
-      emit.restore();
+        var second = emit.getCall(1).args;
+        expect(second).to.be.an('array');
+        expect(second[0]).to.be.equal('parsed');
+        expect(second[1]).to.be.equal(undefined);
+        expect(second[2]).to.be.equal('');
+
+        emit.restore();
+        done();
+      });
     });
 
     it('should handle inline flow properly', function (done) {
@@ -295,34 +303,19 @@ describe('Minimize', function () {
   });
 
   describe('#traverse', function () {
-    it('should traverse the DOM object and return string', function () {
-      var result = minimize.traverse([html.element], '');
+    it('should traverse the DOM object and return string', function (done) {
+      minimize.traverse([html.element], '', function(error, result) {
+        expect(result).to.be.a('string');
+        expect(result).to.be.equal(
+          '<html class=no-js><head></head><body class=container></body></html>'
+        );
 
-      expect(result).to.be.a('string');
-      expect(result).to.be.equal(
-        '<html class=no-js><head></head><body class=container></body></html>'
-      );
+        done();
+      });
     });
   });
 
-  describe('#walk', function () {
-    it('should walk once if there are no children in the element', function () {
-      var result = minimize.walk('', html.inline);
-
-      expect(result).to.be.equal('<strong></strong>');
-    });
-
-    it('should traverse children and insert data', function () {
-      var result = minimize.walk('', html.element);
-
-      expect(result).to.be.equal(
-        '<html class=no-js><head></head><body class=container></body></html>'
-      );
-    });
-  });
-
-
-  describe('#walk', function () {
+  describe('#parse', function () {
     it('should throw an error if no callback is provided', function () {
       function err () {
         minimize.parse(html.content, null);
@@ -336,9 +329,9 @@ describe('Minimize', function () {
       var once = sinon.spy(minimize, 'once');
 
       minimize.parse(html.content, fn);
-      expect(once).to.be.calledOnce;
+      expect(once).to.be.calledTwice;
 
-      var result = once.getCall(0).args;
+      var result = once.getCall(1).args;
       expect(result).to.be.an('array');
       expect(result[0]).to.be.equal('parsed');
       expect(result[1]).to.be.equal(fn);
