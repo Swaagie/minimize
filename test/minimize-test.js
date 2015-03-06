@@ -418,4 +418,29 @@ describe('Minimize', function () {
       expect(minimize.plugins.fromfile).to.have.property('element');
     });
   });
+
+  describe('.plug', function () {
+    it('is a function', function () {
+      expect(minimize.plug).is.a('function');
+      expect(minimize.plug.length).to.equal(1);
+    });
+
+    it('uses the provided plugins', function () {
+      var plugins = [{
+        name: 'car',
+        element: function noop() {}
+      }, {
+        name: 'bike',
+        element: function noop() {}
+      }];
+
+      minimize.plug(plugins);
+
+      expect(minimize.plugins).to.be.an('object');
+      expect(minimize.plugins).to.have.property('car');
+      expect(minimize.plugins).to.have.property('bike');
+      expect(minimize.plugins.car).to.equal(plugins[0]);
+      expect(minimize.plugins.bike).to.equal(plugins[1]);
+    });
+  });
 });
