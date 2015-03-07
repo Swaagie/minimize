@@ -96,8 +96,9 @@ minimize.parse(
 
 Comments inside HTML are usually beneficial while developing. Hiding your
 comments in production is sane, safe and will reduce data transfer. If you
-ensist on keeping them, for instance to show a nice easter egg, set the option
-to true.
+ensist on keeping them, fo1r instance to show a nice easter egg, set the option
+to true. Keeping comments will also retain any Server Side Includes or
+conditional IE statements.
 
 ```javascript
 var Minimize = require('minimize')

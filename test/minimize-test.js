@@ -85,6 +85,14 @@ describe('Minimize', function () {
       });
     });
 
+    it('should be able to remove comments but not conditionals', function (done) {
+      var eitheror = new Minimize({ comments: false, conditionals: true });
+      eitheror.parse(html.conditionalcomments, function (error, result) {
+        expect(result).to.equal('<head><!--[if IE 6]>Special instructions for IE 6 here<![endif]--></head><h1></h1>');
+        done();
+      });
+    });
+
     it('should be configurable to retain server side includes', function (done) {
       var commentable = new Minimize({ ssi: true });
       commentable.parse(html.ssi, function (error, result) {
