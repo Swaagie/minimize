@@ -18,8 +18,7 @@
     "cli-color": "0.3.x",
     "diagnostics": "0.0.x",
     "emits": "1.0.x",
-    "htmlparser2": "3.8.x",
-    "utile": "0.3.x"
+    "htmlparser2": "3.8.x"
   },
   "devDependencies": {
     "mocha": "2.0.x",
