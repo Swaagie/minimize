@@ -159,7 +159,6 @@ describe('Helpers', function () {
       quote.restore();
     });
 
-
     it('should omit quotes if an attribute does not require any', function () {
       expect(helpers.quote(html.attribs.href)).to.be.equal('http://without.params.com');
       expect(helpers.quote(html.attribs.name)).to.be.equal('temp-name');
@@ -169,6 +168,10 @@ describe('Helpers', function () {
     it('should always quote an attribute ending with /', function () {
       expect(helpers.quote('path/')).to.be.equal('"path/"');
     });
+
+    it('should single quote attributes containing double quotes', function () {
+      expect(helpers.quote('contains"doubleqoutes"')).to.be.equal("'contains\"doubleqoutes\"'");
+    })
 
     it('should add quotes to attributes with spaces or =', function () {
       expect(helpers.quote(html.attribs.class)).to.be.equal('"some classes with spaces"');

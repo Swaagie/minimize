@@ -1,6 +1,6 @@
 {
   "name": "minimize",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Minimize HTML",
   "main": "./lib/minimize",
   "bin": {
