@@ -46,7 +46,8 @@ var Minimize = require('minimize')
       conditionals: true, // KEEP conditional internet explorer comments
       spare: true,        // KEEP redundant attributes
       quotes: true,       // KEEP arbitrary quotes
-      loose: true         // KEEP one whitespace
+      loose: true,        // KEEP one whitespace
+      parserOptions: {}   // Pass options to htmlparser2 Parser
     });
 
 minimize.parse(content, function (error, data) {
@@ -225,6 +226,25 @@ minimize.parse(
     // data output: <h1></h1>
   }
 );
+```
+
+**parserOptions**
+
+Pass an option hash to [htmlparser2][fb55] Parser object
+
+```javascript
+var Minimize = require('minimize');
+
+var snippet = ('<button><input/></button>');
+
+minimize = new Minimize({
+  parserOptions: { xmlMode: true }
+});
+
+minimize.parse(snippet, function (err, data) {
+  console.log(data);
+  // output -> "<button><input></button>"
+});
 ```
 
 ## Tests
