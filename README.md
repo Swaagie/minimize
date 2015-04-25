@@ -29,7 +29,6 @@ templaters should be parsed and minified.*
 ## Upcoming in release 2.0
 
 - minification of inline javascript with uglify or similar
-- client side minimize support
 
 ## Usage
 
@@ -226,6 +225,12 @@ minimize.parse(
   }
 );
 ```
+
+**Note:** plugins have no control over the flow of minimize. The DOM
+structure that is parsed by [htmlparser2][fb55] is asynchronously reduced.
+Each element is handed of to the plugin `element` method. Thus, plugins
+have full control over properties of each `node` as objects always have
+reference in javascript.
 
 ## Tests
 
