@@ -234,6 +234,13 @@ describe('Minimize', function () {
       });
     });
 
+    it('should retain values on sparse attributes', function (done) {
+      minimize.parse('<input autocomplete="off">', function (error, result) {
+        expect(result).to.equal('<input autocomplete=off>');
+        done();
+      });
+    });
+
     it('should remove CDATA from scripts', function (done) {
       minimize.parse(html.cdata, function (error, result) {
         expect(result).to.equal("<script type=text/javascript>\n\n...code...\n\n</script>");

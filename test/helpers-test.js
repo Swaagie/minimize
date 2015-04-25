@@ -118,7 +118,7 @@ describe('Helpers', function () {
       html.block.attribs = { disabled: 'disabled' };
       expect(helpers.attributes(html.block)).to.be.equal(' disabled=disabled');
       html.block.attribs = { autofocus: '' };
-      expect(helpers.attributes(html.block)).to.be.equal(' autofocus=""');
+      expect(helpers.attributes(html.block)).to.be.equal(' autofocus');
       html.block.attribs = { loop: 'random' };
       expect(helpers.attributes(html.block)).to.not.equal(' loop');
       expect(helpers.attributes(html.block)).to.be.equal(' loop=random');
@@ -126,6 +126,8 @@ describe('Helpers', function () {
       expect(helpers.attributes(html.block)).to.be.equal(' class=true');
       html.block.attribs = { hidden: 'true' };
       expect(helpers.attributes(html.block)).to.be.equal(' hidden');
+      html.block.attribs = { autocomplete: 'off' };
+      expect(helpers.attributes(html.block)).to.be.equal(' autocomplete=off');
       expect(quote.callCount).to.be.equal(5);
     });
 
