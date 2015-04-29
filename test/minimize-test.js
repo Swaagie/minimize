@@ -227,6 +227,17 @@ describe('Minimize', function () {
       });
     });
 
+    it('should keep download attribute spare or with value', function (done) {
+      minimize.parse('<a download="file">keyword</a>', function (error, result) {
+        expect(result).to.equal("<a download=file>keyword</a>");
+
+        minimize.parse('<a href="file" download>keyword</a>', function (error, result) {
+          expect(result).to.equal("<a href=file download>keyword</a>");
+          done();
+        });
+      });
+    });
+
     it('should retain empty attributes of type ', function (done) {
       minimize.parse('<strong class="">keyword</strong><p id="">text</p>', function (error, result) {
         expect(result).to.equal("<strong>keyword</strong><p>text</p>");
@@ -234,7 +245,7 @@ describe('Minimize', function () {
       });
     });
 
-    it('should retain values on sparse attributes', function (done) {
+    it('should retain values on spare attributes', function (done) {
       minimize.parse('<input autocomplete="off">', function (error, result) {
         expect(result).to.equal('<input autocomplete=off>');
         done();
