@@ -267,6 +267,14 @@ describe('Minimize', function () {
       });
     });
 
+    it('should keep empty attribute values with if empty and spare options are set', function (done) {
+      var empty = new Minimize({ empty: true, spare: true });
+      empty.parse('<option value="">Select something</option>', function (error, result) {
+        expect(result).to.equal('<option value="">Select something</option>');
+        done();
+      });
+    });
+
     it('should be configurable to retain CDATA', function (done) {
       var cdata = new Minimize({ cdata: true });
       cdata.parse(html.cdata, function (error, result) {
