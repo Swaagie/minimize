@@ -24,6 +24,7 @@
   "multilineattribs": "<h1 class=\"\n    big\n    title\n\">minimize</h1>",
   "complexconditional": "<head><!--[if lt IE 9]>      <html class=\"no-js lt-ie9\"> <![endif]--><!--[if gt IE 8]><!--> <link rel=\"some.file.com\"> <!--<![endif]--></head>",
   "conditionalcomments": "<head><!--[if IE 6]>Special instructions for IE 6 here<![endif]--></head><h1><!-- Some comments thats either removed or kept --></h1>",
+  "whitespace": "<input value=\" with newlines \n and whitespace\">",
   "doctype": {
     "data": "!doctype html",
     "type": "directive",

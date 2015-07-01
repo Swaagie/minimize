@@ -157,6 +157,14 @@ describe('Minimize', function () {
       });
     });
 
+    it('should be configurable to retain whitespace and newlines of attributes', function (done) {
+      var whitespace = new Minimize({ whitespace: true });
+      whitespace.parse(html.whitespace, function (error, result) {
+        expect(result).to.equal('<input value=\" with newlines \n and whitespace\">');
+        done();
+      });
+    });
+
     it('should leave structural elements (like scripts and code) intact', function (done) {
       minimize.parse(html.code, function (error, result) {
         expect(result).to.equal("<code class=copy>\n<span>var http = require('http');\nhttp.createServer(function (req, res) {\n    res.writeHead(200, {'Content-Type': 'text/plain'});\n    res.end('hello, i know nodejitsu');\n})listen(8080);</span><a href=#><s class=ss-layers role=presentation></s> copy</a></code>");
