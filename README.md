@@ -225,13 +225,13 @@ callback.
 
 ```javascript
 var Minimize = require('minimize')
-  , minimize = new Minimize({ plugins: [
+  , minimize = new Minimize({ plugins: [{
       id: 'remove',
       element: function element(node, next) {
         if (node.type === 'text') delete node.data;
         next();
       }
-    ]});
+    }]});
 
 minimize.parse(
   '<h1>title</h1>',
