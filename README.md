@@ -53,6 +53,21 @@ minimize.parse(content, function (error, data) {
 });
 ```
 
+Supplying a custom instance to do the HTML parsing is possible. I.e. this can
+be useful if the HTML contains SVG or if you need to specific options to the parser.
+
+```javascript
+var Minimize = require('minimize')
+  , html = require('htmlparser2')
+  , minimize = new Minimize(new html.Parser(
+      new html.FeedHandler((this.emits('read'))
+    ), { /* options */ });
+
+minimize.parse(content, function (error, data) {
+  console.log(data);
+});
+```
+
 ## Options
 
 **Empty**

@@ -6,12 +6,20 @@ var chai = require('chai')
   , sinonChai = require('sinon-chai')
   , html = require('./fixtures/html.json')
   , Minimize = require('../lib/minimize')
-  , minimize = new Minimize();
+  , minimize
 
 chai.use(sinonChai);
 chai.config.includeStack = true;
 
 describe('Minimize', function () {
+  beforeEach(function () {
+    minimize = new Minimize();
+  });
+
+  afterEach(function () {
+    minimize = void 0;
+  });
+
   describe('is module', function () {
     it('which has a constructor', function () {
       expect(Minimize).to.be.a('function');
@@ -45,6 +53,13 @@ describe('Minimize', function () {
       }
 
       expect(err).throws('Minifier failed to parse DOM');
+    });
+
+    it('can be supplied with a custom DOM parser', function () {
+      minimize = new Minimize({ custom: 'instance' }, { some: 'options'});
+
+      expect(minimize).to.have.property('htmlparser');
+      expect(minimize.htmlparser).to.have.property('custom', 'instance');
     });
 
     it('should start traversing the DOM as soon as HTML parser is ready', function (done) {
