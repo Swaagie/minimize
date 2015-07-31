@@ -27,7 +27,7 @@ describe('Element lists', function () {
     });
 
     it('has all required elements', function () {
-      expect(list.singular.length).to.be.equal(13);
+      expect(list.singular.length).to.be.equal(14);
     });
   });
 
