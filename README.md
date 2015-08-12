@@ -13,9 +13,9 @@ support older HTML drafts. It is not worth the effort and the web should move
 forward. Currently, HTML minifier is only usuable server side. Client side
 minification will be added in a future release.
 
-*Minimize does not correctly parse inline PHP or raw template files. Simply
-because this is not valid HTML and never will be either. The output of the
-templaters should be parsed and minified.*
+**Minimize does not parse inline PHP or raw template files. Templates are not valid 
+HTML and this is outside the scope of the minimiz. The _output_ of the
+templaters should be parsed and minified.**
 
 ## Features
 
