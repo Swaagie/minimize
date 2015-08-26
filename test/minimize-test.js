@@ -77,7 +77,7 @@ describe('Minimize', function () {
         var second = emit.getCall(1).args;
         expect(second).to.be.an('array');
         expect(second[0]).to.be.equal('parsed');
-        expect(second[1]).to.be.equal(undefined);
+        expect(second[1]).to.be.equal(null);
         expect(second[2]).to.be.equal('');
 
         emit.restore();
