@@ -268,9 +268,16 @@ describe('Minimize', function () {
       });
     });
 
-    it('should retain values on spare attributes', function (done) {
+    it('should retain values on semi-boolean attributes', function (done) {
       minimize.parse('<input autocomplete="off">', function (error, result) {
         expect(result).to.equal('<input autocomplete=off>');
+        done();
+      });
+    });
+
+    it('should remove values from boolean attributes', function (done) {
+      minimize.parse('<input disabled="true">', function (error, result) {
+        expect(result).to.equal('<input disabled>');
         done();
       });
     });

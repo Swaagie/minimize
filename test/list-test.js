@@ -62,7 +62,7 @@ describe('Element lists', function () {
     });
 
     it('maps attributes to elements', function () {
-      expect(Object.keys(list.attributes).length).to.equal(113);
+      expect(Object.keys(list.attributes).length).to.equal(114);
       expect(list.attributes.high).to.be.an('string');
       expect(list.attributes.high).to.equal('meter');
       expect(list.attributes.disabled).to.be.an('array');
