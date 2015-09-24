@@ -139,7 +139,7 @@ describe('Helpers', function () {
       expect(quote.callCount).to.be.equal(0);
     });
 
-    it('should remove mutliple white spaces and newlines in attribute values', function () {
+    it('should remove multiple white spaces and newlines in attribute values', function () {
       html.block.attribs = {
         'class': 'some value \n\r  with mutliple   \n spaces and \r    newlines'
       };
@@ -178,6 +178,10 @@ describe('Helpers', function () {
     it('should add quotes to attributes with spaces or =', function () {
       expect(helpers.quote(html.attribs.class)).to.be.equal('"some classes with spaces"');
       expect(helpers.quote(html.attribs.hrefparam)).to.be.equal('"http://with.params.com?test=test"');
+    });
+
+    it('should add quotes to attributes with <>', function () {
+      expect(helpers.quote('<elementStub>')).to.be.equal('"<elementStub>"');
     });
 
     it('should always retain quotes if configured', function () {
