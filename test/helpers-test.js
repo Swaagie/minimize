@@ -148,6 +148,11 @@ describe('Helpers', function () {
         ' class="some value with mutliple spaces and newlines"'
       );
     });
+
+    it('should check if the attribute is actually a defined property', function () {
+      html.block.attribs = { 'constructor': 'something' };
+      expect(helpers.attributes(html.block)).to.be.equal(' constructor=something');
+    })
   });
 
   describe('#quote', function () {
