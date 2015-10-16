@@ -180,6 +180,14 @@ describe('Minimize', function () {
       });
     });
 
+    it('should be configurable to retain Handlebars template declared as element attributes', function (done) {
+      var handlebars = new Minimize({ handlebars: true });
+      handlebars.parse(html.handlebars, function (error, result) {
+        expect(result).to.equal('<option value=aValue {{#ifcond somecond istrue}}selected=selected {{/ifcond}} class="a-class an-other-class"></option>');
+        done();
+      });
+    });
+
     it('should leave structural elements (like scripts and code) intact', function (done) {
       minimize.parse(html.code, function (error, result) {
         expect(result).to.equal("<code class=copy>\n<span>var http = require('http');\nhttp.createServer(function (req, res) {\n    res.writeHead(200, {'Content-Type': 'text/plain'});\n    res.end('hello, i know nodejitsu');\n})listen(8080);</span><a href=#><s class=ss-layers role=presentation></s> copy</a></code>");

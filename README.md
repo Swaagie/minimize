@@ -217,6 +217,27 @@ minimize.parse(
 );
 ```
 
+
+**Handlebars**
+
+Minimize will not parse the assignments inside template directives as html
+attributes when it detects they are part of an Handlebars helper
+Downside: all characters in the Handlebars helper will be transformed to
+lowercase
+
+```javascript
+var Minimize = require('minimize'),
+    minimize = new Minimize({ handlebars: true });
+
+var html = '<option value="aValue" \
+                    {{#ifCond someCond isTrue}}selected="selected"{{/ifCond}} \
+                    class="a-class an-other-class"></div>';
+
+minimize.parse(html, function (error, data) {
+  // data output: <option value=aValue {{#ifcond somecond istrue}}selected=selected {{/ifcond}} class="a-class an-other-class"></option>
+});
+```
+
 **Plugins**
 
 Register a set of plugins that will be ran on each iterated element. Plugins
