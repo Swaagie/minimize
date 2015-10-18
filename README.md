@@ -217,7 +217,7 @@ minimize.parse(
 );
 ```
 
-**Plugins**
+## Plugins
 
 Register a set of plugins that will be ran on each iterated element. Plugins
 are ran in order, errors will stop the iteration and invoke the completion
@@ -246,6 +246,11 @@ structure that is parsed by [htmlparser2][fb55] is asynchronously reduced.
 Each element is handed of to the plugin `element` method. Thus, plugins
 have full control over properties of each `node` as objects always have
 reference in javascript.
+
+#### Available plugins
+
+- [uglifyjs](https://www.npmjs.com/package/minimize-plugin-uglifyjs): minify script content
+- [handlebars](https://www.npmjs.com/package/minimize-handlebars-attribs): allow handlebar template tags
 
 ## Tests
 
