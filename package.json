@@ -18,7 +18,8 @@
     "cli-color": "~1.0.0",
     "diagnostics": "~1.0.1",
     "emits": "~3.0.0",
-    "htmlparser2": "~3.8.3"
+    "htmlparser2": "~3.8.3",
+    "node-uuid": "~1.4.3"
   },
   "devDependencies": {
     "chai": "~3.2.0",

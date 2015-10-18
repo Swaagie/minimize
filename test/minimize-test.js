@@ -76,7 +76,7 @@ describe('Minimize', function () {
 
         var second = emit.getCall(1).args;
         expect(second).to.be.an('array');
-        expect(second[0]).to.be.equal('parsed');
+        expect(second[0]).to.be.include('parsed');
         expect(second[1]).to.be.equal(null);
         expect(second[2]).to.be.equal('');
 
@@ -451,7 +451,7 @@ describe('Minimize', function () {
 
       var result = once.getCall(1).args;
       expect(result).to.be.an('array');
-      expect(result[0]).to.be.equal('parsed');
+      expect(result[0]).to.be.include('parsed');
       expect(result[1]).to.be.equal(fn);
       once.restore();
     });
@@ -462,6 +462,27 @@ describe('Minimize', function () {
 
       minimize.parse(html.content, function () {});
       parser.restore();
+    });
+
+    it('can handle two calls simultaneously', function (done) {
+      var minimize = new Minimize
+        , i = 0;
+
+      function next() {
+        if (i++ >= 1) return done();
+      }
+
+      minimize.parse('<h1 class=>content</h1>', function (error, result) {
+        expect(error).to.equal(null);
+        expect(result).to.equal('<h1>content</h1>');
+        next();
+      });
+
+      minimize.parse('<h1 class=>should be different from above</h1>', function (error, result) {
+        expect(error).to.equal(null);
+        expect(result).to.equal('<h1>should be different from above</h1>');
+        next();
+      });
     });
   });
 
