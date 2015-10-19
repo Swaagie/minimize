@@ -15,18 +15,18 @@
   "dependencies": {
     "argh": "~0.1.4",
     "async": "~1.4.2",
-    "cli-color": "~1.0.0",
+    "cli-color": "~1.1.0",
     "diagnostics": "~1.0.1",
     "emits": "~3.0.0",
     "htmlparser2": "~3.8.3",
     "node-uuid": "~1.4.3"
   },
   "devDependencies": {
-    "chai": "~3.2.0",
-    "istanbul": "~0.3.18",
-    "mocha": "~2.2.5",
+    "chai": "~3.3.0",
+    "istanbul": "~0.4.0",
+    "mocha": "~2.3.3",
     "pre-commit": "~1.1.1",
-    "sinon": "~1.16.1",
+    "sinon": "~1.17.1",
     "sinon-chai": "~2.8.0"
   },
   "repository": "git@github.com:Moveo/minimize.git",
