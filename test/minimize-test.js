@@ -436,6 +436,13 @@ describe('Minimize', function () {
     });
   });
 
+  describe('#parseSync', function () {
+    it.only('should parse the content synchronously', function () {
+      var result = minimize.parseSync(html.content);
+      console.log(html.content, result);
+    });
+  });
+
   describe('#parse', function () {
     it('should throw an error if no callback is provided', function () {
       function err () {
