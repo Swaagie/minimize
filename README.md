@@ -38,14 +38,15 @@ object can be provided. All options are listed below and `false` per default.
 ```javascript
 var Minimize = require('minimize')
   , minimize = new Minimize({
-      empty: true,        // KEEP empty attributes
-      cdata: true,        // KEEP CDATA from scripts
-      comments: true,     // KEEP comments
-      ssi: true,          // KEEP Server Side Includes
-      conditionals: true, // KEEP conditional internet explorer comments
-      spare: true,        // KEEP redundant attributes
-      quotes: true,       // KEEP arbitrary quotes
-      loose: true         // KEEP one whitespace
+      empty: true,                      // KEEP empty attributes
+      cdata: true,                      // KEEP CDATA from scripts
+      comments: true,                   // KEEP comments
+      ssi: true,                        // KEEP Server Side Includes
+      conditionals: true,               // KEEP conditional internet explorer comments
+      spare: true,                      // KEEP redundant attributes
+      quotes: true,                     // KEEP arbitrary quotes
+      loose: true,                      // KEEP one whitespace
+      lowerCaseAttributeNames: false    // KEEP sensitive case attributes names
     });
 
 minimize.parse(content, function (error, data) {
@@ -213,6 +214,22 @@ minimize.parse(
   '<h1>title</h1>  <p class="paragraph" id="title">\n  content\n  </p>    ',
   function (error, data) {
     // data output: <h1>title</h1> <p class="paragraph" id="title"> content </p> '
+  }
+);
+```
+
+**lowerCaseAttributeNames**
+
+Minimize will lowercase all attributes names. If you need to conserve case set `false` to this option like below.
+
+```javascript
+var Minimize = require('minimize')
+  , minimize = new Minimize({ lowerCaseAttributeNames: false });
+
+minimize.parse(
+  '<a *ngIf="bool">link</a>',
+  function (error, data) {
+    // data output: <a *ngIf=bool>link</a> '
   }
 );
 ```
