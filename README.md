@@ -46,7 +46,11 @@ var Minimize = require('minimize')
       spare: true,                      // KEEP redundant attributes
       quotes: true,                     // KEEP arbitrary quotes
       loose: true,                      // KEEP one whitespace
-      lowerCaseAttributeNames: false    // KEEP sensitive case attributes names
+      dom: {                            // options of !(htmlparser2)[https://github.com/fb55/htmlparser2]
+            xmlMode: false,                     // Disables the special behavior for script/style tags (false by default)
+            lowerCaseAttributeNames: true,      // call .toLowerCase for each attribute name (true if xmlMode is `false`)
+            lowerCaseTags: true                 // call .toLowerCase for each tag name (true if xmlMode is `false`)
+      }
     });
 
 minimize.parse(content, function (error, data) {
@@ -218,13 +222,13 @@ minimize.parse(
 );
 ```
 
-**lowerCaseAttributeNames**
+**dom**
 
-Minimize will lowercase all attributes names. If you need to conserve case set `false` to this option like below.
+Minimize use !(htmlparser2)[https://github.com/fb55/htmlparser2] to parse the dom. The `dom` option permit to customize htmlparser2.
 
 ```javascript
 var Minimize = require('minimize')
-  , minimize = new Minimize({ lowerCaseAttributeNames: false });
+  , minimize = new Minimize({ dom: { lowerCaseAttributeNames: false }});
 
 minimize.parse(
   '<a *ngIf="bool">link</a>',

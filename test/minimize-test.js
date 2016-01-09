@@ -376,7 +376,7 @@ describe('Minimize', function () {
     });
 
     it('should conserve sensitive case of attributes', function (done) {
-      var lowerCase = new Minimize({ lowerCaseAttributeNames: false });
+      var lowerCase = new Minimize({ dom: {lowerCaseAttributeNames: false} });
       lowerCase.parse('<a ngIf="bool">test</a>', function (error, result) {
         expect(result).to.equal('<a ngIf=bool>test</a>');
         done();
