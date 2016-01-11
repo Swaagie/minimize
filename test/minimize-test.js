@@ -368,6 +368,21 @@ describe('Minimize', function () {
       });
     });
 
+    it('should lower case attributes names', function (done) {
+      minimize.parse('<a ngIf="bool">test</a>', function (error, result) {
+        expect(result).to.equal('<a ngif=bool>test</a>');
+        done();
+      });
+    });
+
+    it('should conserve sensitive case of attributes', function (done) {
+      var lowerCase = new Minimize({ dom: {lowerCaseAttributeNames: false} });
+      lowerCase.parse('<a ngIf="bool">test</a>', function (error, result) {
+        expect(result).to.equal('<a ngIf=bool>test</a>');
+        done();
+      });
+    });
+
     it('has the ability to use plugins to alter elements', function (done) {
       var pluggable = new Minimize({ plugins: [{
         id: 'test',

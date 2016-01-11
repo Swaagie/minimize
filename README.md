@@ -38,14 +38,19 @@ object can be provided. All options are listed below and `false` per default.
 ```javascript
 var Minimize = require('minimize')
   , minimize = new Minimize({
-      empty: true,        // KEEP empty attributes
-      cdata: true,        // KEEP CDATA from scripts
-      comments: true,     // KEEP comments
-      ssi: true,          // KEEP Server Side Includes
-      conditionals: true, // KEEP conditional internet explorer comments
-      spare: true,        // KEEP redundant attributes
-      quotes: true,       // KEEP arbitrary quotes
-      loose: true         // KEEP one whitespace
+      empty: true,                      // KEEP empty attributes
+      cdata: true,                      // KEEP CDATA from scripts
+      comments: true,                   // KEEP comments
+      ssi: true,                        // KEEP Server Side Includes
+      conditionals: true,               // KEEP conditional internet explorer comments
+      spare: true,                      // KEEP redundant attributes
+      quotes: true,                     // KEEP arbitrary quotes
+      loose: true,                      // KEEP one whitespace
+      dom: {                            // options of !(htmlparser2)[https://github.com/fb55/htmlparser2]
+            xmlMode: false,                     // Disables the special behavior for script/style tags (false by default)
+            lowerCaseAttributeNames: true,      // call .toLowerCase for each attribute name (true if xmlMode is `false`)
+            lowerCaseTags: true                 // call .toLowerCase for each tag name (true if xmlMode is `false`)
+      }
     });
 
 minimize.parse(content, function (error, data) {
@@ -213,6 +218,22 @@ minimize.parse(
   '<h1>title</h1>  <p class="paragraph" id="title">\n  content\n  </p>    ',
   function (error, data) {
     // data output: <h1>title</h1> <p class="paragraph" id="title"> content </p> '
+  }
+);
+```
+
+**dom**
+
+Minimize use !(htmlparser2)[https://github.com/fb55/htmlparser2] to parse the dom. The `dom` option permit to customize htmlparser2.
+
+```javascript
+var Minimize = require('minimize')
+  , minimize = new Minimize({ dom: { lowerCaseAttributeNames: false }});
+
+minimize.parse(
+  '<a *ngIf="bool">link</a>',
+  function (error, data) {
+    // data output: <a *ngIf=bool>link</a> '
   }
 );
 ```
