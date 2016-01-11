@@ -62,6 +62,8 @@ describe('Minimize', function () {
       expect(minimize.htmlparser).to.have.property('custom', 'instance');
     });
 
+    it('can emit the parsed content to `minimize.read`');
+
     it('should start traversing the DOM as soon as HTML parser is ready', function (done) {
       var emit = sinon.spy(minimize, 'emit');
 
@@ -364,6 +366,21 @@ describe('Minimize', function () {
     it('should add quotes around values containing single quotes', function (done) {
       minimize.parse('<ng-include src="\'path/to/my/template.html\'"></ng-include>', function (error, result) {
         expect(result).to.equal('<ng-include src="\'path/to/my/template.html\'"></ng-include>');
+        done();
+      });
+    });
+
+    it('should lower case attributes names', function (done) {
+      minimize.parse('<a ngIf="bool">test</a>', function (error, result) {
+        expect(result).to.equal('<a ngif=bool>test</a>');
+        done();
+      });
+    });
+
+    it('should conserve sensitive case of attributes', function (done) {
+      var lowerCase = new Minimize({ dom: {lowerCaseAttributeNames: false} });
+      lowerCase.parse('<a ngIf="bool">test</a>', function (error, result) {
+        expect(result).to.equal('<a ngIf=bool>test</a>');
         done();
       });
     });
