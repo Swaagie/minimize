@@ -1,6 +1,6 @@
 {
   "name": "minimize",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Minimize HTML",
   "main": "./lib/minimize",
   "bin": {
@@ -14,19 +14,19 @@
   },
   "dependencies": {
     "argh": "~0.1.4",
-    "async": "~1.4.2",
+    "async": "~1.5.2",
     "cli-color": "~1.1.0",
     "diagnostics": "~1.0.1",
     "emits": "~3.0.0",
-    "htmlparser2": "~3.8.3",
-    "node-uuid": "~1.4.3"
+    "htmlparser2": "~3.9.0",
+    "node-uuid": "~1.4.7"
   },
   "devDependencies": {
-    "chai": "~3.3.0",
-    "istanbul": "~0.4.0",
-    "mocha": "~2.3.3",
-    "pre-commit": "~1.1.1",
-    "sinon": "~1.17.1",
+    "chai": "~3.4.1",
+    "istanbul": "~0.4.2",
+    "mocha": "~2.3.4",
+    "pre-commit": "~1.1.2",
+    "sinon": "~1.17.2",
     "sinon-chai": "~2.8.0"
   },
   "repository": "git@github.com:Moveo/minimize.git",
