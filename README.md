@@ -26,10 +26,6 @@ templaters should be parsed and minified.**
 - build on the foundations of [htmlparser2][fb55]
 - pluggable interface that allows to hook into each element
 
-## Upcoming in release 2.0
-
-- minification of inline javascript with uglify or similar
-
 ## Usage
 
 To get the minified content make sure to provide a callback. Optional an options
@@ -64,9 +60,12 @@ be useful if the HTML contains SVG or if you need to specific options to the par
 ```javascript
 var Minimize = require('minimize')
   , html = require('htmlparser2')
-  , minimize = new Minimize(new html.Parser(
-      new html.FeedHandler((this.emits('read'))
-    ), { /* options */ });
+  , minimize = new Minimize(
+      new html.Parser(
+        new html.FeedHandler(minimize.emits('read')),
+        { /* options */ }
+      )
+    );
 
 minimize.parse(content, function (error, data) {
   console.log(data);

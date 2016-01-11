@@ -62,6 +62,8 @@ describe('Minimize', function () {
       expect(minimize.htmlparser).to.have.property('custom', 'instance');
     });
 
+    it('can emit the parsed content to `minimize.read`');
+
     it('should start traversing the DOM as soon as HTML parser is ready', function (done) {
       var emit = sinon.spy(minimize, 'emit');
 
