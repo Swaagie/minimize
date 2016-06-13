@@ -49,7 +49,7 @@ describe('Minimize', function () {
   describe('#minifier', function () {
     it('throws an error if HTML parsing failed', function () {
       function err () {
-        minimize.minifier('some error', []);
+        minimize.minifier('id', false, 'some error', []);
       }
 
       expect(err).throws('Minifier failed to parse DOM');
@@ -62,7 +62,19 @@ describe('Minimize', function () {
       expect(minimize.htmlparser).to.have.property('custom', 'instance');
     });
 
-    it('can emit the parsed content to `minimize.read`');
+    it('emits the parsed content to `minimize.read`', function (done) {
+      minimize.once('read', function (error, dom) {
+        expect(error).to.equal(null);
+        expect(dom).to.be.an('array');
+
+        done();
+      });
+
+      minimize.parse(html.interpunction, function (error, result) {
+        expect(error).to.equal(null);
+        expect(result).to.be.an('string');
+      });
+    });
 
     it('should start traversing the DOM as soon as HTML parser is ready', function (done) {
       var emit = sinon.spy(minimize, 'emit');
@@ -442,7 +454,7 @@ describe('Minimize', function () {
 
   describe('#traverse', function () {
     it('should traverse the DOM object and return string', function (done) {
-      minimize.traverse([html.element], '', function(error, result) {
+      minimize.traverse([html.element], '', false, function(error, result) {
         expect(result).to.be.a('string');
         expect(result).to.be.equal(
           '<html class=no-js><head></head><body class=container></body></html>'
@@ -453,22 +465,30 @@ describe('Minimize', function () {
     });
   });
 
-  describe('#parseSync', function () {
-    it.only('should parse the content synchronously', function () {
-      var result = minimize.parseSync(html.content);
-      console.log(html.content, result);
-    });
+  it('should parse the content synchronously without callback', function () {
+    var result = minimize.parse(html.content);
+
+    expect(result).to.be.a('string');
+    expect(result).to.be.equal(
+      '<div class="slide nodejs"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>'
+    );
+  });
+
+  it('has the ability to use synchronous plugins to alter elements', function () {
+    var pluggable = new Minimize({ plugins: [{
+      id: 'test',
+      name: 'em',
+      element: function element(node) {
+        if (node.name === 'em') {
+          delete node.children;
+        }
+      }
+    }]});
+
+    expect(pluggable.parse(html.br)).to.equal("<p class=slide><span><em></em></span><br><br><span>Your private npm registry makes managing them simple by giving you the power to work with a blacklist and a whitelist of public npm packages.</span></p>");
   });
 
   describe('#parse', function () {
-    it('should throw an error if no callback is provided', function () {
-      function err () {
-        minimize.parse(html.content, null);
-      }
-
-      expect(err).throws('No callback provided');
-    });
-
     it('applies callback after DOM is parsed', function () {
       function fn () { }
       var once = sinon.spy(minimize, 'once');
