@@ -31,33 +31,51 @@ templaters should be parsed and minified.**
 To get the minified content make sure to provide a callback. Optional an options
 object can be provided. All options are listed below and `false` per default.
 
-```javascript
+```js
 var Minimize = require('minimize')
-  , minimize = new Minimize({
-      empty: true,                      // KEEP empty attributes
-      cdata: true,                      // KEEP CDATA from scripts
-      comments: true,                   // KEEP comments
-      ssi: true,                        // KEEP Server Side Includes
-      conditionals: true,               // KEEP conditional internet explorer comments
-      spare: true,                      // KEEP redundant attributes
-      quotes: true,                     // KEEP arbitrary quotes
-      loose: true,                      // KEEP one whitespace
-      dom: {                            // options of !(htmlparser2)[https://github.com/fb55/htmlparser2]
-            xmlMode: false,                     // Disables the special behavior for script/style tags (false by default)
-            lowerCaseAttributeNames: true,      // call .toLowerCase for each attribute name (true if xmlMode is `false`)
-            lowerCaseTags: true                 // call .toLowerCase for each tag name (true if xmlMode is `false`)
-      }
-    });
+  , content = new Minimize().parse(content);
+
+console.log(content);
+```
+
+#### Asynchronous usage
+
+Simply pass a callback as second argument. This is relevant is plugins perform
+asynchronous operations.
+
+```js
+var Minimize = require('minimize')
+  , minimize = new Minimize();
 
 minimize.parse(content, function (error, data) {
   console.log(data);
 });
 ```
 
+#### Options
+
+List of available options. Note that all options are set to `false` by default and
+need to be explicitly enabled by providing `true`. For example `empty: true`.
+
+- [empty](#empty)
+- [cdata](#cdata)
+- [comments](#comments)
+- [ssi](#server-side-includes-SSI)
+- [conditionals](#conditionals)
+- [spare](#spare)
+- [quotes](#quotes)
+- [loose](#loose)
+- [dom](#dom)
+  - xmlMode
+  - lowerCaseAttributeNames
+  - lowerCaseTags
+
+#### Custom parser
+
 Supplying a custom instance to do the HTML parsing is possible. I.e. this can
 be useful if the HTML contains SVG or if you need to specific options to the parser.
 
-```javascript
+```js
 var Minimize = require('minimize')
   , html = require('htmlparser2')
   , minimize = new Minimize(
@@ -74,13 +92,13 @@ minimize.parse(content, function (error, data) {
 
 ## Options
 
-**Empty**
+###### Empty
 
 Empty attributes can usually be removed, by default all are removed, excluded
 HTML5 _data-*_ and microdata attributes. To retain empty elements regardless
 value, do:
 
-```javascript
+```js
 var Minimize = require('minimize')
   , minimize = new Minimize({ empty: true });
 
@@ -92,13 +110,13 @@ minimize.parse(
 );
 ```
 
-**CDATA**
+###### CDATA
 
 CDATA is only required for HTML to parse as valid XML. For normal webpages this
 is rarely the case, thus CDATA around javascript can be omitted. By default
 CDATA is removed, if you would like to keep it, pass true:
 
-```javascript
+```js
 var Minimize = require('minimize')
   , minimize = new Minimize({ cdata: true });
 
@@ -110,7 +128,7 @@ minimize.parse(
 );
 ```
 
-**Comments**
+###### Comments
 
 Comments inside HTML are usually beneficial while developing. Hiding your
 comments in production is sane, safe and will reduce data transfer. If you
@@ -118,7 +136,7 @@ ensist on keeping them, fo1r instance to show a nice easter egg, set the option
 to true. Keeping comments will also retain any Server Side Includes or
 conditional IE statements.
 
-```javascript
+```js
 var Minimize = require('minimize')
   , minimize = new Minimize({ comments: true });
 
@@ -130,13 +148,13 @@ minimize.parse(
 );
 ```
 
-**Server Side Includes (SSI)**
+###### Server Side Includes (SSI)
 
 Server side includes are special set of commands that are support by several
 web servers. The markup is very similar to regular HTML comments. Minimize can
 be configured to retain SSI comments.
 
-```javascript
+```js
 var Minimize = require('minimize')
   , minimize = new Minimize({ ssi: true });
 
@@ -148,14 +166,14 @@ minimize.parse(
 );
 ```
 
-**Conditionals**
+###### Conditionals
 
 Conditional comments only work in IE, and are thus excellently suited to give
 special instructions meant only for IE. Minimize can be configured to retain
 these comments. But since the comments are only working until IE9 (inclusive)
 the default is to remove the conditionals.
 
-```javascript
+```js
 var Minimize = require('minimize')
   , minimize = new Minimize({ conditionals: true });
 
@@ -167,12 +185,12 @@ minimize.parse(
 );
 ```
 
-**Spare**
+###### Spare
 
 Spare attributes are of type boolean of which the value can be omitted in HTML5.
 To keep attributes intact for support of older browsers, supply:
 
-```javascript
+```js
 var Minimize = require('minimize')
   , minimize = new Minimize({ spare: true });
 
@@ -184,13 +202,13 @@ minimize.parse(
 );
 ```
 
-**Quotes**
+###### Quotes
 
 Quotes are always added around attributes that have spaces or an equal sign in
 their value. But if you require quotes around all attributes, simply pass
 quotes:true, like below.
 
-```javascript
+```js
 var Minimize = require('minimize')
   , minimize = new Minimize({ quotes: true });
 
@@ -202,14 +220,14 @@ minimize.parse(
 );
 ```
 
-**Loose**
+###### Loose
 
 Minimize will only keep whitespaces in structural elements and remove all other
 redundant whitespaces. This option is useful if you need whitespace to keep the
 flow between text and input elements. Downside: whitespaces or newlines after
 block level elements will also have one trailing whitespace.
 
-```javascript
+```js
 var Minimize = require('minimize')
   , minimize = new Minimize({ loose: true });
 
@@ -221,11 +239,11 @@ minimize.parse(
 );
 ```
 
-**dom**
+###### dom
 
 Minimize use !(htmlparser2)[https://github.com/fb55/htmlparser2] to parse the dom. The `dom` option permit to customize htmlparser2.
 
-```javascript
+```js
 var Minimize = require('minimize')
   , minimize = new Minimize({ dom: { lowerCaseAttributeNames: false }});
 
@@ -243,11 +261,11 @@ Register a set of plugins that will be ran on each iterated element. Plugins
 are ran in order, errors will stop the iteration and invoke the completion
 callback.
 
-```javascript
+```js
 var Minimize = require('minimize')
   , minimize = new Minimize({ plugins: [{
       id: 'remove',
-      element: function element(node, next) {
+      element: function element(node, next) {         // callback is optional
         if (node.type === 'text') delete node.data;
         next();
       }
