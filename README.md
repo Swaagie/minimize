@@ -60,7 +60,7 @@ need to be explicitly enabled by providing `true`. For example `empty: true`.
 - [empty](#empty)
 - [cdata](#cdata)
 - [comments](#comments)
-- [ssi](#server-side-includes-SSI)
+- [ssi](#server-side-includes-ssi)
 - [conditionals](#conditionals)
 - [spare](#spare)
 - [quotes](#quotes)
