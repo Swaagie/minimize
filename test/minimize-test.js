@@ -138,6 +138,14 @@ describe('Minimize', function () {
       });
     });
 
+    it('should be configurable to retain server side commands', function (done) {
+      var commentable = new Minimize({ ssi: true });
+      commentable.parse(html.ssicommands, function (error, result) {
+        expect(result).to.equal('<!--#echo var=\"name\" default=\"no\"--><div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');
+        done();
+      });
+    });
+
     it('should be configurable to retain conditional IE comments', function (done) {
       var commentable = new Minimize({ conditionals: true });
       commentable.parse(html.ie, function (error, result) {
