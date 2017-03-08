@@ -1,7 +1,6 @@
 # HTML minifier
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/Swaagie/minimize.svg)](https://greenkeeper.io/)
-
 [![Version npm][version]](http://browsenpm.org/package/minimize)[![Build Status][build]](https://travis-ci.org/Swaagie/minimize)[![Dependencies][david]](https://david-dm.org/Swaagie/minimize)[![Coverage Status][cover]](https://coveralls.io/r/Swaagie/minimize?branch=master)
 
 [version]: http://img.shields.io/npm/v/minimize.svg?style=flat-square
