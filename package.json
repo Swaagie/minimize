@@ -1,6 +1,6 @@
 {
   "name": "minimize",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Minimize HTML",
   "main": "./lib/minimize",
   "bin": {
@@ -13,21 +13,21 @@
     "test-travis": "istanbul cover node_modules/.bin/_mocha --report lcovonly -- $(find test -name '*.test.js')"
   },
   "dependencies": {
-    "argh": "~0.1.4",
-    "async": "~2.0.0-rc.6",
-    "cli-color": "~1.1.0",
-    "diagnostics": "~1.0.1",
-    "emits": "~3.0.0",
-    "htmlparser2": "~3.9.1",
+    "argh": "^0.1.4",
+    "async": "^2.1.5",
+    "cli-color": "^1.2.0",
+    "diagnostics": "^1.1.0",
+    "emits": "^3.0.0",
+    "htmlparser2": "^3.9.2",
     "uuid": "^3.0.0"
   },
   "devDependencies": {
-    "chai": "~3.5.0",
-    "istanbul": "~0.4.3",
-    "mocha": "~2.5.3",
-    "pre-commit": "~1.1.3",
-    "sinon": "~1.17.4",
-    "sinon-chai": "~2.8.0"
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "pre-commit": "^1.2.2",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0"
   },
   "repository": "git@github.com:Moveo/minimize.git",
   "keywords": [
