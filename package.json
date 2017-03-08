@@ -19,7 +19,7 @@
     "diagnostics": "~1.0.1",
     "emits": "~3.0.0",
     "htmlparser2": "~3.9.1",
-    "node-uuid": "~1.4.7"
+    "uuid": "^3.0.0"
   },
   "devDependencies": {
     "chai": "~3.5.0",
