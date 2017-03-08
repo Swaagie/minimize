@@ -27,7 +27,7 @@ describe('Element lists', function () {
     });
 
     it('has all required elements', function () {
-      expect(list.singular.length).to.be.equal(13);
+      expect(list.singular.length).to.be.equal(14);
     });
   });
 
@@ -62,7 +62,7 @@ describe('Element lists', function () {
     });
 
     it('maps attributes to elements', function () {
-      expect(Object.keys(list.attributes).length).to.equal(113);
+      expect(Object.keys(list.attributes).length).to.equal(114);
       expect(list.attributes.high).to.be.an('string');
       expect(list.attributes.high).to.equal('meter');
       expect(list.attributes.disabled).to.be.an('array');

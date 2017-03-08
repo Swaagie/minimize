@@ -49,7 +49,7 @@ describe('Minimize', function () {
   describe('#minifier', function () {
     it('throws an error if HTML parsing failed', function () {
       function err () {
-        minimize.minifier('some error', []);
+        minimize.minifier('id', false, 'some error', []);
       }
 
       expect(err).throws('Minifier failed to parse DOM');
@@ -60,6 +60,20 @@ describe('Minimize', function () {
 
       expect(minimize).to.have.property('htmlparser');
       expect(minimize.htmlparser).to.have.property('custom', 'instance');
+    });
+
+    it('emits the parsed content to `minimize.read`', function (done) {
+      minimize.once('read', function (error, dom) {
+        expect(error).to.equal(null);
+        expect(dom).to.be.an('array');
+
+        done();
+      });
+
+      minimize.parse(html.interpunction, function (error, result) {
+        expect(error).to.equal(null);
+        expect(result).to.be.an('string');
+      });
     });
 
     it('should start traversing the DOM as soon as HTML parser is ready', function (done) {
@@ -76,8 +90,8 @@ describe('Minimize', function () {
 
         var second = emit.getCall(1).args;
         expect(second).to.be.an('array');
-        expect(second[0]).to.be.equal('parsed');
-        expect(second[1]).to.be.equal(undefined);
+        expect(second[0]).to.be.include('parsed');
+        expect(second[1]).to.be.equal(null);
         expect(second[2]).to.be.equal('');
 
         emit.restore();
@@ -124,6 +138,14 @@ describe('Minimize', function () {
       });
     });
 
+    it('should be configurable to retain server side commands', function (done) {
+      var commentable = new Minimize({ ssi: true });
+      commentable.parse(html.ssicommands, function (error, result) {
+        expect(result).to.equal('<!--#echo var=\"name\" default=\"no\"--><div class=\"slide nodejs\"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>');
+        done();
+      });
+    });
+
     it('should be configurable to retain conditional IE comments', function (done) {
       var commentable = new Minimize({ conditionals: true });
       commentable.parse(html.ie, function (error, result) {
@@ -160,7 +182,10 @@ describe('Minimize', function () {
       var empty = new Minimize({ empty: true });
       empty.parse(html.empty, function (error, result) {
         expect(result).to.equal('<h1 class="slide nodejs">a</h1><h2>b</h2><h3 id=lol>c</h3><h4>d</h4><h5 hidden>e</h5><h6 itemscope>f</h6>');
-        done();
+        empty.parse('<option value>Select something</option>', function (error, result) {
+          expect(result).to.equal('<option value>Select something</option>');
+          done();
+        });
       });
     });
 
@@ -268,9 +293,16 @@ describe('Minimize', function () {
       });
     });
 
-    it('should retain values on spare attributes', function (done) {
+    it('should retain values on semi-boolean attributes', function (done) {
       minimize.parse('<input autocomplete="off">', function (error, result) {
         expect(result).to.equal('<input autocomplete=off>');
+        done();
+      });
+    });
+
+    it('should remove values from boolean attributes', function (done) {
+      minimize.parse('<input disabled="true">', function (error, result) {
+        expect(result).to.equal('<input disabled>');
         done();
       });
     });
@@ -290,7 +322,7 @@ describe('Minimize', function () {
       });
     });
 
-    it('should keep empty attribute values with if empty and spare options are set', function (done) {
+    it('should keep empty attribute values if empty and spare options are set', function (done) {
       var empty = new Minimize({ empty: true, spare: true });
       empty.parse('<option value="">Select something</option>', function (error, result) {
         expect(result).to.equal('<option value="">Select something</option>');
@@ -358,6 +390,21 @@ describe('Minimize', function () {
       });
     });
 
+    it('should lower case attributes names', function (done) {
+      minimize.parse('<a ngIf="bool">test</a>', function (error, result) {
+        expect(result).to.equal('<a ngif=bool>test</a>');
+        done();
+      });
+    });
+
+    it('should conserve sensitive case of attributes', function (done) {
+      var lowerCase = new Minimize({ dom: {lowerCaseAttributeNames: false} });
+      lowerCase.parse('<a ngIf="bool">test</a>', function (error, result) {
+        expect(result).to.equal('<a ngIf=bool>test</a>');
+        done();
+      });
+    });
+
     it('has the ability to use plugins to alter elements', function (done) {
       var pluggable = new Minimize({ plugins: [{
         id: 'test',
@@ -415,7 +462,7 @@ describe('Minimize', function () {
 
   describe('#traverse', function () {
     it('should traverse the DOM object and return string', function (done) {
-      minimize.traverse([html.element], '', function(error, result) {
+      minimize.traverse([html.element], '', false, function(error, result) {
         expect(result).to.be.a('string');
         expect(result).to.be.equal(
           '<html class=no-js><head></head><body class=container></body></html>'
@@ -426,15 +473,30 @@ describe('Minimize', function () {
     });
   });
 
-  describe('#parse', function () {
-    it('should throw an error if no callback is provided', function () {
-      function err () {
-        minimize.parse(html.content, null);
+  it('should parse the content synchronously without callback', function () {
+    var result = minimize.parse(html.content);
+
+    expect(result).to.be.a('string');
+    expect(result).to.be.equal(
+      '<div class="slide nodejs"><h3>100% Node.js</h3><p>We are Node.js experts and the first hosting platform to build our full stack in node. We understand your node application better than anyone.</p></div>'
+    );
+  });
+
+  it('has the ability to use synchronous plugins to alter elements', function () {
+    var pluggable = new Minimize({ plugins: [{
+      id: 'test',
+      name: 'em',
+      element: function element(node) {
+        if (node.name === 'em') {
+          delete node.children;
+        }
       }
+    }]});
 
-      expect(err).throws('No callback provided');
-    });
+    expect(pluggable.parse(html.br)).to.equal("<p class=slide><span><em></em></span><br><br><span>Your private npm registry makes managing them simple by giving you the power to work with a blacklist and a whitelist of public npm packages.</span></p>");
+  });
 
+  describe('#parse', function () {
     it('applies callback after DOM is parsed', function () {
       function fn () { }
       var once = sinon.spy(minimize, 'once');
@@ -444,7 +506,7 @@ describe('Minimize', function () {
 
       var result = once.getCall(1).args;
       expect(result).to.be.an('array');
-      expect(result[0]).to.be.equal('parsed');
+      expect(result[0]).to.be.include('parsed');
       expect(result[1]).to.be.equal(fn);
       once.restore();
     });
@@ -455,6 +517,27 @@ describe('Minimize', function () {
 
       minimize.parse(html.content, function () {});
       parser.restore();
+    });
+
+    it('can handle two calls simultaneously', function (done) {
+      var minimize = new Minimize
+        , i = 0;
+
+      function next() {
+        if (i++ >= 1) return done();
+      }
+
+      minimize.parse('<h1 class=>content</h1>', function (error, result) {
+        expect(error).to.equal(null);
+        expect(result).to.equal('<h1>content</h1>');
+        next();
+      });
+
+      minimize.parse('<h1 class=>should be different from above</h1>', function (error, result) {
+        expect(error).to.equal(null);
+        expect(result).to.equal('<h1>should be different from above</h1>');
+        next();
+      });
     });
   });
 
