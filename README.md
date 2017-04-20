@@ -55,6 +55,10 @@ minimize.parse(content, function (error, data) {
 });
 ```
 
+#### Gulp plugin
+
+- [gulp-minimize](https://github.com/foru17/gulp-minimize): Gulp plugin based on minimize.
+
 #### Options
 
 List of available options. Note that all options are set to `false` by default and
@@ -292,7 +296,7 @@ reference in javascript.
 
 - [uglifyjs](https://www.npmjs.com/package/minimize-plugin-uglifyjs): minify script content
 - [handlebars](https://www.npmjs.com/package/minimize-handlebars-attribs): allow handlebar template tags
-- [gulp-minimize](https://github.com/foru17/gulp-minimize): [Gulp](http://gulpjs.com/) plugin for HTML minifiy.Based on minimize.
+
 
 ## Tests
 
