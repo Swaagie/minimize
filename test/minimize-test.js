@@ -306,7 +306,30 @@ describe('Minimize', function () {
         done();
       });
     });
-
+  it('should remove value from draggable attribute', function (done) {
+      minimize.parse('<div draggable="auto">', function (error, result) {
+        expect(result).to.equal('<div draggable></div>');
+        done();
+      });
+    });
+    it('should not remove value from draggable attribute', function (done) {
+      minimize.parse('<div draggable="true"></div>', function (error, result) {
+        expect(result).to.equal('<div draggable=true></div>');
+        done();
+      });
+    });
+    it('should remove draggable attribute from element', function (done) {
+      minimize.parse('<img draggable="true"/>', function (error, result) {
+        expect(result).to.equal('<img>');
+        done();
+      });
+    });
+    it('should remove draggable attribute from element', function (done) {
+      minimize.parse('<div draggable="false"></div>', function (error, result) {
+        expect(result).to.equal('<div></div>');
+        done();
+      });
+    });
     it('should remove CDATA from scripts', function (done) {
       minimize.parse(html.cdata, function (error, result) {
         expect(result).to.equal("<script type=text/javascript>\n\n...code...\n\n</script>");
