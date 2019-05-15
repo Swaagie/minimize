@@ -13,7 +13,7 @@
     "test-travis": "istanbul cover node_modules/.bin/_mocha --report lcovonly -- $(find test -name '*.test.js')"
   },
   "dependencies": {
-    "argh": "^0.1.4",
+    "argh": "^1.0.0",
     "async": "^2.1.5",
     "cli-color": "^1.2.0",
     "diagnostics": "^1.1.0",
