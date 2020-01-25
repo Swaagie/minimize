@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "argh": "^0.1.4",
-    "async": "^2.1.5",
+    "async": "^3.1.1",
     "cli-color": "^1.2.0",
     "diagnostics": "^1.1.0",
     "emits": "^3.0.0",
